@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -17,11 +19,20 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    protected $table = 'tbl_user';
+
     protected $fillable = [
         'name',
-        'email',
+        'mobile',
         'password',
-    ];
+        'rdate',
+        'status',
+        'ccode',
+        'code',
+        'refercode',
+        'wallet',
+        'email',
+    ]; 
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,5 +55,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Mutator for password
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 }

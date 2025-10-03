@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 
+
 class BannerController extends Controller
 {
     public function index()
@@ -26,7 +27,13 @@ class BannerController extends Controller
         ]);
 
         $banner = new Banner();
-        $banner->img = $request->file('cat_img')->store('images/banner');
+
+        // Upload image to public/images/banner
+        $image = $request->file('cat_img');
+        $imageName = time().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('images/banner'), $imageName);
+        $banner->img = 'images/banner/'.$imageName;
+
         $banner->status = $request->input('status');
         $banner->save();
 
@@ -46,9 +53,20 @@ class BannerController extends Controller
         ]);
 
         $banner = Banner::find($id);
+
         if ($request->hasFile('cat_img')) {
-            $banner->img = $request->file('cat_img')->store('images/banner');
+            // Delete old image
+            if ($banner->img && file_exists(public_path($banner->img))) {
+                unlink(public_path($banner->img));
+            }
+
+            // Upload new image
+            $image = $request->file('cat_img');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images/banner'), $imageName);
+            $banner->img = 'images/banner/'.$imageName;
         }
+
         $banner->status = $request->input('status');
         $banner->save();
 
@@ -57,7 +75,15 @@ class BannerController extends Controller
 
     public function destroy($id)
     {
-        Banner::destroy($id);
+        $banner = Banner::find($id);
+
+        // Delete image file
+        if ($banner->img && file_exists(public_path($banner->img))) {
+            unlink(public_path($banner->img));
+        }
+
+        $banner->delete();
+
         return redirect()->route('banners.index')->with('success', 'Banner deleted successfully');
     }
 }

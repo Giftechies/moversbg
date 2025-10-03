@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <div class="main-content">

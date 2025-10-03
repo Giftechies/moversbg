@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <h4>Edit Sub Category</h4>
@@ -9,7 +9,7 @@
             <label>Select Category</label>
             <select name="cat_id" class="form-control" required>
                 @foreach($categories as $category)
-                    <option value="{{ $category->id }}" {{ $subcategory->cat_id == $category->id ? 'selected' : '' }}>{{ $category->cat_name }}</option>
+                    <option value="{{ $category->id }}" {{ $subcategory->cat_id == $category->id ? 'selected' : '' }}>{{ $category->title }}</option>
                 @endforeach
             </select>
         </div>

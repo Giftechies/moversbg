@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content') 
     <form method="POST" action="{{ route('subcategories.store') }}">
@@ -8,7 +8,7 @@
             <select name="cat_id" class="form-control" required>
                 <option value="">Select Category</option>
                 @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->cat_name }}</option>
+                    <option value="{{ $category->id }}">{{ $category->title }}</option>
                 @endforeach
             </select>
         </div>

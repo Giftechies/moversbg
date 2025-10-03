@@ -18,9 +18,9 @@ class Subcat extends Model
     ];
 
     // Example relationship
-    public function category()
+    public function Pcat()
     {
-        return $this->belongsTo(Category::class, 'cat_id');
+        return $this->belongsTo(Pcat::class, 'cat_id');
     }
 
     public function products()

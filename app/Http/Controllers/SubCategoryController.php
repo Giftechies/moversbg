@@ -4,20 +4,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subcat;
-use App\Models\Category;
+use App\Models\Pcat;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
 {
     public function index()
     {
-        $subcategories = Subcat::with('category')->get();
+        $subcategories = Subcat::with('Pcat')->get();
         return view('subcategories.index', compact('subcategories'));
     }
 
     public function create()
     {
-        $categories = Category::where('cat_status', 1)->get();
+        $categories = Pcat::where('status', 1)->get();
         return view('subcategories.create', compact('categories'));
     }
 
@@ -35,7 +35,7 @@ class SubCategoryController extends Controller
 
     public function edit(Subcat $subcategory)
     {
-        $categories = Category::where('cat_status', 1)->get();
+        $categories = Pcat::where('status', 1)->get();
         return view('subcategories.edit', compact('subcategory', 'categories'));
     }
 

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
     <h4>Add Scoupon</h4>
     <form method="POST" action="{{ route('scoupons.store') }}" enctype="multipart/form-data">

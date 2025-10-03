@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <h4>SubCategories List</h4>
@@ -17,7 +17,7 @@
             @foreach($subcategories as $subcategory)
                 <tr>
                     <td>{{ $subcategory->id }}</td>
-                    <td>{{ $subcategory->category->cat_name ?? 'N/A' }}</td>
+                    <td>{{ $subcategory->Pcat->title ?? 'N/A' }}</td>
                     <td>{{ $subcategory->title }}</td>
                     <td>{{ $subcategory->status ? 'Publish' : 'UnPublish' }}</td>
                     <td>

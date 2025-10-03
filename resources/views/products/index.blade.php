@@ -19,8 +19,8 @@
             @foreach($products as $product)
                 <tr>
                     <td>{{ $product->id }}</td>
-                    <td>{{ $product->category->title ?? 'N/A' }}</td>
-                    <td>{{ $product->subcategory->title ?? 'N/A' }}</td>
+                    <td>{{ $product->Pcat->title ?? 'N/A' }}</td>
+                    <td>{{ $product->Subcat->title ?? 'N/A' }}</td>
                     <td>{{ $product->title }}</td>
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->status ? 'Publish' : 'UnPublish' }}</td>

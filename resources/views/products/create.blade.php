@@ -36,20 +36,18 @@
         </div>
         <button type="submit" class="btn btn-primary">Add Product</button>
     </form>
-@endsection
-
-@section('scripts')
-    <script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+     <script>
         $(document).ready(function() {
             $('#cat_id').change(function() {
-                var catId = $(this).val();
-                alert(catId);
+                var catId = $(this).val(); 
                 if (catId) {
                     $.ajax({
                         type: "GET",
                         url: "{{ route('get.subcategories', '') }}/" + catId,
                         success: function(res) {
                             if (res) {
+                                console.log(res);
                                 $("#subcat_id").empty();
                                 $("#subcat_id").append('<option value="">Select SubCategory</option>');
                                 $.each(res, function(key, value) {
@@ -66,4 +64,4 @@
             });
         });
     </script>
-@endsection
+@endsection 

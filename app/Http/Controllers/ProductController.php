@@ -3,14 +3,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Pcat;
-use App\Models\Subcategory;
+use App\Models\Subcat;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category', 'subcategory')->get();
+        $products = Product::with('Pcat', 'Subcat')->get();
         return view('products.index', compact('products'));
     }
 
@@ -37,7 +37,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Pcat::where('status', 1)->get();
-        $subcategories = Subcategory::where('cat_id', $product->cat_id)->where('status', 1)->get();
+        $subcategories = Subcat::where('cat_id', $product->cat_id)->where('status', 1)->get();
         return view('products.edit', compact('product', 'categories', 'subcategories'));
     }
 
@@ -63,7 +63,7 @@ class ProductController extends Controller
 
     public function getSubcategories($catId)
     {
-        $subcategories = Subcategory::where('cat_id', $catId)->where('status', 1)->get();
+        $subcategories = Subcat::where('cat_id', $catId)->where('status', 1)->get();
         return response()->json($subcategories);
     }
 }

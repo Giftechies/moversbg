@@ -20,14 +20,14 @@ class Product extends Model
     ];
 
     // Example relationships
-    public function category()
+    public function Pcat()
     {
-        return $this->belongsTo(Category::class, 'cat_id');
+        return $this->belongsTo(Pcat::class, 'cat_id');
     }
 
-    public function subcategory()
+    public function Subcat()
     {
-        return $this->belongsTo(Subcategory::class, 'subcat_id');
+        return $this->belongsTo(Subcat::class, 'subcat_id');
     }
 }
 

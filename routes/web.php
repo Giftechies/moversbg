@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('pages', PageController::class);
     Route::resource('pcats', PcatController::class);
     Route::resource('products', ProductController::class);
-    Route::get('get-subcategories/{catId}', [ProductController::class, 'getSubcategories'])->name('get.subcategories'); 
+    Route::get('get-subcategories/{catId?}', [ProductController::class, 'getSubcategories'])->name('get.subcategories'); 
     Route::resource('riders', RiderController::class);
     Route::resource('vehicles', VehicleController::class);
     Route::resource('banners', BannerController::class); 

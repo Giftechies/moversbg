@@ -22,3 +22,12 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Laravel specific ignores
+/public/storage
+/public/uploads
+/storage/*.key
+/vendor/
+# Ignore other unnecessary files
+*.tmp
+*.bak

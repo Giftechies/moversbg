@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rider;
+use App\Models\Vehicle;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 

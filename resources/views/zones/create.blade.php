@@ -2,36 +2,53 @@
 
 @section('content')
     <h4>Add Zone</h4>
+    
     <form method="POST" action="{{ route('zones.store') }}">
-        @csrf
-        <div class="row">
-            <div class="form-group col-12">
-                <label>Zone Name</label>
-                <input type="text" class="form-control" name="title" required>
-            </div>
-            <div class="form-group col-12">
-                <label>Status</label>
-                <select name="status" class="form-control">
-                    <option value="1">Publish</option>
-                    <option value="0">UnPublish</option>
-                </select>
-            </div>
-            <div class="form-group col-12">
-                <label>Coordinates</label>
-                <textarea name="coordinates" id="coordinates" class="form-control" readonly></textarea>
-            </div>
-            <div class="form-group col-12" style="height:500px;">
-                <input id="pac-input" class="controls rounded" style="height: 3em;width:fit-content;" type="text" placeholder="Search here" />
-                <div id="map-canvas" style="height: 100%; margin:0px; padding: 0px;"></div>
-            </div>
+    @csrf
+    <div class="row">
+        <div class="form-group col-12">
+            <label>Zone Name</label>
+            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required>
+            @error('title')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
-        <button type="submit" class="btn btn-primary">Add Zone</button>
-    </form>
+        <div class="form-group col-12">
+            <label>Status</label>
+            <select name="status" class="form-control @error('status') is-invalid @enderror">
+                <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Publish</option>
+                <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>UnPublish</option>
+            </select>
+            @error('status')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="form-group col-12">
+            <label>Coordinates</label>
+            <textarea name="coordinates" id="coordinates" class="form-control @error('coordinates') is-invalid @enderror" readonly>{{ old('coordinates') }}</textarea>
+            @error('coordinates')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="form-group col-12" style="height:500px;">
+            <input id="pac-input" class="controls rounded" style="height: 3em;width:fit-content;" type="text" placeholder="Search here" />
+            <div id="map-canvas" style="height: 100%; margin:0px; padding: 0px;"></div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Zone</button>
+</form>
 @endsection
 
 @section('scripts')
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=drawing,places"></script>
+   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdlNynXW9Tcw1eKrJbb1iSalShRyQ2Xe0&libraries=drawing,places"></script>
     <script>
+
         var map;
         var drawingManager;
         var lastpolygon = null;
@@ -132,4 +149,4 @@
         }
 
         google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+    </script>-->

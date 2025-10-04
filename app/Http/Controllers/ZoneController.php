@@ -25,15 +25,17 @@ class ZoneController extends Controller
         $request->validate([
             'title' => 'required',
             'status' => 'required|in:0,1',
-            'coordinates' => 'required',
+           // 'coordinates' => 'required',
         ]);
-
-        $polygon = $this->parseCoordinates($request->input('coordinates'));
+        $polygon = "";
+       // $polygon = $this->parseCoordinates($request->input('coordinates'));
         $zone = new Zone();
         $zone->title = $request->input('title');
         $zone->status = $request->input('status');
-        $zone->coordinates = $polygon;
-        $zone->alias = $request->input('coordinates');
+        //$zone->coordinates = $polygon;
+        //$zone->alias = $request->input('coordinates');
+        $zone->coordinates = '';
+        $zone->alias = '';
         $zone->save();
 
         return redirect()->route('zones.index')->with('success', 'Zone created successfully.');
@@ -52,11 +54,13 @@ class ZoneController extends Controller
             'coordinates' => 'required',
         ]);
 
-        $polygon = $this->parseCoordinates($request->input('coordinates'));
+        //$polygon = $this->parseCoordinates($request->input('coordinates'));
         $zone->title = $request->input('title');
         $zone->status = $request->input('status');
-        $zone->coordinates = $polygon;
-        $zone->alias = $request->input('coordinates');
+         //$zone->coordinates = $polygon;
+        //$zone->alias = $request->input('coordinates');
+        $zone->coordinates = '';
+        $zone->alias = '';
         $zone->save();
 
         return redirect()->route('zones.index')->with('success', 'Zone updated successfully.');

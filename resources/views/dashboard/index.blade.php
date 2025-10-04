@@ -1,12 +1,8 @@
-@extends('layouts.admin')
-
-
-@extends('layouts.admin')
-
+@extends('layouts.admin') 
 @section('content')
     <div class="main-content">
         <div class="page-content">
-            <div class="container-fluid">
+            <div class="container">
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">

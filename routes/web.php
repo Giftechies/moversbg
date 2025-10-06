@@ -16,14 +16,19 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\PaymentListController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ComplicationRateController;
+use App\Http\Controllers\ComplicationController;
+use App\Http\Controllers\MoveTypeController;
+use App\Http\Controllers\PropertyTypeController;
+use App\Http\Controllers\SettingController;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
  
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard'); 
-
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -48,8 +53,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('vehicles', VehicleController::class);
     Route::resource('banners', BannerController::class); 
     Route::resource('paymentlists', PaymentListController::class);
-    Route::get('/settings', 'SettingController@edit')->name('settings.edit');
-    Route::post('/settings', 'SettingController@update')->name('settings.update'); 
+    Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::post('/settings', [SettingController::class, 'update'])->name('settings.update'); 
+    Route::resource('complication_rates', ComplicationRateController::class);
+    Route::resource('complications', ComplicationController::class);    
+    Route::resource('move_types', MoveTypeController::class);
+    Route::resource('property_types', PropertyTypeController::class);
 });
-
 require __DIR__.'/auth.php';

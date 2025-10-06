@@ -111,6 +111,26 @@
                             <i class="bi bi-gear me-2"></i> Settings
                         </a>
                     </li>
+                     <li class="nav-item">
+                        <a href="{{ route('complications.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> Complications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('complication_rates.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> Complication Rates
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="{{ route('move_types.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> Move Types
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('property_types.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> Property Types
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -211,6 +231,26 @@
                     <li class="nav-item">
                         <a href="{{ route('settings.edit') }}" class="nav-link text-dark">
                             <i class="bi bi-gear me-2"></i> Settings
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="{{ route('complications.index') }}" class="nav-link text-dark">
+                            <i class="bi bi-gear me-2"></i> Complications
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="{{ route('complication_rates.index') }}" class="nav-link text-dark">
+                            <i class="bi bi-gear me-2"></i> Complication Rates
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('move_types.index') }}" class="nav-link text-dark">
+                            <i class="bi bi-gear me-2"></i> Move Types
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="{{ route('property_types.index') }}" class="nav-link text-dark">
+                            <i class="bi bi-gear me-2"></i> Property Types
                         </a>
                     </li>
                 </ul>

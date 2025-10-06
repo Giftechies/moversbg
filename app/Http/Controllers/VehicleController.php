@@ -88,7 +88,6 @@ class VehicleController extends Controller
         $vehicle->size = $request->input('size');
         $vehicle->description = $request->input('cdesc');
         $vehicle->save();
-
         return redirect()->route('vehicles.index')->with('success', 'Vehicle updated successfully');
     }
 } 

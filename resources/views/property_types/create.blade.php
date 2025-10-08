@@ -17,7 +17,14 @@
         @error('name')
             <div class="alert alert-danger mt-2">{{ $message }}</div>
         @enderror
+        
     </div>
+    <!-- <div>
+        <i class="fa-solid fa-user"></i>
+<i class="fa-regular fa-envelope"></i>
+<i class="fa-brands fa-github"></i>
+
+    </div> -->
     <div class="form-group mb-3">
         <label for="status" class="form-label fw-bold">Status:</label>
         <select name="status" class="form-select">

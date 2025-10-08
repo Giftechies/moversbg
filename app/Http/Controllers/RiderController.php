@@ -1,30 +1,22 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Rider;
 use App\Models\Vehicle;
 use App\Models\Zone;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class RiderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function index()
     {
-        $riders = Rider::all();
+        $riders = Rider::with(['vehicle', 'zone'])->get();
         return view('riders.index', compact('riders'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $vehicles = Vehicle::all();
@@ -32,38 +24,70 @@ class RiderController extends Controller
         return view('riders.create', compact('vehicles', 'zones'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request)
     {
-        // Validation and store logic here
+        $request->validate([
+            'title' => 'required',
+            // 'rimg' => 'required|image|mimes:jpg,png,jpeg',
+            // 'status' => 'required',
+            // 'rate' => 'required',
+            // 'lcode' => 'required',
+            // 'full_address' => 'required',
+            // 'pincode' => 'required',
+            // 'landmark' => 'nullable',
+            // 'commission' => 'required',
+            // 'bank_name' => 'nullable',
+            // 'ifsc' => 'nullable',
+            // 'receipt_name' => 'nullable',
+            // 'acc_number' => 'nullable',
+            // 'paypal_id' => 'nullable',
+            // 'upi_id' => 'nullable',
+            // 'email' => 'required|email|unique:tbl_rider,email',
+            // 'password' => 'required|string|min:6',
+            // 'rstatus' => 'required',
+            // 'mobile' => 'required|numeric|max:10',
+            // 'dzone' => 'required|numeric',
+            // 'vehiid' => 'required|numeric',
+        ]);
+
         $rider = new Rider();
-        // ...
+        $rider->title = $request->input('title');
+        $image = $request->file('rimg');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('images/riders'), $imageName);
+        $rider->rimg = 'images/riders/' . $imageName;
+
+        $rider->status = $request->input('status');
+        $rider->rate = $request->input('rate');
+        $rider->lcode = $request->input('lcode');
+        $rider->full_address = $request->input('full_address');
+        $rider->pincode = $request->input('pincode');
+        $rider->landmark = $request->input('landmark');
+        $rider->commission = $request->input('commission');
+        $rider->bank_name = $request->input('bank_name');
+        $rider->ifsc = $request->input('ifsc');
+        $rider->receipt_name = $request->input('receipt_name');
+        $rider->acc_number = $request->input('acc_number');
+        $rider->paypal_id = $request->input('paypal_id');
+        $rider->upi_id = $request->input('upi_id');
+        $rider->email = $request->input('email');
+
+        
+        $rider->password = bcrypt($request->input('password'));
+
+        $rider->rstatus = $request->input('rstatus');
+        $rider->mobile = $request->input('mobile');
+    
+        $rider->dzone = $request->input('dzone');
+        $rider->vehiid = $request->input('vehiid');
+
         $rider->save();
-        return redirect()->route('riders.index')->with('success', 'Rider created successfully');
+
+       return redirect()->route('riders.index')->with('success', 'Rider created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        // Not needed for this example
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function edit($id)
     {
         $rider = Rider::find($id);
@@ -72,31 +96,80 @@ class RiderController extends Controller
         return view('riders.edit', compact('rider', 'vehicles', 'zones'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function update(Request $request, $id)
     {
-        // Validation and update logic here
+        
+        $request->validate([
+            'title' => 'required',
+            // 'status' => 'required',
+            // 'rate' => 'required',
+            // 'lcode' => 'required',
+            // 'full_address' => 'required',
+            // 'pincode' => 'required',
+            // 'landmark' => 'nullable',
+            // 'commission' => 'required',
+            // 'bank_name' => 'nullable',
+            // 'ifsc' => 'required',
+            // 'receipt_name' => 'nullable|string',
+            // 'acc_number' => 'nullable|string',
+            // 'paypal_id' => 'nullable|string',
+            // 'upi_id' => 'nullable|string',
+            // 'email' => 'required',
+            // 'rstatus' => 'required',
+            // 'mobile' => 'required|numeric|max:10',
+            
+            // 'dzone' => 'required',
+            // 'vehiid' => 'required',
+        ]);
+
         $rider = Rider::find($id);
-        // ...
+        $rider->title = $request->input('title');
+        if ($request->hasFile('rimg')) 
+            {
+            $image = $request->file('rimg');
+            $imageName = time(). '.'. $image->getClientOriginalExtension();
+            $image->move(public_path('images/riders'), $imageName);
+            $rider->rimg = 'images/riders/'. $imageName;
+        }
+
+        $rider->status = $request->input('status');
+        $rider->rate = $request->input('rate');
+        $rider->lcode = $request->input('lcode');
+        $rider->full_address = $request->input('full_address');
+        $rider->pincode = $request->input('pincode');
+        $rider->landmark = $request->input('landmark');
+        $rider->commission = $request->input('commission');
+        $rider->bank_name = $request->input('bank_name');
+        $rider->ifsc = $request->input('ifsc');
+        $rider->receipt_name = $request->input('receipt_name');
+        $rider->acc_number = $request->input('acc_number');
+        $rider->paypal_id = $request->input('paypal_id');
+        $rider->upi_id = $request->input('upi_id');
+        $rider->email = $request->input('email');
+
+        if ($request->filled('password')) {
+            $rider->password = bcrypt($request->input('password'));
+        }
+
+        $rider->rstatus = $request->input('rstatus');
+        $rider->mobile = $request->input('mobile');
+        $rider->accept = $request->input('accept');
+        $rider->reject = $request->input('reject');
+        $rider->complete = $request->input('complete');
+        $rider->dzone = $request->input('dzone');
+        $rider->vehiid = $request->input('vehiid');
+
         $rider->save();
-        return redirect()->route('riders.index')->with('success', 'Rider updated successfully');
+
+        return redirect()->route('riders.index')->with('success', 'Rider updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
-        Rider::destroy($id);
-        return redirect()->route('riders.index')->with('success', 'Rider deleted successfully');
+        $rider = Rider::find($id);
+        $rider->delete();
+        return redirect()->route('riders.index')->with('success', 'Rider deleted successfully.');
     }
 }

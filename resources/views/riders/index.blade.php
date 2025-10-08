@@ -30,9 +30,9 @@
                                                 <td>{{ $rider->mobile }}</td>
                                                 <td>
                                                     @if($rider->status == 1)
-                                                        <span class="badge badge-success">Active</span>
+                                                        <span >Active</span>
                                                     @else
-                                                        <span class="badge badge-danger">Inactive</span>
+                                                        <span>Inactive</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -40,7 +40,7 @@
                                                     <form action="{{ route('riders.destroy', $rider->id) }}" method="post" style="display: inline-block;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                        <button type="submit" class="btn btn-sm btn-danger" onclick= "return confirm('Are you sure, you want to delete')">Delete</button>
                                                     </form>
                                                 </td>
                                             </tr>

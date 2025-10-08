@@ -19,12 +19,15 @@
         @enderror
         
     </div>
-    <!-- <div>
-        <i class="fa-solid fa-user"></i>
-<i class="fa-regular fa-envelope"></i>
-<i class="fa-brands fa-github"></i>
+ <div class="form-group mb-3">
+        <label for="name" class="form-label fw-bold">Icon</label>
+        <input type="text" name="icon" value="{{ old('icon') }}" class="form-control">
+        @error('icon')
+            <div class="alert alert-danger mt-2">{{ $message }}</div>
+        @enderror
+        
+    </div>
 
-    </div> -->
     <div class="form-group mb-3">
         <label for="status" class="form-label fw-bold">Status:</label>
         <select name="status" class="form-select">

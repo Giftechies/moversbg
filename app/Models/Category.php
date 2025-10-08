@@ -16,4 +16,16 @@ class Category extends Model
         'cat_status',
         'cat_img',
     ];
+
+    // Example relationships
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'cat_id');
+    }
+
+    public function Pcats()
+    {
+        return $this->hasMany(Pcat::class, 'cat_id');
+    }
+
 }

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
+use Intervention\Image\Laravel\Facades\Image;
 
 class BannerController extends Controller
 {
@@ -27,13 +28,19 @@ class BannerController extends Controller
         ]);
 
         $banner = new Banner();
-
         // Upload image to public/images/banner
-        $image = $request->file('cat_img');
-        $imageName = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('images/banner'), $imageName);
-        $banner->img = 'images/banner/'.$imageName;
-
+        $uploadedFile = $request->file('cat_img');
+        // Generate a unique file name
+        $fileName = Str::uuid() . '.webp';
+        // Define destination path inside /public/images
+        $destinationPath = public_path('images/banner/' . $fileName);
+         Image::read($uploadedFile)
+        ->encodeByExtension('webp', quality: 90)
+        ->save($destinationPath);
+        // Read, convert, and save as WebP (quality 90)   
+        // Get public URL
+        $url = asset('images/banner/' . $fileName); 
+        $banner->img =  $url;
         $banner->status = $request->input('status');
         $banner->save();
 

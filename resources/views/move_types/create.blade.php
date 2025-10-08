@@ -1,39 +1,101 @@
 @extends('layouts.admin')
 
 @section('content')
-<h1>Create Move Type</h1>
-<form method="POST" action="{{ route('move_types.store') }}" class="container mt-5">
-    @csrf
-    <div class="form-group mb-3">
-        <h1><b>Where are you moving from?</b></h1><br>
-        <p>Please tell us the exact address you're moving from.</p>
-        
-     
-        <label for="name" class="form-label fw-bold">Pickup adress</label>
+<div class="container mt-5">
+ 
+    
+    <form method="POST" action="{{ route('move_types.store') }}">
+        @csrf
+
+       
+
+<div class="row mb-3">
+
+    <div class="col-md-6">
+        <label for="name" class="form-label fw-bold">Move Type Name</label>
         <input type="text" name="name" value="{{ old('name') }}" class="form-control">
         @error('name')
             <div class="alert alert-danger mt-2">{{ $message }}</div>
         @enderror
-        By proceeding you confirm that you have read and agree to the terms and conditions and privacy policy. 
-       
-    <!-- <br><br><form method="post"> -->
-        
-   
+    </div>
 
-    <!-- </form> -->
-    <div class="form-group mb-3">
-        <label for="status" class="form-label fw-bold">Status:</label>
-        <select name="status" class="form-select">
-            <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Active</option>
-            <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Inactive</option>
-        </select>
-        @error('status')
+    <div class="col-md-6">
+        <label for="icon" class="form-label fw-bold">Icon</label>
+        <input type="text" name="icon" value="{{ old('icon') }}" class="form-control">
+        @error('icon')
             <div class="alert alert-danger mt-2">{{ $message }}</div>
         @enderror
     </div>
-    <button type="submit" class="btn btn-success">Create</button><br>
+</div>
+<!-- <div class="row mb-3">
 
-       <a href="{{ route('property_types.create') }}" class="btn btn-success">Next</a>
-      
-</form>                             
+    <div class="col-md-6">
+        <label for="name" class="form-label fw-bold">Move Type Name</label>
+        <input type="text" name="name" value="{{ old('name') }}" class="form-control">
+        @error('name')
+            <div class="alert alert-danger mt-2">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="col-md-6">
+        <label for="icon" class="form-label fw-bold">Icon</label>
+        <input type="text" name="icon" value="{{ old('icon') }}" class="form-control">
+        @error('icon')
+            <div class="alert alert-danger mt-2">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+<div class="row mb-3">
+
+    <div class="col-md-6">
+        <label for="name" class="form-label fw-bold">Move Type Name</label>
+        <input type="text" name="name" value="{{ old('name') }}" class="form-control">
+        @error('name')
+            <div class="alert alert-danger mt-2">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="col-md-6">
+        <label for="icon" class="form-label fw-bold">Icon</label>
+        <input type="text" name="icon" value="{{ old('icon') }}" class="form-control">
+        @error('icon')
+            <div class="alert alert-danger mt-2">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+<div class="row mb-3">
+
+    <div class="col-md-6">
+        <label for="name" class="form-label fw-bold">Move Type Name</label>
+        <input type="text" name="name" value="{{ old('name') }}" class="form-control">
+        @error('name')
+            <div class="alert alert-danger mt-2">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="col-md-6">
+        <label for="icon" class="form-label fw-bold">Icon</label>
+        <input type="text" name="icon" value="{{ old('icon') }}" class="form-control">
+        @error('icon')
+            <div class="alert alert-danger mt-2">{{ $message }}</div>
+        @enderror
+    </div>
+</div> -->
+
+
+        <div class="form-group mb-3">
+            <label for="status" class="form-label fw-bold">Status</label>
+            <select name="status" class="form-select">
+                <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Active</option>
+                <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Inactive</option>
+            </select>
+            @error('status')
+                <div class="alert alert-danger mt-2">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <button type="submit" class="btn btn-success">Create</button>
+    </form>
+</div>
 @endsection
+

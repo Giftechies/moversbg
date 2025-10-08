@@ -5,7 +5,7 @@
         @csrf
         <div class="form-group">
             <label>Title</label>
-            <input type="text" class="form-control" name="c_title" required>
+            <input type="text" class="form-control" name="ctitle" required>
         </div>
         <div class="form-group">
             <label>Value</label>

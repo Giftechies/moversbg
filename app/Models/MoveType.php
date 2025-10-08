@@ -12,5 +12,6 @@ class MoveType extends Model
     protected $fillable = [
         'name',
         'status',
+        'icon'
     ];
 }

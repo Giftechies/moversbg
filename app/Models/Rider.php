@@ -54,4 +54,8 @@ class Rider extends Model
     {
         return $this->belongsTo(Vehicle::class, 'vehiid');
     }
+    public function zone()
+    {
+    return $this->belongsTo(Zone::class, 'dzone');
+    }
 }

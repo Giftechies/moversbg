@@ -38,6 +38,7 @@ class VehicleController extends Controller
         $imageName = time().'.'.$image->getClientOriginalExtension();
         $image->move(public_path('images/vehicles'), $imageName);
         $vehicle->img = 'images/vehicles/'.$imageName;
+        
         $vehicle->ukms = $request->input('ukms');
         $vehicle->uprice = $request->input('uprice');
         $vehicle->aprice = $request->input('aprice');
@@ -73,7 +74,8 @@ class VehicleController extends Controller
 
         $vehicle = Vehicle::find($id);
         $vehicle->title = $request->input('vtitle');
-        if ($request->hasFile('cat_img')) {
+        if ($request->hasFile('cat_img')) 
+            {
             $image = $request->file('cat_img');
             $imageName = time().'.'.$image->getClientOriginalExtension();
             $image->move(public_path('images/vehicles'), $imageName);

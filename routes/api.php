@@ -18,5 +18,5 @@ Route::get('/riders', [RiderController::class, 'index']);
 Route::get('/zones', [ZoneController::class, 'index']);
 Route::get('/complication-rates', [ComplicationRateController::class, 'getRatesByType']);
 Route::get('/categories-with-products', [CategoryController::class, 'getCategoriesWithProducts']);
-Route::post('/submit-order', [CategoryController1::class, 'store111']);
+Route::post('/submit-order', [OrdersController::class, 'store']);
 //require __DIR__.'/auth.php';

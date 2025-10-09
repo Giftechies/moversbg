@@ -12,6 +12,7 @@ class PropertyType extends Model
     protected $fillable = [
         'name',
         'status',
+        'icon'
     ];
 
     protected $casts = [

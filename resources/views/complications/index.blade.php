@@ -17,6 +17,7 @@
         @foreach($complications as $complication)
         <tr>
             <td>{{ $complication->name }}</td>
+            <td>{{$complication->meter}}</td>
             <td>
                 <span class="badge {{ $complication->status ? 'bg-success' : 'bg-secondary' }}">
                     {{ $complication->status ? 'Active' : 'Inactive' }}

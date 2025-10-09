@@ -12,5 +12,6 @@ class Complication extends Model
     protected $fillable = [
         'name',
         'status',
+        'meter'
     ];
 }

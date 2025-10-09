@@ -19,6 +19,16 @@
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
     </div>
+ <div class="form-group mb-3">
+        <label for="name" class="form-label fw-bold">Icon</label>
+        <input type="text" name="icon" value="{{ old('icon', $propertyType->icon) }}" class="form-control">
+        @error('icon')
+            <div class="alert alert-danger mt-2">{{ $message }}</div>
+        @enderror
+        
+    </div>
+
+
     <div class="form-group">
         <label for="status" class="form-label">Status:</label>
         <select name="status" class="form-select">

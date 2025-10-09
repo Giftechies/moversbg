@@ -5,8 +5,9 @@
 <form method="POST" action="{{ route('complication_rates.store') }}" class="container mt-5">
     @csrf
     <div class="row mb-3">
+      
         <div class="col-md-6">
-            <label for="name" class="form-label fw-bold">Name:</label>
+            <label for="name" class="form-label fw-bold">Number of Bedrooms</label>
             <input type="text" name="name" value="{{ old('name') }}" class="form-control">
             @error('name')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>

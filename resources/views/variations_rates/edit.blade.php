@@ -1,0 +1,49 @@
+@extends('layouts.app')
+
+@section('content')
+<h1 class="text-center mb-4">Edit variations Rate</h1>
+
+
+<form method="POST" action="{{ route('variations_rates.update', $complicationRate->id) }}" class="container mt-5">
+    @csrf
+    @method('PUT')
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="name" class="form-label fw-bold">Name:</label>
+            <input type="text" name="name" value="{{ old('name', $complicationRate->name) }}" class="form-control">
+            @error('name')
+                <div class="alert alert-danger mt-2">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="col-md-6">
+            <label for="rate" class="form-label fw-bold">Rate:</label>
+            <input type="number" name="rate" value="{{ old('rate', $complicationRate->rate) }}" step="0.01" class="form-control">
+            @error('rate')
+                <div class="alert alert-danger mt-2">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="type" class="form-label fw-bold">Type:</label>
+            <input type="text" name="type" value="{{ old('type', $complicationRate->type) }}" class="form-control">
+            @error('type')
+                <div class="alert alert-danger mt-2">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="col-md-6">
+            <label for="status" class="form-label fw-bold">Status:</label>
+            <select name="status" class="form-select">
+                <option value="1" {{ old('status', $complicationRate->status) == 1 ? 'selected' : '' }}>Active</option>
+                <option value="0" {{ old('status', $complicationRate->status) == 0 ? 'selected' : '' }}>Inactive</option>
+            </select>
+            @error('status')
+                <div class="alert alert-danger mt-2">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+@endsection 
+

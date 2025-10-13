@@ -114,13 +114,13 @@
                         </a>
                     </li>
                      <li class="nav-item">
-                        <a href="{{ route('complications.index') }}" class="nav-link text-white">
-                            <i class="bi bi-gear me-2"></i> Complications
+                        <a href="{{ route('variations.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> variations 
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('complication_rates.index') }}" class="nav-link text-white">
-                            <i class="bi bi-gear me-2"></i> Complication Rates
+                        <a href="{{ route('variations_rates.index')}}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> variations  Rates
                         </a>
                     </li>
                      <li class="nav-item">
@@ -236,13 +236,13 @@
                         </a>
                     </li>
                      <li class="nav-item">
-                        <a href="{{ route('complications.index') }}" class="nav-link text-dark">
-                            <i class="bi bi-gear me-2"></i> Complications
+                        <a href="{{ route('variations.index') }}" class="nav-link text-dark">
+                            <i class="bi bi-gear me-2"></i>variation
                         </a>
                     </li>
                      <li class="nav-item">
-                        <a href="{{ route('complication_rates.index') }}" class="nav-link text-dark">
-                            <i class="bi bi-gear me-2"></i> Complication Rates
+                        <a href="#" class="nav-link text-dark">
+                            <i class="bi bi-gear me-2"></i> variations Rates
                         </a>
                     </li>
                     <li class="nav-item">

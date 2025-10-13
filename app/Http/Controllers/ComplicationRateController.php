@@ -10,12 +10,12 @@ class ComplicationRateController extends Controller
     public function index()
     {
         $complicationRates = ComplicationRate::all();
-        return view('complication_rates.index', compact('complicationRates'));
+        return view('variations_rates.index', compact('complicationRates'));
     }
 
     public function create()
     {
-        return view('complication_rates.create');
+        return view('variations_rates.create');
     }
 
     public function store(Request $request)
@@ -28,12 +28,12 @@ class ComplicationRateController extends Controller
         ]);
 
         ComplicationRate::create($validated);
-        return redirect()->route('complication_rates.index')->with('success', 'Complication Rate created successfully');
+        return redirect()->route('variations_rates.index')->with('success', 'Complication Rate created successfully');
     }
 
     public function edit(ComplicationRate $complicationRate)
     {
-        return view('complication_rates.edit', compact('complicationRate'));
+        return view('variations_rates.edit', compact('complicationRate'));
     }
 
     public function update(Request $request, ComplicationRate $complicationRate)
@@ -46,13 +46,13 @@ class ComplicationRateController extends Controller
         ]);
 
         $complicationRate->update($validated);
-        return redirect()->route('complication_rates.index')->with('success', 'Complication Rate updated successfully');
+        return redirect()->route('variations_rates.index')->with('success', 'Complication Rate updated successfully');
     }
 
     public function destroy(ComplicationRate $complicationRate)
     {
         $complicationRate->delete();
-        return redirect()->route('complication_rates.index')->with('success', 'Complication Rate deleted successfully');
+        return redirect()->route('variations_rates.index')->with('success', 'Complication Rate deleted successfully');
     }
 }
 

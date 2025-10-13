@@ -10,12 +10,12 @@ class ComplicationController extends Controller
     public function index()
     {
         $complications = Complication::all();
-        return view('complications.index', compact('complications'));
+        return view('variations.index', compact('complications'));
     }
 
     public function create()
     {
-        return view('complications.create');
+        return view('variations.create');
     }
 
     public function store(Request $request)
@@ -26,13 +26,13 @@ class ComplicationController extends Controller
         ]);
 
         Complication::create($request->all());
-        return redirect()->route('complications.index')->with('success', 'Complication created successfully');
+        return redirect()->route('variations.index')->with('success', 'variations created successfully');
     }
 
     public function edit($id)
     {
         $complication = Complication::find($id);
-        return view('complications.edit', compact('complication'));
+        return view('variations.edit', compact('complications'));
     }
 
     public function update(Request $request, $id)
@@ -44,13 +44,13 @@ class ComplicationController extends Controller
 
         $complication = Complication::find($id);
         $complication->update($request->all());
-        return redirect()->route('complications.index')->with('success', 'Complication updated successfully');
+        return redirect()->route('variations.index')->with('success', 'variations updated successfully');
     }
 
     public function destroy($id)
     {
         Complication::destroy($id);
-        return redirect()->route('complications.index')->with('success', 'Complication deleted successfully');
+        return redirect()->route('variations.index')->with('success', 'variations deleted successfully');
     }
 }
 

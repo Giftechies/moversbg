@@ -13,9 +13,9 @@
         @enderror
     </div>
  <div class="form-group mb-3">
-        <label for="name" class="form-label fw-bold">Calculate as Per Meter</label>
-        <input type="number" name="meter" value="{{ old('meter',$complication->meter) }}" class="form-control">
-        @error('meter')
+        <label for="type" class="form-label fw-bold">Type</label>
+        <input type="text" name="type" value="{{ old('type',$complication->type) }}" class="form-control">
+        @error('type')
             <div class="alert alert-danger mt-2">{{ $message }}</div>
         @enderror
     </div>

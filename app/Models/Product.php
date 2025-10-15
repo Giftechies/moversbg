@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models; 
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
@@ -19,15 +20,10 @@ class Product extends Model
         'status',
     ];
 
-    // Example relationships
-    public function Pcat()
+    public function Pcat(): BelongsTo
     {
         return $this->belongsTo(Pcat::class, 'cat_id');
-    }
-
-    public function Subcat()
-    {
-        return $this->belongsTo(Subcat::class, 'subcat_id');
-    }
+    } 
 }
+
 

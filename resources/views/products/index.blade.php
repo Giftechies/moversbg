@@ -7,8 +7,7 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Category</th>
-                <th>SubCategory</th>
+                <th>Category</th> 
                 <th>Title</th>
                 <th>Price</th>
                 <th>Status</th>
@@ -19,8 +18,7 @@
             @foreach($products as $product)
                 <tr>
                     <td>{{ $product->id }}</td>
-                    <td>{{ $product->Pcat->title ?? 'N/A' }}</td>
-                    <td>{{ $product->Subcat->title ?? 'N/A' }}</td>
+                    <td>{{ $product->Pcat->title ?? 'N/A' }}</td> 
                     <td>{{ $product->title }}</td>
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->status ? 'Publish' : 'UnPublish' }}</td>

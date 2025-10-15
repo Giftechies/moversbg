@@ -13,15 +13,7 @@
                     <option value="{{ $category->id }}" {{ $product->cat_id == $category->id ? 'selected' : '' }}>{{ $category->title }}</option>
                 @endforeach
             </select>
-        </div>
-        <div class="form-group">
-            <label>Select SubCategory</label>
-            <select class="form-control" name="subcat_id" id="subcat_id" required>
-                @foreach($subcategories as $subcategory)
-                    <option value="{{ $subcategory->id }}" {{ $product->subcat_id == $subcategory->id ? 'selected' : '' }}>{{ $subcategory->title }}</option>
-                @endforeach
-            </select>
-        </div>
+        </div> 
         <div class="form-group">
             <label>Product Name</label>
             <input type="text" class="form-control" name="title" value="{{ $product->title }}" required>

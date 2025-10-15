@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('Pcat', 'Subcat')->get();
+        $products = Product::with('Pcat')->get();
         return view('products.index', compact('products'));
     }
 
@@ -23,8 +23,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'cat_id' => 'required',
-            'subcat_id' => 'required',
+            'cat_id' => 'required', 
             'title' => 'required',
             'price' => 'required|numeric',
             'status' => 'required|in:0,1',
@@ -44,8 +43,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'cat_id' => 'required',
-            'subcat_id' => 'required',
+            'cat_id' => 'required', 
             'title' => 'required',
             'price' => 'required|numeric',
             'status' => 'required|in:0,1',

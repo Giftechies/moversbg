@@ -19,17 +19,9 @@ class ComplicationRateController extends Controller
         return response()->json($complicationRates);
     }
 
-
-    public function getRatesByType(Request $request)
-    {
-        $type = $request->query('type');
-
-        if (!$type) {
-            return response()->json(['error' => 'Type is required'], 400);
-        }
-
+    public function getRatesByType($type)
+    {        
         $rates = ComplicationRate::where('type', $type)->where('status', true)->get();
-
         return response()->json($rates);
     }
 }

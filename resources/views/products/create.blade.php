@@ -12,13 +12,7 @@
                     <option value="{{ $category->id }}">{{ $category->title }}</option>
                 @endforeach
             </select>
-        </div>
-        <div class="form-group">
-            <label>Select SubCategory</label>
-            <select class="form-control" name="subcat_id" id="subcat_id" required>
-                <option value="">Select SubCategory</option>
-            </select>
-        </div>
+        </div> 
         <div class="form-group">
             <label>Product Name</label>
             <input type="text" class="form-control" name="title" required>
@@ -35,33 +29,5 @@
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Add Product</button>
-    </form>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-     <script>
-        $(document).ready(function() {
-            $('#cat_id').change(function() {
-                var catId = $(this).val(); 
-                if (catId) {
-                    $.ajax({
-                        type: "GET",
-                        url: "{{ route('get.subcategories', '') }}/" + catId,
-                        success: function(res) {
-                            if (res) {
-                                console.log(res);
-                                $("#subcat_id").empty();
-                                $("#subcat_id").append('<option value="">Select SubCategory</option>');
-                                $.each(res, function(key, value) {
-                                    $("#subcat_id").append('<option value="' + value.id + '">' + value.title + '</option>');
-                                });
-                            } else {
-                                $("#subcat_id").empty();
-                            }
-                        }
-                    });
-                } else {
-                    $("#subcat_id").empty();
-                }
-            });
-        });
-    </script>
+    </form> 
 @endsection 

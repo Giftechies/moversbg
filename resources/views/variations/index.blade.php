@@ -9,6 +9,7 @@
     <thead class="table-dark">
         <tr>
             <th scope="col">Name</th>
+            <th scope="col">Type</th>
             <th scope="col">Status</th>
             <th scope="col">Actions</th>
         </tr>
@@ -17,7 +18,7 @@
         @foreach($complications as $complication)
         <tr>
             <td>{{ $complication->name }}</td>
-            <td>{{$complication->meter}}</td>
+            <td>{{$complication->type}}</td>
             <td>
                 <span class="badge {{ $complication->status ? 'bg-success' : 'bg-secondary' }}">
                     {{ $complication->status ? 'Active' : 'Inactive' }}

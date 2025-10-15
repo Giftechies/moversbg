@@ -32,7 +32,7 @@ class ComplicationController extends Controller
     public function edit($id)
     {
         $complication = Complication::find($id);
-        return view('variations.edit', compact('complications'));
+        return view('variations.edit', compact('complication'));
     }
 
     public function update(Request $request, $id)

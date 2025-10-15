@@ -2,20 +2,25 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Pcat;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Logistics;
-use App\Models\DropPoint;
-
+use App\Models\DropPoint;  
 
 class CategoryController extends Controller
 {
-    public function getCategoriesWithProducts()
+    public function index()
     {
-        $categories = Category::with('products')->get();
+        $categories = Pcat::with('products')->get();
         return response()->json($categories);
+    }
+
+    public function show($id)
+    {
+        $category = Pcat::with('products')->find($id);
+        return response()->json($category);
     }
 
     public function store(Request $request)

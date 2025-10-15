@@ -7,7 +7,7 @@
     <div class="row mb-3">
       
         <div class="col-md-6">
-            <label for="name" class="form-label fw-bold">Number of Bedrooms</label>
+            <label for="name" class="form-label fw-bold">Name</label>
             <input type="text" name="name" value="{{ old('name') }}" class="form-control">
             @error('name')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>

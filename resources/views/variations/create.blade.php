@@ -6,7 +6,7 @@
 <form method="POST" action="{{ route('variations.store') }}" class="container mt-5">
     @csrf
     <div class="form-group mb-3">
-        <label for="name" class="form-label fw-bold">Pickup Type</label>
+        <label for="name" class="form-label fw-bold">Name</label>
         <input type="text" name="name" value="{{ old('name') }}" class="form-control">
         @error('name')
             <div class="alert alert-danger mt-2">{{ $message }}</div>
@@ -14,9 +14,9 @@
     </div>
 
      <div class="form-group mb-3">
-        <label for="name" class="form-label fw-bold">Calculate as Per Meter</label>
-        <input type="number" name="meter" value="{{ old('meter') }}" class="form-control">
-        @error('meter')
+        <label for="type" class="form-label fw-bold">Type</label>
+        <input type="text" name="type" value="{{ old('type') }}" class="form-control">
+        @error('type')
             <div class="alert alert-danger mt-2">{{ $message }}</div>
         @enderror
     </div>

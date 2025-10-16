@@ -55,7 +55,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('paymentlists', PaymentListController::class);
     Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.update'); 
-    Route::resource('variations_rates', ComplicationRateController::class);
+    Route::resource('variations_rates', ComplicationRateController::class)->parameters([
+    'variations_rates' => 'complicationRate',
+]);
     Route::resource('variations', ComplicationController::class);    
     Route::resource('move_types', MoveTypeController::class);
     Route::resource('property_types', PropertyTypeController::class);

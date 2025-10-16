@@ -11,17 +11,7 @@ class DropPoint extends Model
 
     protected $table = 'tbl_drop_points';
 
-    protected $fillable = [
-        'order_id',
-        'uid',
-        'drop_address',
-        'drop_lat',
-        'drop_lng',
-        'drop_name',
-        'drop_mobile',
-        'status',
-        'photos',
-    ];
+    protected $fillable = ['order_id','uid','drop_address','drop_lat','drop_lng','drop_name',' drop_mobile status','photos','place_type','street_type','flights','meters' ];
 
     // Example relationships
     public function order()

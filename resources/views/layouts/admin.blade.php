@@ -34,8 +34,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('categories.index') }}" class="nav-link text-white">
-                            <i class="bi bi-grid me-2"></i> Categories
+                        <a href="{{ route('orders') }}" class="nav-link text-white">
+                            <i class="bi bi-grid me-2"></i> Orders
                         </a>
                     </li>
                     <li class="nav-item">

@@ -4,9 +4,11 @@
     <h4>Add Page</h4>
     <form method="POST" action="{{ route('pages.store') }}">
         @csrf
+       
         <div class="row">
             <div class="form-group col-md-6">
                 <label>Page Title</label>
+                 <h1> this is page</h1>
                 <input type="text" class="form-control" name="title" required>
             </div>
             <div class="form-group col-md-6">

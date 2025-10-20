@@ -16,6 +16,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
+
     <div class="d-flex">
         <!-- Sidebar (visible on large screens) -->
         <nav class="d-none d-md-block sidebar bg-dark text-white" style="width: 250px; min-height: 100vh;">
@@ -33,7 +34,7 @@
                             <i class="bi bi-person me-2"></i> Profile
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="{{ route('categories.index') }}" class="nav-link text-white">
                             <i class="bi bi-grid me-2"></i> Categories
                         </a>
@@ -52,7 +53,7 @@
                         <a href="{{ route('scoupons.index') }}" class="nav-link text-white">
                             <i class="bi bi-tag me-2"></i> Coupons
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a href="{{ route('managers.index') }}" class="nav-link text-white">
                             <i class="bi bi-person me-2"></i> Managers
@@ -115,12 +116,12 @@
                     </li>
                      <li class="nav-item">
                         <a href="{{ route('variations.index') }}" class="nav-link text-white">
-                            <i class="bi bi-gear me-2"></i> variations 
+                            <i class="bi bi-gear me-2"></i> Variations 
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('variations_rates.index')}}" class="nav-link text-white">
-                            <i class="bi bi-gear me-2"></i> variations  Rates
+                            <i class="bi bi-gear me-2"></i> Variations  Rates
                         </a>
                     </li>
                      <li class="nav-item">
@@ -155,7 +156,7 @@
                             <i class="bi bi-person me-2"></i> Profile
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="{{ route('categories.index') }}" class="nav-link text-dark">
                             <i class="bi bi-grid me-2"></i> Categories
                         </a>
@@ -174,27 +175,27 @@
                         <a href="{{ route('subcategories.create') }}" class="nav-link text-dark">
                             <i class="bi bi-plus me-2"></i> Create Sub Category
                         </a>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a href="{{ route('codes.index') }}" class="nav-link text-dark">
                             <i class="bi bi-code me-2"></i> Codes
-                        </a>
-                    </li>
+                        </a> -->
+                    <!-- </li>
                     <li class="nav-item">
                         <a href="{{ route('scoupons.index') }}" class="nav-link text-dark">
                             <i class="bi bi-tag me-2"></i> Coupons
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a href="{{ route('managers.index') }}" class="nav-link text-dark">
                             <i class="bi bi-person me-2"></i> Managers
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="{{ route('zones.index') }}" class="nav-link text-dark">
                             <i class="bi bi-geo-alt me-2"></i> Zones
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a href="{{ route('pages.index') }}" class="nav-link text-dark">
                             <i class="bi bi-file me-2"></i> Pages
@@ -237,12 +238,13 @@
                     </li>
                      <li class="nav-item">
                         <a href="{{ route('variations.index') }}" class="nav-link text-dark">
-                            <i class="bi bi-gear me-2"></i>variation
+                            <i class="bi bi-gear me-2"></i>
+                            Variation
                         </a>
                     </li>
                      <li class="nav-item">
                         <a href="#" class="nav-link text-dark">
-                            <i class="bi bi-gear me-2"></i> variations Rates
+                            <i class="bi bi-gear me-2"></i> Variations Rates
                         </a>
                     </li>
                     <li class="nav-item">

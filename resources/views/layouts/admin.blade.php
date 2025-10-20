@@ -34,12 +34,13 @@
                             <i class="bi bi-person me-2"></i> Profile
                         </a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a href="{{ route('categories.index') }}" class="nav-link text-white">
-                            <i class="bi bi-grid me-2"></i> Categories
+                    <li class="nav-item">
+                        <a href="{{ route('orders') }}" class="nav-link text-white">
+                            <i class="bi bi-grid me-2"></i> Orders
                         </a>
                     </li>
-                    <li class="nav-item">
+                     
+                   <!-- <li class="nav-item">
                         <a href="{{ route('category.create') }}" class="nav-link text-white">
                             <i class="bi bi-plus me-2"></i> Create Category
                         </a>

@@ -21,6 +21,7 @@ use App\Http\Controllers\ComplicationController;
 use App\Http\Controllers\MoveTypeController;
 use App\Http\Controllers\PropertyTypeController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\OrderController;
 
 
 Route::get('/', function () {
@@ -41,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy'); 
     Route::resource('subcategories', SubCategoryController::class);
 
-    Route::get('/orders', [OrderController::class, 'orders'])->name('orders');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders');
     Route::resource('codes', CodeController::class);  
     Route::resource('scoupons', ScouponController::class);
     Route::resource('managers', ManagerController::class); 

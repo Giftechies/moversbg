@@ -19,7 +19,7 @@
             </div>
             <div class="form-group col-12">
                 <label>Page Description</label>
-                <textarea class="form-control" name="description" required>{{ $page->description }}</textarea>
+                <textarea id="summernote" class="form-control" name="description" required>{{ $page->description }}</textarea>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Update Page</button>

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.pages')
 
 @section('content')
     <h4>Add Page</h4>
@@ -21,7 +21,7 @@
             </div>
             <div class="form-group col-12">
                 <label>Page Description</label>
-                <textarea class="form-control" name="description" required></textarea>
+                <textarea id="summernote" class="form-control" name="description" required></textarea>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Add Page</button>

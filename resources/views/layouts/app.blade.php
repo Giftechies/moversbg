@@ -105,6 +105,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+    <a  href="{{ route('faqs.index') }}" class="nav-link text-white">
+        <i class="bi bi-gear me-2"></i> FAQs
+       
+    </a>
+</li>
+                    <li class="nav-item">
                         <a href="{{ route('paymentlists.index') }}" class="nav-link text-white">
                             <i class="bi bi-credit-card me-2"></i> Payment Gateways
                         </a>
@@ -156,6 +162,12 @@
                             <i class="bi bi-plus me-2"></i> Create Sub Category
                         </a>
                     </li>
+                    <li class="nav-item">
+    <a  href="{{ route('faqs.index') }}" class="nav-link text-dark">
+        <i class="bi bi-gear me-2"></i> FAQs
+       
+    </a>
+</li>
                     <li class="nav-item">
                         <a href="{{ route('codes.index') }}" class="nav-link text-dark">
                             <i class="bi bi-code me-2"></i> Codes

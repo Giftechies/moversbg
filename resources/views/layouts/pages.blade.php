@@ -136,6 +136,12 @@
                             <i class="bi bi-gear me-2"></i> Property Types
                         </a>
                     </li>
+                    <li class="nav-item">
+    <a href="{{ route('faqs.index') }}" class="nav-link text-white">
+        <i class="bi bi-question-circle me-2"></i> FAQs
+    </a>
+</li>
+
                 </ul>
             </div>
         </nav>
@@ -259,6 +265,12 @@
                             <i class="bi bi-gear me-2"></i> Property Types
                         </a>
                     </li>
+                    <li class="nav-item">
+    <a href="{{ route('faqs.index') }}" class="nav-link text-white">
+        <i class="bi bi-question-circle me-2"></i> FAQs
+    </a>
+</li>
+
                 </ul>
 
             </div>

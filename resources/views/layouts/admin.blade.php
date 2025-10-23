@@ -249,16 +249,25 @@
                             <i class="bi bi-gear me-2"></i> Variations Rates
                         </a>
                     </li>
+ 
                     <li class="nav-item">
                         <a href="{{ route('move_types.index') }}" class="nav-link text-dark">
                             <i class="bi bi-gear me-2"></i> Move Types
                         </a>
                     </li>
+  
+
                      <li class="nav-item">
                         <a href="{{ route('property_types.index') }}" class="nav-link text-dark">
                             <i class="bi bi-gear me-2"></i> Property Types
                         </a>
                     </li>
+                                                         <li class="nav-item">
+    <a  href="{{ route('faqs.index') }}" class="nav-link text-dark">
+        <i class="bi bi-gear me-2"></i> FAQs
+       
+    </a>
+</li>
                 </ul>
 
             </div>

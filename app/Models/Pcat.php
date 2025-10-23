@@ -14,6 +14,7 @@ class Pcat extends Model
     protected $fillable = [
         'title',
         'status',
+        'icon',
     ]; 
 
     public function products(): HasMany

@@ -8,7 +8,8 @@ class PcatController extends Controller
 {
     public function index()
     {
-        $pcats = Pcat::all();
+        // $pcats = Pcat::all();
+         $pcats = Pcat::all();
         return view('pcats.index', compact('pcats'));
     }
 

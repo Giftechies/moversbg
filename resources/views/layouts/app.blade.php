@@ -34,22 +34,22 @@
                             <i class="bi bi-person me-2"></i> Profile
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="{{ route('categories.index') }}" class="nav-link text-white">
                             <i class="bi bi-grid me-2"></i> Categories
                         </a>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a href="{{ route('category.create') }}" class="nav-link text-white">
                             <i class="bi bi-plus me-2"></i> Create Category
                         </a>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a href="{{ route('subcategories.index') }}" class="nav-link text-white">
                             <i class="bi bi-grid me-2"></i> Sub Categories
                         </a>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a href="{{ route('subcategories.create') }}" class="nav-link text-white">
                             <i class="bi bi-plus me-2"></i> Create Sub Category
                         </a>
@@ -63,7 +63,7 @@
                         <a href="{{ route('scoupons.index') }}" class="nav-link text-white">
                             <i class="bi bi-tag me-2"></i> Coupons
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a href="{{ route('managers.index') }}" class="nav-link text-white">
                             <i class="bi bi-person me-2"></i> Managers

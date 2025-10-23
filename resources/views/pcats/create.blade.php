@@ -9,6 +9,10 @@
             <input type="text" class="form-control" name="title" required>
         </div>
         <div class="form-group">
+            <label>Icon</label>
+            <input type="text" class="form-control" name="icon" required>
+        </div>
+        <div class="form-group">
             <label>Category Status</label>
             <select name="status" class="form-control">
                 <option value="1">Publish</option>

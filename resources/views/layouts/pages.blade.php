@@ -76,7 +76,7 @@
                             <i class="bi bi-grid me-2"></i> Product Categories
                         </a>
                     </li>
-                     <li class="nav-item">
+                     <!--<li class="nav-item">
                         <a href="{{ route('subcategories.index') }}" class="nav-link text-white">
                             <i class="bi bi-grid me-2"></i> Sub Categories
                         </a>
@@ -85,7 +85,7 @@
                         <a href="{{ route('subcategories.create') }}" class="nav-link text-white">
                             <i class="bi bi-plus me-2"></i> Create Sub Category
                         </a>
-                    </li>
+                    </li>-->
                     <li class="nav-item">
                         <a href="{{ route('products.index') }}" class="nav-link text-white">
                             <i class="bi bi-box me-2"></i> Products

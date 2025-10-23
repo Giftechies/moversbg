@@ -3,12 +3,10 @@
 @section('content')
     <h4>Add Page</h4>
     <form method="POST" action="{{ route('pages.store') }}">
-        @csrf
-       
+        @csrf       
         <div class="row">
             <div class="form-group col-md-6">
-                <label>Page Title</label>
-                 <h1> this is page</h1>
+                <label>Page Title</label> 
                 <input type="text" class="form-control" name="title" required>
             </div>
             <div class="form-group col-md-6">
@@ -19,6 +17,7 @@
                     <option value="0">Unpublish</option>
                 </select>
             </div>
+            
             <div class="form-group col-12">
                 <label>Page Description</label>
                 <textarea id="summernote" class="form-control" name="description" required></textarea>

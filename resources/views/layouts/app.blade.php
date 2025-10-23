@@ -136,7 +136,7 @@
                             <i class="bi bi-person me-2"></i> Profile
                         </a>
                     </li>
-                    <li class="nav-item">
+                   <!--   <li class="nav-item">
                         <a href="{{ route('categories.index') }}" class="nav-link text-dark">
                             <i class="bi bi-grid me-2"></i> Categories
                         </a>
@@ -146,7 +146,7 @@
                             <i class="bi bi-plus me-2"></i> Create Category
                         </a>
                     </li>
-                    <li class="nav-item">
+                  <li class="nav-item">
                         <a href="{{ route('subcategories.index') }}" class="nav-link text-dark">
                             <i class="bi bi-grid me-2"></i> Sub Categories
                         </a>
@@ -165,17 +165,17 @@
                         <a href="{{ route('scoupons.index') }}" class="nav-link text-dark">
                             <i class="bi bi-tag me-2"></i> Coupons
                         </a>
-                    </li>
+                    </li>-->
                     <li class="nav-item">
                         <a href="{{ route('managers.index') }}" class="nav-link text-dark">
                             <i class="bi bi-person me-2"></i> Managers
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a href="{{ route('zones.index') }}" class="nav-link text-dark">
                             <i class="bi bi-geo-alt me-2"></i> Zones
                         </a>
-                    </li>
+                    </li>-->
                     <li class="nav-item">
                         <a href="{{ route('pages.index') }}" class="nav-link text-dark">
                             <i class="bi bi-file me-2"></i> Pages

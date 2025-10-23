@@ -24,11 +24,11 @@ class ManagerController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:managers,email',
+            'email' => 'required|email|unique:tbl_manager,email',
             'password' => 'required',
             'mobile' => 'required',
             'status' => 'required|in:0,1',
-            'zone_id' => 'required',
+           // 'zone_id' => 'required',
             'img' => 'nullable|image',
         ]);
 
@@ -51,10 +51,10 @@ class ManagerController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:managers,email,' . $manager->id,
+            'email' => 'required|email|unique:tbl_manager,email,' . $manager->id,
             'mobile' => 'required',
             'status' => 'required|in:0,1',
-            'zone_id' => 'required',
+           //'zone_id' => 'required',
             'img' => 'nullable|image',
         ]);
 

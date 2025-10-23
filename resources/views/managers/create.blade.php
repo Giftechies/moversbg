@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h4>Add Zone Manager</h4>
+    <h4>Add  Manager</h4>
     <form method="POST" action="{{ route('managers.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="form-group col-3">
-                <label>Zone Manager Name</label>
+                <label>Manager Name</label>
                 <input type="text" class="form-control" name="name" required>
             </div>
             <div class="form-group col-3">
-                <label>Zone Manager Image</label>
+                <label>Manager Image</label>
                 <input type="file" class="form-control" name="img">
             </div>
             <div class="form-group col-3">
@@ -32,17 +32,17 @@
                 <label>Password</label>
                 <input type="password" class="form-control" name="password" required>
             </div>
-            <div class="form-group col-12">
-                <label>Select Zone</label>
+           {{--<div class="form-group col-12">
+                <label>Select </label>
                 <select name="zone_id" class="form-control" required>
-                    <option value="">Select Zone</option>
+                    <option value="">Select </option>
                     @foreach($zones as $zone)
                         <option value="{{ $zone->id }}">{{ $zone->title }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div>--}} 
             <div class="col-12">
-                <button type="submit" class="btn btn-primary mb-2">Add Zone Manager</button>
+                <button type="submit" class="btn btn-primary mb-2">Add  Manager</button>
             </div>
         </div>
     </form>

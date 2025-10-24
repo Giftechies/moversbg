@@ -23,7 +23,7 @@ use App\Http\Controllers\PropertyTypeController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FaqController;
-
+use App\Http\Controllers\ExtraChargeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -62,7 +62,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('variations', ComplicationController::class);    
     Route::resource('move_types', MoveTypeController::class);
     Route::resource('property_types', PropertyTypeController::class);
-    Route::resource('faqs', FaqController::class);
+    Route::resource('faqs', FaqController::class);  
+    Route::resource('extra-charges', ExtraChargeController::class);
+Route::patch('extra-charges/{extraCharge}/toggle', [ExtraChargeController::class, 'toggle'])
+    ->name('extra-charges.toggle');
+
 
 });
 require __DIR__.'/auth.php';

@@ -136,6 +136,16 @@
                             <i class="bi bi-gear me-2"></i> Property Types
                         </a>
                     </li>
+                     <li class="nav-item">
+                        <a href="{{ route('extra-charges.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> Extra Charges
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="{{ route('faqs.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> FAQ
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('variations', ComplicationController::class);    
     Route::resource('move_types', MoveTypeController::class);
     Route::resource('property_types', PropertyTypeController::class);
-    Route::resource('faqs', App\Http\Controllers\FaqController::class);
+    Route::resource('faqs', FaqController::class);
 
     
 });

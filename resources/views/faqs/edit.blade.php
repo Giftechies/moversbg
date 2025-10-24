@@ -1,27 +1,25 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
-<h4>Edit FAQ</h4>
+<div class="container">
+    <h2>Edit FAQ</h2>
+    <form action="{{ route('faqs.update', $faq->id) }}" method="POST">
+        @csrf @method('PUT')
 
-<form action="{{ route('faqs.update', $faq->id) }}" method="POST">
-    @csrf
-    @method('PUT')
+        <div class="form-group mb-3">
+            <label>Question</label>
+            <input type="text" name="question" class="form-control" value="{{ old('question', $faq->question) }}" required>
+            @error('question') <div class="text-danger">{{ $message }}</div> @enderror
+        </div>
 
-    <div class="mb-3">
-        <label>Question</label>
-        <input type="text" name="question" class="form-control" value="{{ $faq->question }}" required>
-    </div>
+        <div class="form-group mb-3">
+            <label>Answer</label>
+            <textarea name="answer" class="form-control" rows="4" required>{{ old('answer', $faq->answer) }}</textarea>
+            @error('answer') <div class="text-danger">{{ $message }}</div> @enderror
+        </div>
 
-    <div class="mb-3">
-        <label>Answer</label>
-        <textarea name="answer" id="editor" class="form-control" required>{{ $faq->answer }}</textarea>
-    </div>
-
-    <button type="submit" class="btn btn-success">Update</button>
-</form>
-
-<script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
-<script>
-    ClassicEditor.create(document.querySelector('#editor')).catch(console.error);
-</script>
+        <button type="submit" class="btn btn-primary">Update FAQ</button>
+        <a href="{{ route('faqs.index') }}" class="btn btn-secondary">Back</a>
+    </form>
+</div>
 @endsection

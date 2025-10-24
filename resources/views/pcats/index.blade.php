@@ -18,40 +18,7 @@
             @foreach($pcats as $pcat)
                 <tr>
                     <td>{{ $pcat->id }}</td>
-                    <td>{{ $pcat->title }}</td>
-                    <!-- <td>
-                        @switch($pcat->title)
-                            @case('Kitchen')
-                                <i class="fa-solid fa-kitchen-set"></i>
-                                @break
-                            @case('Bedroom')
-                                <i class="fa-solid fa-bed"></i>
-                                @break
-                            @case('Lounge')
-                                <i class="fa-solid fa-couch"></i>
-                                @break
-                            @case('Dining')
-                                <i class="fa-solid fa-utensils"></i>
-                                @break
-                            @case('Office')
-                                <i class="fa-solid fa-briefcase"></i>
-                                @break
-                            @case('Laundry')
-                                <i class="fa-solid fa-soap"></i>
-                                @break
-                            @case('Hall')
-                                <i class="fa-solid fa-chair"></i>
-                                @break
-                            @case('Garage & Outside')
-                                <i class="fa-solid fa-car"></i>
-                                @break
-                            @case('Cartoons & Boxes')
-                                <i class="fa-solid fa-box"></i>
-                                @break
-                            @default
-                                <i class="fa-solid fa-folder"></i>
-                        @endswitch
-                    </td> -->
+                    <td>{{ $pcat->title }}</td> 
                     <td>{{ $pcat->icon}}</td>
                     <td>{{ $pcat->status ? 'Publish' : 'UnPublish' }}</td>
                     <td>

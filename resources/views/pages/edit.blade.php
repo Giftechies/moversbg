@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.pages')
 
 @section('content')
     <h4>Edit Page</h4>

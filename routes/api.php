@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\OrdersController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserController;
 
+
 Route::get('/variations', [ComplicationController::class, 'index']);
 
 //Route::get('/variations_rates', [ComplicationRateController::class, 'index']);

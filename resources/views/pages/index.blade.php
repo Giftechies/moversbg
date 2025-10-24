@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-
 @section('content') 
     <h4>Pages List</h4>
     

@@ -22,6 +22,7 @@ use App\Http\Controllers\MoveTypeController;
 use App\Http\Controllers\PropertyTypeController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\FaqController;
 
 
 Route::get('/', function () {
@@ -61,5 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('variations', ComplicationController::class);    
     Route::resource('move_types', MoveTypeController::class);
     Route::resource('property_types', PropertyTypeController::class);
+    Route::resource('faqs', App\Http\Controllers\FaqController::class);
+
 });
 require __DIR__.'/auth.php';

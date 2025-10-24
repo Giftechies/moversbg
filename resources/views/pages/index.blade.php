@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<h1>nskjnhdj</h1>
+
     <h4>Pages List</h4>
     
     <a href="{{ route('pages.create') }}" class="btn btn-success mb-2">Add Page</a>

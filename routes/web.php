@@ -64,5 +64,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('property_types', PropertyTypeController::class);
     Route::resource('faqs', App\Http\Controllers\FaqController::class);
 
+    
 });
 require __DIR__.'/auth.php';

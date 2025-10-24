@@ -11,6 +11,9 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\OrdersController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\LoginController;
+
+
 
 
 Route::get('/variations', [ComplicationController::class, 'index']);
@@ -29,7 +32,11 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 
 Route::post('/submit-order', [UserController::class, 'store']);
-
+Route::post('/login', [LoginController::class, 'login']);
+Route::middleware('auth:sanctum')->post('/logout', [LoginController::class, 'logout']);
+Route::get('/test', function () {
+    return response()->json(['message' => 'API working']);
+});
 
 /*
 Route::post('/token', function (Request $request) {

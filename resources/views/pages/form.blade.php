@@ -44,7 +44,7 @@
 </div>
 
 <div class="form-check mb-3">
-    <input type="checkbox" name="show_testimonial" class="form-check-input" {{ old('show_testimonial', $page->show_testimonial ?? false) ? 'checked' : '' }}>
-    <label class="form-check-label">Show Testimonial</label>
+    <input type="checkbox" name="show_faq" class="form-check-input" {{ old('show_faq', $page->show_faq ?? false) ? 'checked' : '' }}>
+    <label class="form-check-label">Show FAQ</label>
 </div>
 

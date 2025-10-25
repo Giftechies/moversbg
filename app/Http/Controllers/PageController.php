@@ -32,13 +32,12 @@ class PageController extends Controller
 
         Page::create([
             'title' => $request->title,
-            'description' => $request->description,
-            'custom_section' => $request->custom_section ?? 1,
+            'description' => $request->description, 
             'status' => $request->status,
             'summary' => $request->summary,
             'show_map' => $request->has('show_map'),
             'show_process' => $request->has('show_process'),
-            'show_testimonial' => $request->has('show_testimonial'),
+            'show_faq' => $request->has('show_faq'),
             'parent' => $request->parent,
             'slug' => $this->generateUniqueSlug($request->title),
         ]);
@@ -69,13 +68,12 @@ class PageController extends Controller
 
         $page->update([
             'title' => $request->title,
-            'description' => $request->description,
-            'custom_section' => $request->custom_section ?? 1,
+            'description' => $request->description, 
             'status' => $request->status,
             'summary' => $request->summary,
             'show_map' => $request->has('show_map'),
             'show_process' => $request->has('show_process'),
-            'show_testimonial' => $request->has('show_testimonial'),
+            'show_faq' => $request->has('show_faq'),
             'parent' => $request->parent,
             'slug' => $this->generateUniqueSlug($request->title, $id),
         ]);

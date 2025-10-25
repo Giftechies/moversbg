@@ -15,13 +15,12 @@ class Page extends Model
 
     protected $fillable = [
         'title',
-        'description',
-        'custom_section',
+        'description', 
         'status',
         'summary',
         'show_map',
         'show_process',
-        'show_testimonial',
+        'show_faq',
         'parent',
         'slug',
     ];
@@ -30,8 +29,7 @@ class Page extends Model
     protected $casts = [
         'show_map' => 'boolean',
         'show_process' => 'boolean',
-        'show_testimonial' => 'boolean',
-        'custom_section' => 'boolean',
+        'show_faq' => 'boolean', 
     ];
 
     public function parentPage()

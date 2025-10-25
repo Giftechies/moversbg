@@ -38,5 +38,10 @@ class Page extends Model
             'title' => '——'
         ]);
     }
+    public function children()
+    {
+        return $this->hasMany(Page::class, 'parent', 'id');
+    }
+
 
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\ExtraChargeApiController;
+use App\Http\Controllers\Api\PageApiController;
 
 Route::get('/variations', [ComplicationController::class, 'index']);
 //Route::get('/variations_rates', [ComplicationRateController::class, 'index']);
@@ -28,6 +29,9 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::post('/submit-order', [UserController::class, 'store']);
 Route::get('/faqs', [FaqController::class, 'index']);
 Route::get('/extra-charges', [ExtraChargeApiController::class, 'index']);
+Route::get('/pages', [PageApiController::class, 'index']);
+Route::get('/pages/{slug}', [PageApiController::class, 'show']);
+
 /*
 Route::post('/token', function (Request $request) {
     $user = new \App\Models\User();

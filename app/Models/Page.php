@@ -10,10 +10,35 @@ class Page extends Model
     use HasFactory;
 
     protected $table = 'tbl_page';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
         'title',
-        'status',
         'description',
+        'custom_section',
+        'status',
+        'summary',
+        'show_map',
+        'show_process',
+        'show_testimonial',
+        'parent',
+        'slug',
     ];
+
+    // Cast toggles to boolean for easy handling
+    protected $casts = [
+        'show_map' => 'boolean',
+        'show_process' => 'boolean',
+        'show_testimonial' => 'boolean',
+        'custom_section' => 'boolean',
+    ];
+
+    public function parentPage()
+    {
+        return $this->belongsTo(Page::class, 'parent', 'id')->withDefault([
+            'title' => '——'
+        ]);
+    }
+
 }

@@ -14,6 +14,8 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\ExtraChargeApiController;
 use App\Http\Controllers\Api\PageApiController;
+use App\Http\Controllers\Api\ServiceApiController; 
+
 
 Route::get('/variations', [ComplicationController::class, 'index']);
 //Route::get('/variations_rates', [ComplicationRateController::class, 'index']);
@@ -30,7 +32,10 @@ Route::post('/submit-order', [UserController::class, 'store']);
 Route::get('/faqs', [FaqController::class, 'index']);
 Route::get('/extra-charges', [ExtraChargeApiController::class, 'index']);
 Route::get('/pages', [PageApiController::class, 'index']);
+Route::get('/top-bar', [PageApiController::class, 'top_bar']);
 Route::get('/pages/{slug}', [PageApiController::class, 'show']);
+Route::get('/services', [ServiceApiController::class, 'index']); // existing route
+Route::get('/services/{slug}', [ServiceApiController::class, 'show']); // 👈 new route
 
 /*
 Route::post('/token', function (Request $request) {

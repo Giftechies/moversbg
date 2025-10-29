@@ -30,9 +30,18 @@ class PageController extends Controller
             'status' => 'required|integer',
         ]);
 
+        $content = $request->input('description');
+        // Decode entities like \u003C / \u003E
+        $content = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        // Allow only safe tags
+        $allowedTags = '<p><strong><em><ul><ol><li><br><h1><h2><h3>';
+        $content = strip_tags($content, $allowedTags);
+        // Optional tidy-up
+        $content = trim($content); 
+
         Page::create([
             'title' => $request->title,
-            'description' => $request->description, 
+            'description' => $content, 
             'status' => $request->status,
             'summary' => $request->summary,
             'show_map' => $request->has('show_map'),
@@ -65,7 +74,7 @@ class PageController extends Controller
             'description' => 'required|string', 
             'status' => 'required|integer',
         ]);
-
+        
         $page->update([
             'title' => $request->title,
             'description' => $request->description, 

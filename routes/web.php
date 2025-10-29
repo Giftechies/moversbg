@@ -24,6 +24,11 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ExtraChargeController;
+use App\Http\Controllers\ServiceController;
+// routes/web.php
+use App\Http\Controllers\RolePermissionController;
+
+ 
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,6 +37,10 @@ Route::get('/', function () {
  
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::middleware('auth')->group(function () {
+    Route::get('/roles', [RolePermissionController::class, 'index'])->name('roles.index');
+    Route::post('/roles', [RolePermissionController::class, 'storeRole'])->name('roles.store');
+    Route::post('/permissions', [RolePermissionController::class, 'storePermission'])->name('permissions.store');
+    Route::post('/roles/{role}/assign', [RolePermissionController::class, 'assignPermission'])->name('roles.assign');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -64,9 +73,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('property_types', PropertyTypeController::class);
     Route::resource('faqs', FaqController::class);  
     Route::resource('extra-charges', ExtraChargeController::class);
-Route::patch('extra-charges/{extraCharge}/toggle', [ExtraChargeController::class, 'toggle'])
-    ->name('extra-charges.toggle');
+    Route::patch('extra-charges/{extraCharge}/toggle', [ExtraChargeController::class, 'toggle'])
+        ->name('extra-charges.toggle'); 
 
-
+    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+    Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');
+    Route::post('/services/store', [ServiceController::class, 'store'])->name('services.store');
+    Route::get('/services/{id}/edit', [ServiceController::class, 'edit'])->name('services.edit');
+    Route::put('/services/{id}', [ServiceController::class, 'update'])->name('services.update');
+    Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
 });
 require __DIR__.'/auth.php';

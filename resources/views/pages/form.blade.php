@@ -1,4 +1,3 @@
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <div class="mb-3">
     <label>Title</label>
     <input type="text" name="title" class="form-control" value="{{ old('title', $page->title ?? '') }}" required>
@@ -48,16 +47,3 @@
     <input type="checkbox" name="show_faq" class="form-check-input" {{ old('show_faq', $page->show_faq ?? false) ? 'checked' : '' }}>
     <label class="form-check-label">Show FAQ</label>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $('#summernote').summernote({
-            height: 300,
-        });
-    });
-</script>

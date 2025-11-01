@@ -1,8 +1,6 @@
-@extends('layouts.admin')  
+@extends('layouts.pages')  
 
-@section('content')
-
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+@section('content') 
 <div class="container">
     <h2>Add New Service</h2>
  {{-- Show all errors in one place (optional) --}}
@@ -37,17 +35,5 @@
 
         <button class="btn btn-success">Save</button>
     </form>
-</div>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $('#summernote').summernote({
-            height: 300,
-        });
-    });
-</script>
+</div> 
 @endsection 

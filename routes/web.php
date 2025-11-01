@@ -6,7 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ScouponController;
 use App\Http\Controllers\CodeController;
-use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PcatController;
@@ -24,8 +24,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ExtraChargeController;
-use App\Http\Controllers\ServiceController;
-// routes/web.php
+use App\Http\Controllers\ServiceController; 
 use App\Http\Controllers\RolePermissionController;
 
  
@@ -55,7 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders');
     Route::resource('codes', CodeController::class);  
     Route::resource('scoupons', ScouponController::class);
-    Route::resource('managers', ManagerController::class); 
+    Route::resource('business', BusinessController::class); 
     Route::resource('zones', ZoneController::class);
     Route::resource('pages', PageController::class);
     Route::resource('pcats', PcatController::class);
@@ -73,8 +72,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('property_types', PropertyTypeController::class);
     Route::resource('faqs', FaqController::class);  
     Route::resource('extra-charges', ExtraChargeController::class);
-    Route::patch('extra-charges/{extraCharge}/toggle', [ExtraChargeController::class, 'toggle'])
-        ->name('extra-charges.toggle'); 
+    Route::patch('extra-charges/{extraCharge}/toggle', [ExtraChargeController::class, 'toggle'])->name('extra-charges.toggle'); 
 
     Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
     Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');

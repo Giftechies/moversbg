@@ -70,8 +70,8 @@
                         </a>
                     </li>-->
                     <li class="nav-item">
-                        <a href="{{ route('managers.index') }}" class="nav-link text-white">
-                            <i class="bi bi-person me-2"></i> Managers
+                        <a href="{{ route('business.index') }}" class="nav-link text-white">
+                            <i class="bi bi-person me-2"></i> Business
                         </a>
                     </li>
                   
@@ -222,11 +222,7 @@
                             <i class="bi bi-tag me-2"></i> Coupons
                         </a>
                     </li> -->
-                    <li class="nav-item">
-                        <a href="{{ route('managers.index') }}" class="nav-link text-dark">
-                            <i class="bi bi-person me-2"></i> Managers
-                        </a>
-                    </li>
+                    
                     <!-- <li class="nav-item">
                         <a href="{{ route('zones.index') }}" class="nav-link text-dark">
                             <i class="bi bi-geo-alt me-2"></i> Zones
@@ -296,12 +292,12 @@
                             <i class="bi bi-gear me-2"></i> Property Types
                         </a>
                     </li>
-                                                         <li class="nav-item">
-    <a  href="{{ route('faqs.index') }}" class="nav-link text-dark">
-        <i class="bi bi-gear me-2"></i> FAQs
-       
-    </a>
-</li>
+                    <li class="nav-item">
+                        <a  href="{{ route('faqs.index') }}" class="nav-link text-dark">
+                            <i class="bi bi-gear me-2"></i> FAQs
+                           
+                        </a>
+                    </li>
                 </ul>
 
             </div>

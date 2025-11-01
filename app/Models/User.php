@@ -34,6 +34,7 @@ class User extends Authenticatable
         'refercode',
         'wallet',
         'email',
+        'business_id',
     ]; 
 
     /**

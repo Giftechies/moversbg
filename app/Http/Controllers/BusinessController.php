@@ -1,30 +1,30 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Manager;
+use App\Models\Business;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class ManagerController extends Controller
+class BusinessController extends Controller
 {
     public function index()
     {
-        $managers = Manager::with('zone')->get();
-        return view('managers.index', compact('managers'));
+        $business = Business::with('zone')->get();
+        return view('business.index', compact('business'));
     }
 
     public function create()
     {
         $zones = Zone::where('status', 1)->get();
-        return view('managers.create', compact('zones'));
+        return view('business.create', compact('zones'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:tbl_manager,email',
+            'email' => 'required|email|unique:tbl_business,email',
             'password' => 'required',
             'mobile' => 'required',
             'status' => 'required|in:0,1',
@@ -34,24 +34,24 @@ class ManagerController extends Controller
 
         $data = $request->all();
         if ($request->hasFile('img')) {
-            $data['img'] = $request->file('img')->store('managers');
+            $data['img'] = $request->file('img')->store('business');
         }
 
-        Manager::create($data);
-        return redirect()->route('managers.index')->with('success', 'Manager created successfully.');
+        Business::create($data);
+        return redirect()->route('business.index')->with('success', 'Business Created Successfully.');
     }
 
-    public function edit(Manager $manager)
+    public function edit(Business $business)
     {
         $zones = Zone::where('status', 1)->get();
-        return view('managers.edit', compact('manager', 'zones'));
+        return view('business.edit', compact('business', 'zones'));
     }
 
-    public function update(Request $request, Manager $manager)
+    public function update(Request $request, Business $business)
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:tbl_manager,email,' . $manager->id,
+            'email' => 'required|email|unique:tbl_business,email,' . $business->id,
             'mobile' => 'required',
             'status' => 'required|in:0,1',
            //'zone_id' => 'required',
@@ -60,7 +60,7 @@ class ManagerController extends Controller
 
         $data = $request->all();
         if ($request->hasFile('img')) {
-            $data['img'] = $request->file('img')->store('managers');
+            $data['img'] = $request->file('img')->store('business');
         }
         if ($request->filled('password')) {
             $data['password'] = $request->input('password');
@@ -68,14 +68,14 @@ class ManagerController extends Controller
             unset($data['password']);
         }
 
-        $manager->update($data);
-        return redirect()->route('managers.index')->with('success', 'Manager updated successfully.');
+        $business->update($data);
+        return redirect()->route('business.index')->with('success', 'Business Updated Successfully.');
     }
 
-    public function destroy(Manager $manager)
+    public function destroy(Business $business)
     {
-        $manager->delete();
-        return redirect()->route('managers.index')->with('success', 'Manager deleted successfully.');
+        $business->delete();
+        return redirect()->route('business.index')->with('success', 'Business Deleted Successfully.');
     }
 }
 

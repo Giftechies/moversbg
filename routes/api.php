@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\ExtraChargeApiController;
 use App\Http\Controllers\Api\PageApiController;
 use App\Http\Controllers\Api\ServiceApiController; 
-
+use App\Http\Controllers\Api\BusinessApiController;
 
 Route::get('/variations', [ComplicationController::class, 'index']);
 //Route::get('/variations_rates', [ComplicationRateController::class, 'index']);
@@ -36,7 +36,17 @@ Route::get('/top-bar', [PageApiController::class, 'top_bar']);
 Route::get('/pages/{slug}', [PageApiController::class, 'show']);
 Route::get('/services', [ServiceApiController::class, 'index']); // existing route
 Route::get('/services/{slug}', [ServiceApiController::class, 'show']); // 👈 new route
+Route::post('/register-business', [BusinessApiController::class, 'registerManagerAndBusiness']);
+Route::get('/orders', [OrderController::class, 'index']); 
 
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/orders/user/{uid}', [OrderController::class, 'getUserOrders']);
+    Route::post('/orders/{id}/cancel', [OrderController::class, 'cancelOrder']);
+    Route::post('/orders/{id}/reschedule', [OrderController::class, 'rescheduleOrder']);
+    Route::get('/orders/{id}/reschedule-history', [OrderController::class, 'getRescheduleHistory']);
+    Route::get('/order/{order_id}/details', [OrderController::class, 'getOrderDetails']);
+});
 /*
 Route::post('/token', function (Request $request) {
     $user = new \App\Models\User();

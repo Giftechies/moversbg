@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h4>Add  Manager</h4>
-    <form method="POST" action="{{ route('managers.store') }}" enctype="multipart/form-data">
+    <h4>Add  Business</h4>
+    <form method="POST" action="{{ route('business.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="form-group col-3">
-                <label>Manager Name</label>
+                <label>Business Name</label>
                 <input type="text" class="form-control" name="name" required>
             </div>
             <div class="form-group col-3">
-                <label>Manager Image</label>
+                <label>Business Image</label>
                 <input type="file" class="form-control" name="img">
             </div>
             <div class="form-group col-3">
@@ -42,7 +42,7 @@
                 </select>
             </div>--}} 
             <div class="col-12">
-                <button type="submit" class="btn btn-primary mb-2">Add  Manager</button>
+                <button type="submit" class="btn btn-primary mb-2">Add  business</button>
             </div>
         </div>
     </form>

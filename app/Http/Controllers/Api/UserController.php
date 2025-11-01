@@ -55,13 +55,14 @@ class UserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
             $token = $user->createToken('auth_token')->plainTextToken; 
+            $variation = @implode(',', $request->variation);
             $arrOrder = [
                 'uid'=> $user->id, 
                 'address' => $request->address,
                 'phone' => $request->phone,
                 'pickup_address' => $request->pickup_address,
                 'pick_name' => $request->pick_name,
-                'variation' => $request->variation ?? null,
+                'variation' => $variation,
                 'variation_meter' => $request->variation_meter ?? null,
                 'drop_mobileno' => $request->drop_mobileno ?? null,
                 'drop_name' => $request->drop_name ?? null,
@@ -117,4 +118,35 @@ class UserController extends Controller
                 'token_type' => 'Bearer',
             ]);
     } 
+
+    public function login(Request $request)
+     {
+        $request->validate([
+            'name' => 'required|string',
+            'password' => 'required',
+             
+        ]);
+          //   return response()->json($request);
+        $user = User::where('email', $request->name)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid name or password'
+            ], 401);
+        }
+
+        $token = $user->createToken('LoginToken')->plainTextToken;
+
+       return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+        return response()->json(['status' => true, 'message' => 'Logged out successfully']);
+    }
 }

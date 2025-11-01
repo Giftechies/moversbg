@@ -18,16 +18,10 @@ class Order extends Model
     {
         return $this->belongsTo(User::class, 'uid');
     }
-
-   
-
     public function dropPoint()
     {
         return $this->hasOne(\App\Models\DropPoint::class, 'order_id', 'id');
     }
-
-   
-     
 
     public function complication()
     {

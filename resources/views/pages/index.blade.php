@@ -1,33 +1,34 @@
 @extends('layouts.admin')
-@section('content') 
-    <h4>Pages List</h4>
-    
-    <a href="{{ route('pages.create') }}" class="btn btn-success mb-2">Add Page</a>
+@section('content')
+<div class="container">
+    <h2>Pages</h2>
+    <a href="{{ route('pages.create') }}" class="btn btn-primary mb-3">Add New Page</a>
+
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Title</th>
+                <th>Title</th> 
+                <th>Parent</th> 
                 <th>Status</th>
-                <th>Actions</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($pages as $page)
-                <tr>
-                    <td>{{ $page->id }}</td>
-                    <td>{{ $page->title }}</td>
-                    <td>{{ $page->status ? 'Publish' : 'Unpublish' }}</td>
-                    <td>
-                        <a href="{{ route('pages.edit', $page->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                        <form action="{{ route('pages.destroy', $page->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
-                    </td>
-                </tr>
+            @foreach ($pages as $page)
+            <tr>
+                <td>{{ $page->title }}</td> 
+                <td>{{ $page->parent ? $page->parentPage->title : '—' }}</td> 
+                <td>{{ $page->status ? 'Active' : 'Inactive' }}</td> 
+                <td>
+                    <a href="{{ route('pages.edit', $page->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                    <form action="{{ route('pages.destroy', $page->id) }}" method="POST" style="display:inline;">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this page?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
+</div>
 @endsection

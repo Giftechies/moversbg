@@ -39,7 +39,16 @@
                             <i class="bi bi-grid me-2"></i> Orders
                         </a>
                     </li>
-                     
+                     <li class="nav-item">
+                        <a href="{{ route('services.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> Services
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('roles.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> Roles
+                        </a>
+                    </li>
                    <!-- <li class="nav-item">
                         <a href="{{ route('category.create') }}" class="nav-link text-white">
                             <i class="bi bi-plus me-2"></i> Create Category
@@ -61,8 +70,8 @@
                         </a>
                     </li>-->
                     <li class="nav-item">
-                        <a href="{{ route('managers.index') }}" class="nav-link text-white">
-                            <i class="bi bi-person me-2"></i> Managers
+                        <a href="{{ route('business.index') }}" class="nav-link text-white">
+                            <i class="bi bi-person me-2"></i> Business
                         </a>
                     </li>
                   
@@ -136,6 +145,16 @@
                             <i class="bi bi-gear me-2"></i> Property Types
                         </a>
                     </li>
+                     <li class="nav-item">
+                        <a href="{{ route('extra-charges.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> Extra Charges
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="{{ route('faqs.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> FAQ
+                        </a>
+                    </li> 
                 </ul>
             </div>
         </nav>
@@ -156,6 +175,21 @@
                     <li class="nav-item">
                         <a href="{{ route('profile.edit') }}" class="nav-link text-dark">
                             <i class="bi bi-person me-2"></i> Profile
+                        </a>
+                    </li>
+                      <li class="nav-item">
+                        <a href="{{ route('orders') }}" class="nav-link text-white">
+                            <i class="bi bi-grid me-2"></i> Orders
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="{{ route('services.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> Services
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('roles.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> Roles
                         </a>
                     </li>
                     <!-- <li class="nav-item">
@@ -188,11 +222,7 @@
                             <i class="bi bi-tag me-2"></i> Coupons
                         </a>
                     </li> -->
-                    <li class="nav-item">
-                        <a href="{{ route('managers.index') }}" class="nav-link text-dark">
-                            <i class="bi bi-person me-2"></i> Managers
-                        </a>
-                    </li>
+                    
                     <!-- <li class="nav-item">
                         <a href="{{ route('zones.index') }}" class="nav-link text-dark">
                             <i class="bi bi-geo-alt me-2"></i> Zones
@@ -262,12 +292,12 @@
                             <i class="bi bi-gear me-2"></i> Property Types
                         </a>
                     </li>
-                                                         <li class="nav-item">
-    <a  href="{{ route('faqs.index') }}" class="nav-link text-dark">
-        <i class="bi bi-gear me-2"></i> FAQs
-       
-    </a>
-</li>
+                    <li class="nav-item">
+                        <a  href="{{ route('faqs.index') }}" class="nav-link text-dark">
+                            <i class="bi bi-gear me-2"></i> FAQs
+                           
+                        </a>
+                    </li>
                 </ul>
 
             </div>

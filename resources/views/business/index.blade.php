@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h4>  Managers List</h4>
-    <a href="{{ route('managers.create') }}" class="btn btn-success mb-2">Add   Manager</a>
+    <h4>  Business List</h4>
+    <a href="{{ route('business.create') }}" class="btn btn-success mb-2">Add   Business</a>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -15,16 +15,16 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($managers as $manager)
+            @foreach($business as $business)
                 <tr>
-                    <td>{{ $manager->id }}</td>
-                    <td>{{ $manager->name }}</td>
-                    <td>{{ $manager->email }}</td>
-                    {{--<td>{{ $manager->zone->title ?? 'N/A' }}</td>--}} 
-                    <td>{{ $manager->status ? 'Publish' : 'UnPublish' }}</td>
+                    <td>{{ $business->id }}</td>
+                    <td>{{ $business->name }}</td>
+                    <td>{{ $business->email }}</td>
+                    {{--<td>{{ $business->zone->title ?? 'N/A' }}</td>--}} 
+                    <td>{{ $business->status ? 'Publish' : 'UnPublish' }}</td>
                     <td>
-                        <a href="{{ route('managers.edit', $manager->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                        <form action="{{ route('managers.destroy', $manager->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('business.edit', $business->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                        <form action="{{ route('business.destroy', $business->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>

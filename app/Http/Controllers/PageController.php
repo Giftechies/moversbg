@@ -1,55 +1,120 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\Page;
 use Illuminate\Http\Request;
+use App\Models\Page;
 
 class PageController extends Controller
 {
+    // List all pages
     public function index()
     {
-        $pages = Page::all();
+        $pages = Page::with("parentPage")->orderBy('id', 'desc')->get();
         return view('pages.index', compact('pages'));
     }
 
+    // Show create form
     public function create()
     {
-        return view('pages.create');
+        $parents = \App\Models\Page::orderBy('title', 'asc')->get();
+        return view('pages.create', compact('parents'));
     }
 
+    // Store new page
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'status' => 'required|in:0,1',
-            'description' => 'required',
+        $validated = $request->validate([
+            'title' => 'required|string',
+            'description' => 'required|string', 
+            'status' => 'required|integer',
         ]);
 
-        Page::create($request->all());
+        $content = $request->input('description');
+        // Decode entities like \u003C / \u003E
+        $content = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        // Allow only safe tags
+        $allowedTags = '<p><strong><em><ul><ol><li><br><h1><h2><h3>';
+        $content = strip_tags($content, $allowedTags);
+        // Optional tidy-up
+        $content = trim($content); 
+
+        Page::create([
+            'title' => $request->title,
+            'description' => $content, 
+            'status' => $request->status,
+            'summary' => $request->summary,
+            'show_map' => $request->has('show_map'),
+            'show_process' => $request->has('show_process'),
+            'show_faq' => $request->has('show_faq'),
+            'parent' => $request->parent,
+            'slug' => $this->generateUniqueSlug($request->title),
+        ]);
+
         return redirect()->route('pages.index')->with('success', 'Page created successfully.');
     }
 
-    public function edit(Page $page)
+    // Show edit form
+    public function edit($id)
     {
-        return view('pages.edit', compact('page'));
+        $page = \App\Models\Page::findOrFail($id);
+        $parents = \App\Models\Page::where('id', '!=', $id)
+            ->orderBy('title', 'asc')
+            ->get();
+        return view('pages.edit', compact('page', 'parents'));
     }
 
-    public function update(Request $request, Page $page)
+    // Update page
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'required',
-            'status' => 'required|in:0,1',
-            'description' => 'required',
+        $page = Page::findOrFail($id);
+
+        $validated = $request->validate([
+            'title' => 'required|string',
+            'description' => 'required|string', 
+            'status' => 'required|integer',
+        ]);
+        
+        $page->update([
+            'title' => $request->title,
+            'description' => $request->description, 
+            'status' => $request->status,
+            'summary' => $request->summary,
+            'show_map' => $request->has('show_map'),
+            'show_process' => $request->has('show_process'),
+            'show_faq' => $request->has('show_faq'),
+            'parent' => $request->parent,
+            'slug' => $this->generateUniqueSlug($request->title, $id),
         ]);
 
-        $page->update($request->all());
         return redirect()->route('pages.index')->with('success', 'Page updated successfully.');
     }
 
-    public function destroy(Page $page)
+    // Delete page
+    public function destroy($id)
     {
+        $page = Page::findOrFail($id);
         $page->delete();
         return redirect()->route('pages.index')->with('success', 'Page deleted successfully.');
     }
-}
 
+    private function generateUniqueSlug($title, $id = null)
+    {
+        // Convert title to basic slug
+        $slug = \Str::slug($title);
+
+        // Check if slug already exists
+        $count = \App\Models\Page::where('slug', $slug)
+            ->when($id, function ($query, $id) {
+                return $query->where('id', '!=', $id);
+            })
+            ->count();
+
+        // If duplicate exists, append a number
+        if ($count > 0) {
+            $slug .= '-' . ($count + 1);
+        }
+
+        return $slug;
+    }
+}

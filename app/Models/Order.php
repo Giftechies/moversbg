@@ -19,8 +19,25 @@ class Order extends Model
         return $this->belongsTo(User::class, 'uid');
     }
 
-    public function category()
+   
+
+    public function dropPoint()
     {
-        return $this->belongsTo(Category::class, 'cat_id');
+        return $this->hasOne(\App\Models\DropPoint::class, 'order_id', 'id');
     }
+
+   
+     
+
+    public function complication()
+    {
+        return $this->hasOne(Complications::class, 'id', 'complication_id');
+    }
+
+    public function logistic()
+    {
+        return $this->hasOne(Logistic::class, 'order_id', 'id');
+    }
+
+
 }

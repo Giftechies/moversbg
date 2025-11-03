@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\ExtraChargeApiController;
 use App\Http\Controllers\Api\PageApiController;
 use App\Http\Controllers\Api\ServiceApiController; 
-use App\Http\Controllers\Api\BusinessApiController;
+use App\Http\Controllers\Api\BusinessApiController; 
 
 Route::get('/variations', [ComplicationController::class, 'index']); 
 Route::get('/move-types', [MoveTypeController::class, 'index']);
@@ -44,8 +44,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/orders/{id}/reschedule-history', [OrdersController::class, 'getRescheduleHistory']);
     Route::get('/order/{order_id}/details', [OrdersController::class, 'getOrderDetails']);
 });
-Route::post('/login', [LoginController::class, 'login']);
-Route::middleware('auth:sanctum')->post('/logout', [LoginController::class, 'logout']);
+Route::post('/login', [UserController::class, 'login']);
+Route::middleware('auth:sanctum')->post('/logout', [UserController::class, 'logout']);
 /*
 Route::post('/token', function (Request $request) {
     $user = new \App\Models\User();

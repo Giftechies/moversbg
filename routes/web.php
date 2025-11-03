@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
@@ -27,12 +28,9 @@ use App\Http\Controllers\ExtraChargeController;
 use App\Http\Controllers\ServiceController; 
 use App\Http\Controllers\RolePermissionController;
 
- 
-
 Route::get('/', function () {
     return view('welcome');
 });
-
  
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::middleware('auth')->group(function () {
@@ -81,4 +79,4 @@ Route::middleware('auth')->group(function () {
     Route::put('/services/{id}', [ServiceController::class, 'update'])->name('services.update');
     Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
 });
-require __DIR__.'/auth.php';
+require __DIR__.'/auth.php'; 

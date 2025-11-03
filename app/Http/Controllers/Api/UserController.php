@@ -119,31 +119,28 @@ class UserController extends Controller
             ]);
     } 
 
-    public function login(Request $request)
+     public function login(Request $request)
      {
-        $request->validate([
-            'name' => 'required|string',
-            'password' => 'required',
-             
+        $all = $request->all();
+        //print_r($all);  die;
+       $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
         ]);
-          //   return response()->json($request);
-        $user = User::where('email', $request->name)->first();
-
+        $user = User::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                 'status' => false,
-                'message' => 'Invalid name or password'
+                'message' => 'Invalid email or password',
             ], 401);
         }
-
         $token = $user->createToken('LoginToken')->plainTextToken;
-
-       return response()->json([
+        return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
     }
-
+    
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();

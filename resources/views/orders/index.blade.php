@@ -23,13 +23,7 @@
             <td>{{ $order->odate }}</td>
             <td>
                 <div class="d-flex">
-                    <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-info me-2">View</a>
-                    <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-sm btn-primary me-2">Edit</a>
-                    <form action="{{ route('orders.destroy', $order->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
+                    <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-info me-2">View</a>  
                 </div>
             </td>
         </tr>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -26,10 +27,10 @@ class OrderController extends Controller
         ->paginate($pageSize);
         return view('orders.index', compact('orders'));
     } 
-    public function show(Order $order)
+    public function show($order)
     {
         // Eager load relationships
-        $order->load('user', 'dropPoint', 'logisticsProducts');
+        $order = Order::with('user', 'dropPoint', 'logisticsProducts','OrderReschedule')->where("tbl_order.id", $order)->first(); 
 
         // Return the view with the order data
         return view('orders.show', compact('order'));

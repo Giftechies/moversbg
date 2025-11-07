@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Order;
+use App\Models\DropPoint;
+use App\Models\LogisticsProduct;
 
 class Order extends Model
 {
@@ -18,20 +21,19 @@ class Order extends Model
     {
         return $this->belongsTo(User::class, 'uid');
     }
+ 
     public function dropPoint()
     {
-        return $this->hasOne(\App\Models\DropPoint::class, 'order_id', 'id');
-    } 
-  
-    // Define the relationship with the LogisticsProduct model
+        return $this->hasOne(DropPoint::class, 'order_id', 'id');
+    }
+
     public function logisticsProducts()
     {
         return $this->hasMany(LogisticsProduct::class, 'oid');
-    }
-
-    public function getRescheduleHistory()
+    } 
+    public function OrderReschedule()
     {
-        return $this->hasMany(getRescheduleHistory::class, 'order_id');
+        return $this->hasMany(OrderReschedule::class, 'order_id');
     }
 
 }

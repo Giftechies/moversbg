@@ -8,11 +8,20 @@ use Illuminate\Support\Facades\Hash;
 
 class BusinessController extends Controller
 {
-    public function index()
-    {
-        $business = Business::all();
-        return view('business.index', compact('business'));
-    }
+    public function index(Request $request)
+{
+    $search = $request->input('search');
+    $business = Business::when($search, function ($query, $search) {
+        return $query->where('name', 'like', '%' . $search . '%')
+            ->orWhere('email', 'like', '%' . $search . '%');
+    })
+    ->orderBy('id', 'asc')
+    ->paginate(10);
+
+    $business->appends(['search' => $search]);
+
+     return view('business.index', compact('business', 'search'));
+}
 
     public function create()
     {

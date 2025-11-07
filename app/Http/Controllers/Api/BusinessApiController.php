@@ -42,7 +42,7 @@ class BusinessApiController extends Controller
             'password' => Hash::make($request->user_password), // ✅ same field name
             'mobile' => $request->mobile,
             'business_id' => $business->id,
-            'role' => 'business',
+            'role' => 'Removalist',
         ]);
         $token = $user->createToken('auth_token')->plainTextToken; 
  

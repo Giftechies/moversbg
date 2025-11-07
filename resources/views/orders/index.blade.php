@@ -2,6 +2,20 @@
 
 @section('content')
     <h1>Orders</h1>
+
+<div class="row mb-3">
+    <div class="col-md-12">
+        <form action="{{ route('orders') }}" method="GET">
+            <div class="input-group">
+                <input type="search" name="search" value="{{ $search }}" class="form-control" placeholder="Search orders...">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fa fa-search"></i> Search
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <table class="table table-striped table-hover table-bordered">
     <thead class="table-dark">
         <tr>
@@ -15,21 +29,23 @@
     </thead>
     <tbody>
         @foreach($orders as $order)
-        <tr>
-            <td>{{ $order->name }}</td>
-            <td>{{ $order->email }}</td>
-            <td>{{ $order->pick_address }}</td>
-            <td>{{ $order->drop_address }}</td>
-            <td>{{ $order->odate }}</td>
-            <td>
-                <div class="d-flex">
-                    <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-info me-2">View</a>  
-                </div>
-            </td>
-        </tr>
+            <tr>
+                <td>{{ $order->name }}</td>
+                <td>{{ $order->email }}</td>
+                <td>{{ $order->pick_address }}</td>
+                <td>{{ $order->drop_address }}</td>
+                <td>{{ $order->odate }}</td>
+                <td>
+                    <div class="d-flex">
+                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-info me-2">View</a>
+                    </div>
+                </td>
+            </tr>
         @endforeach
     </tbody>
 </table>
+
+{{ $orders->appends(['search' => $search])->links() }}
 
 {{ $orders->links() }}
 @endsection

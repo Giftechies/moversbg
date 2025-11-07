@@ -13,12 +13,12 @@ class Business extends Model
     protected $table = 'tbl_business';
 
     protected $fillable = [
-        'name', 'email','mobile', 'user_id'
+        'name', 'email','mobile', 'user_id', 'abn', 'img', 'website', 'zone_id', 'address', 
     ];
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'business_id');
     }
 }
 

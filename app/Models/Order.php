@@ -11,7 +11,7 @@ class Order extends Model
 
     protected $table = 'tbl_order';
 
-    protected $fillable = ['uid','rid','dzone','vehicleid','pick_address','pick_lat','pick_lng','subtotal','o_total','cou_id','cou_amt','trans_id','o_status','dcommission','wall_amt','p_method_id','odate','date_type','rlats','rlongs','delivertime','pick_name','pick_mobile','property_type','bed_rooms','place_type','street_types','storage_unit','facilities_required','additional_notes','meters','flights'];
+    protected $fillable = ['uid','rid','dzone','vehicleid','pick_address','pick_lat','pick_lng','subtotal','o_total','cou_id','cou_amt','trans_id','o_status','dcommission','wall_amt','p_method_id','odate','date_type','rlats','rlongs','delivertime','pick_name','pick_mobile','property_type','bed_rooms','place_type','street_types','storage_unit','facilities_required','additional_notes','meters','flights','cancel_reason'];
 
     // Example relationships
     public function user()
@@ -21,17 +21,17 @@ class Order extends Model
     public function dropPoint()
     {
         return $this->hasOne(\App\Models\DropPoint::class, 'order_id', 'id');
-    }
-
-    public function complication()
+    } 
+  
+    // Define the relationship with the LogisticsProduct model
+    public function logisticsProducts()
     {
-        return $this->hasOne(Complications::class, 'id', 'complication_id');
+        return $this->hasMany(LogisticsProduct::class, 'oid');
     }
 
-    public function logistic()
+    public function getRescheduleHistory()
     {
-        return $this->hasOne(Logistic::class, 'order_id', 'id');
+        return $this->hasMany(getRescheduleHistory::class, 'order_id');
     }
-
 
 }

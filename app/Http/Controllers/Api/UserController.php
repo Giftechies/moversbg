@@ -10,7 +10,7 @@ use App\Models\Order;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     
@@ -20,7 +20,7 @@ class UserController extends Controller
            $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required|email|unique:tbl_user',
-                'password' => 'required',
+                'password' => 'required|string|min:8',
                 'address' => 'required|string|max:500',
                 'phone' => 'nullable|string|max:20', 
                 'pickup_address' => 'required',
@@ -119,28 +119,122 @@ class UserController extends Controller
             ]);
     } 
 
-     public function login(Request $request)
-     {
-        $all = $request->all();
-        //print_r($all);  die;
-       $request->validate([
+       public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string',
         ]);
-        $user = User::where('email', $request->email)->first();
-        if (!$user || !Hash::check($request->password, $user->password)) {
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+      /*  if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid email or password',
+            ], 401);
+        }*/
+
+        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return response()->json([
                 'status' => false,
                 'message' => 'Invalid email or password',
             ], 401);
         }
+
+        $user = Auth::user();
         $token = $user->createToken('LoginToken')->plainTextToken;
+
         return response()->json([
+            'success' => true,
             'access_token' => $token,
             'token_type' => 'Bearer',
+            'user' => $user
         ]);
     }
-    
+
+    public function profile()
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'User not logged in'], 401);
+        }
+
+        $user = Auth::user();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Profile fetched successfully',
+            'data' => $user
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'User not logged in'], 401);
+        }
+
+        $user = Auth::user();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'nullable|string|max:255',
+            'email' => 'nullable|email|unique:tbl_user,email,' . $user->id,
+            'mobile' => 'nullable|string|max:20', 
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Update user fields
+        $user->name = $request->name ?? $user->name;
+        $user->email = $request->email ?? $user->email;
+        $user->mobile = $request->mobile ?? $user->mobile;       
+        $user->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Profile updated successfully',
+            'data' => $user
+        ]);
+    }
+
+    public function changePassword(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'User not logged in'], 401);
+        }
+
+        $user = Auth::user();
+
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required|string',
+            'new_password' => 'required|string|min:8|confirmed', 
+            // requires a field named new_password_confirmation
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Check if old password matches
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json(['message' => 'Current password is incorrect'], 400);
+        }
+
+        // Update password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Password changed successfully'
+        ]);
+    }
+
+
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();

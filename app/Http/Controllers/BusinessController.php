@@ -10,7 +10,7 @@ class BusinessController extends Controller
 {
     public function index()
     {
-        $business = Business::with('zone')->get();
+        $business = Business::all();
         return view('business.index', compact('business'));
     }
 

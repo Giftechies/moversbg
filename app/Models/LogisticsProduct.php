@@ -17,11 +17,10 @@ class LogisticsProduct extends Model
         'quantity',
         'price',
         'total',
-    ];
-
-    // Example relationship
-    public function logistic()
+    ];   
+    
+    public function order()
     {
-        return $this->belongsTo(Logistic::class, 'oid');
-    }
+        return $this->belongsTo(Order::class, 'oid');
+    }   
 }

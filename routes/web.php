@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy'); 
     Route::resource('subcategories', SubCategoryController::class);
-
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders');
     Route::resource('codes', CodeController::class);  
     Route::resource('scoupons', ScouponController::class);

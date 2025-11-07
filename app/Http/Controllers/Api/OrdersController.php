@@ -10,7 +10,7 @@ use App\Models\Logistics;
 use App\Models\DropPoint;
 use App\Models\OrderReschedule; 
 use App\Models\Complications; 
-
+use Auth;
 class OrdersController extends Controller
 {
     
@@ -80,7 +80,7 @@ class OrdersController extends Controller
     }
  
 
-    public function getUserOrders(Request $request, $uid){
+    public function getUserOrders(Request $request, $uid = 0){
 
         if (Auth::check()) {
             // ✅ User is logged in
@@ -140,10 +140,16 @@ class OrdersController extends Controller
 
     public function cancelOrder(Request $request, $id)
     {
-        $order = Order::where('id', $id)
-            ->where('uid', $request->user()->id)
-            ->first();
 
+        if (Auth::check()) {
+            // ✅ User is logged in
+            $uid = Auth::id(); // Get user ID
+            $user = Auth::user(); // Get full user object
+        }
+        $order = Order::where('id', $id)
+            ->where('uid', $uid)
+            ->first();
+        
         if (!$order) {
             return response()->json([
                 'status' => false,
@@ -157,8 +163,8 @@ class OrdersController extends Controller
                 'message' => 'This order is already cancelled.'
             ]);
         }
-
-        $order->update(['status' => 'cancelled']);
+        $reason = $request->reason;
+        $order->update(['status' => 'cancelled','cancel_reason' => $reason]);
 
         return response()->json([
             'status' => true,
@@ -174,8 +180,14 @@ class OrdersController extends Controller
             'reason' => 'nullable|string|max:255',
         ]);
 
+        if (Auth::check()) {
+            // ✅ User is logged in
+            $uid = Auth::id(); // Get user ID
+            $user = Auth::user(); // Get full user object
+        }
+
         $order = Order::where('id', $id)
-            ->where('uid', $request->user()->id)
+            ->where('uid', $uid)
             ->first();
 
         if (!$order) {
@@ -196,7 +208,7 @@ class OrdersController extends Controller
         // ✅ Log reschedule history
         OrderReschedule::create([
             'order_id' => $order->id,
-            'uid' => $request->user()->id,
+            'uid' => $uid,
             'old_date' => $oldDate,
             'new_date' => $request->new_date,
             'reason' => $request->reason,
@@ -223,7 +235,7 @@ class OrdersController extends Controller
     public function getOrderDetails($order_id)
     {
         // ✅ Fetch order with main relationships
-        $order = Order::with(['user', 'dropPoint', 'logistic'])
+        $order = Order::with(['user', 'dropPoint', 'logisticsProducts','RescheduleHistory'])
             ->where('id', $order_id)
             ->first();
 
@@ -233,11 +245,6 @@ class OrdersController extends Controller
                 'message' => 'Order not found.'
             ], 404);
         }
-
-        // ✅ Fetch related entities (if not directly linked in orders table)
-       // $category = Category::where('uid', $order->uid)->latest()->first();
-      //  $complication = Complications::where('uid', $order->uid)->latest()->first();
-        $order = Order::with(['category', 'complication', 'logistic', 'dropPoint', 'user'])->find($order_id);
 
         return response()->json([
             'status' => true, 

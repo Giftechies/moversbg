@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\ExtraChargeApiController;
 use App\Http\Controllers\Api\PageApiController;
 use App\Http\Controllers\Api\ServiceApiController; 
 use App\Http\Controllers\Api\BusinessApiController; 
+use App\Http\Controllers\Api\AuthController;
 
 Route::get('/variations', [ComplicationController::class, 'index']); 
 Route::get('/move-types', [MoveTypeController::class, 'index']);
@@ -36,14 +37,7 @@ Route::get('/pages/{slug}', [PageApiController::class, 'show']);
 Route::get('/services', [ServiceApiController::class, 'index']); // existing route
 Route::get('/services/{slug}', [ServiceApiController::class, 'show']); // 👈 new route
 Route::post('/register-business', [BusinessApiController::class, 'registerManagerAndBusiness']);
-Route::get('/orders', [OrdersController::class, 'index']); 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/orders/user/{uid?}', [OrdersController::class, 'getUserOrders']);
-    Route::post('/orders/{id}/cancel', [OrdersController::class, 'cancelOrder']);
-    Route::post('/orders/{id}/reschedule', [OrdersController::class, 'rescheduleOrder']);
-    Route::get('/orders/{id}/reschedule-history', [OrdersController::class, 'getRescheduleHistory']);
-    Route::get('/order/{order_id}/details', [OrdersController::class, 'getOrderDetails']);
-});
+Route::get('/orders', [OrdersController::class, 'index']);  
 Route::post('/login', [UserController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [UserController::class, 'logout']);
 /*
@@ -55,3 +49,18 @@ Route::post('/token', function (Request $request) {
     return response()->json(['token' => $token]);
 });*/
 //require __DIR__.'/auth.php';
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/orders/user/{uid?}', [OrdersController::class, 'getUserOrders']);
+    Route::post('/orders/{id}/cancel', [OrdersController::class, 'cancelOrder']);
+    Route::post('/orders/{id}/reschedule', [OrdersController::class, 'rescheduleOrder']);
+    Route::get('/orders/{id}/reschedule-history', [OrdersController::class, 'getRescheduleHistory']);
+    Route::get('/order/{order_id}/details', [OrdersController::class, 'getOrderDetails']);
+    Route::post('/logout', [AuthController::class, 'logout']);  
+    Route::post('/change-password', [UserController::class, 'changePassword'])->name('password.change');  
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
+    // any other protected route here
+});
+

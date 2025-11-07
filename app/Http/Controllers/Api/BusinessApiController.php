@@ -14,29 +14,32 @@ class BusinessApiController extends Controller
     {
         
 
-         $validator = Validator::make($request->all(), [
-                  'user_name' => 'required|string|max:255',
+        $validator = Validator::make($request->all(), [
+            'user_name' => 'required|string|max:255',
             'user_email' => 'required|email|unique:tbl_user,email',
-            'user_password' => 'required|min:6',
-            'mobile' => 'nullable|string',
+            'user_password' => 'required|min:8',
+            'mobile' => 'required|string',
             'business_name' => 'required|string|max:255', 
-            ]);
+        ]);
 
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()], 422);
-            } 
-         // Create Business tied to the user
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        } 
+        //print_r($request->all()); die;
+        // Create Business tied to the user
         $business = Business::create([
             'name' => $request->business_name,
-            'email' => $request->user_email, 
-            'mobile' => $request->mobile, 
+            'email' => $request->company_email, 
+            'website' => $request->company_site, 
+            'mobile' => $request->mobile,
+            'abn' => $request->abn, 
         ]);
 
         // Create User as Manager
         $user = User::create([
-            'name' => $request->user_name,
-            'email' => $request->user_email,
-            'password' => Hash::make($request->user_password),
+             'name' => $request->user_name,
+            'email' => $request->user_email,   // ✅ This must match your login field
+            'password' => Hash::make($request->user_password), // ✅ same field name
             'mobile' => $request->mobile,
             'business_id' => $business->id,
             'role' => 'business',

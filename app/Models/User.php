@@ -22,7 +22,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $table = 'tbl_user';
-
+    protected static $ignoreTeam = true;
+    
     protected $fillable = [
         'name',
         'mobile',

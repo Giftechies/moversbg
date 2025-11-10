@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Role;
 use App\Models\Category;
 use App\Models\Complications;
 use App\Models\DropPoint;
@@ -54,6 +55,10 @@ class UserController extends Controller
                 'mobile' => $request->phone,
                 'password' => Hash::make($request->password),
             ]);
+            // Assign the "driver" role
+            $role = Role::where('name', 'customer')->first();
+            $user->roles()->attach($role);
+            
             $token = $user->createToken('auth_token')->plainTextToken; 
             $variation = @implode(',', $request->variation);
             $arrOrder = [

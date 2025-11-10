@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Role;
 use App\Models\Business;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -44,6 +45,9 @@ class BusinessApiController extends Controller
             'business_id' => $business->id,
             'role' => 'Removalist',
         ]);
+        // Assign the "driver" role
+        $role = Role::where('name', 'Removalist')->first();
+        $user->roles()->attach($role);
         $token = $user->createToken('auth_token')->plainTextToken; 
  
         return response()->json([

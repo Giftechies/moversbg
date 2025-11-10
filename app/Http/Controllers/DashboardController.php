@@ -31,7 +31,7 @@ class DashboardController extends Controller
         $totalCompletedOrders = Order::where('o_status', 'Completed')->count();
         $totalCancelledOrders = Order::where('o_status', 'Cancelled')->count();
         $totalSales = Order::where('o_status', 'Completed')->sum('o_total');
-        $totalEarnings = Order::where('o_status', 'Completed')->sum(\DB::raw('o_total * dcommission / 100'));
+        $totalEarnings = Order::where('o_status', 'Completed')->sum(\DB::raw('o_total * dcommission / 100')); 
 
         return view('dashboard.index', compact(
             'totalZones',

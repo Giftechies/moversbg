@@ -18,6 +18,7 @@ class BusinessApiController extends Controller
         $validator = Validator::make($request->all(), [
             'user_name' => 'required|string|max:255',
             'user_email' => 'required|email|unique:tbl_user,email',
+            'company_email' => 'required|email',
             'user_password' => 'required|min:8',
             'mobile' => 'required|string',
             'business_name' => 'required|string|max:255', 

@@ -2,7 +2,7 @@
 
 @section('content')
     <h4>Edit Vehicle</h4>
-   <form method="post" action="{{ route('vehicles.update', $vehicle->id) }}" enctype="multipart/form-data">
+   <form method="post" action="{{ route('vehicleTypes.update', $vehicle->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="row">

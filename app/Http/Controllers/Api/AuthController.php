@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Spatie\Permission\Traits\HasRoles;
+
 class AuthController extends Controller
 {
     
@@ -48,6 +50,7 @@ public function register(Request $request)
     ]);
 
     $user = \App\Models\User::where('email', $request->email)->first();
+    $roles = $user->getRoleNames();
 
     if (!$user) {
         return response()->json([
@@ -71,6 +74,7 @@ public function register(Request $request)
         'data' => [
             'user' => $user,
             'token' => $token,
+            'roles' => $roles,
             'token_type' => 'Bearer'
         ]
     ]);

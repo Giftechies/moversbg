@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('products', ProductController::class);
     Route::get('get-subcategories/{catId?}', [ProductController::class, 'getSubcategories'])->name('get.subcategories'); 
     Route::resource('riders', RiderController::class);
-    Route::resource('vehicles', VehicleController::class);
+    Route::resource('vehicleTypes', VehicleController::class);
     Route::resource('banners', BannerController::class); 
     Route::resource('paymentlists', PaymentListController::class);
     Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');

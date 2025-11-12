@@ -49,7 +49,7 @@ class VehicleController extends Controller
         $vehicle->description = $request->input('cdesc');
         $vehicle->save();
 
-        return redirect()->route('vehicles.index')->with('success', 'Vehicle created successfully');
+        return redirect()->route('vehicleTypes.index')->with('success', 'Vehicle created successfully');
     }
 
     public function edit($id)
@@ -90,6 +90,6 @@ class VehicleController extends Controller
         $vehicle->size = $request->input('size');
         $vehicle->description = $request->input('cdesc');
         $vehicle->save();
-        return redirect()->route('vehicles.index')->with('success', 'Vehicle updated successfully');
+        return redirect()->route('vehicleTypes.index')->with('success', 'Vehicle updated successfully');
     }
 } 

@@ -95,8 +95,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('vehicles.index') }}" class="nav-link text-white">
-                            <i class="bi bi-truck me-2"></i> Vehicles
+                        <a href="{{ route('vehicleTypes.index') }}" class="nav-link text-white">
+                            <i class="bi bi-truck me-2"></i> Vehicle Types
                         </a>
                     </li>
                     <li class="nav-item">
@@ -105,11 +105,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
-    <a  href="{{ route('faqs.index') }}" class="nav-link text-white">
-        <i class="bi bi-gear me-2"></i> FAQs
-       
-    </a>
-</li>
+                        <a  href="{{ route('faqs.index') }}" class="nav-link text-white">
+                            <i class="bi bi-gear me-2"></i> FAQs
+                           
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ route('paymentlists.index') }}" class="nav-link text-white">
                             <i class="bi bi-credit-card me-2"></i> Payment Gateways
@@ -204,8 +204,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('vehicles.index') }}" class="nav-link text-dark">
-                            <i class="bi bi-truck me-2"></i> Vehicles
+                        <a href="{{ route('vehicleTypes.index') }}" class="nav-link text-dark">
+                            <i class="bi bi-truck me-2"></i> Vehicle Types
                         </a>
                     </li>
                     <li class="nav-item">

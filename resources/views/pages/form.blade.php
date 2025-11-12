@@ -5,7 +5,7 @@
 
 <div class="mb-3">
     <label>Description</label>
-    <textarea name="description" id="summernote" class="form-control" rows="4" required>{{ old('description', $page->description ?? '') }}</textarea>
+    <textarea name="description" id="summernote" class="form-control" rows="4">{{ old('description', $page->description ?? '') }}</textarea>
 </div>
 
 <div class="mb-3">

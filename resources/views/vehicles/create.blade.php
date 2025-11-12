@@ -3,7 +3,7 @@
 @section('content')
  
 <!-- start page title -->
-<form method="post" action="{{ route('vehicles.store') }}" enctype="multipart/form-data" novalidate>
+<form method="post" action="{{ route('vehicleTypes.store') }}" enctype="multipart/form-data" novalidate>
     @csrf
     <div class="row">
         <div class="form-group">

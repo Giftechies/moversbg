@@ -106,7 +106,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('vehicles.index') }}" class="nav-link text-white">
+                        <a href="{{ route('vehicleTypes.index') }}" class="nav-link text-white">
                             <i class="bi bi-truck me-2"></i> Vehicles
                         </a>
                     </li>
@@ -249,7 +249,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('vehicles.index') }}" class="nav-link text-dark">
+                        <a href="{{ route('vehicleTypes.index') }}" class="nav-link text-dark">
                             <i class="bi bi-truck me-2"></i> Vehicles
                         </a>
                     </li>

@@ -34,22 +34,22 @@
     </select>
 </div>
 
-        {{-- Current Image --}}
-        <div class="mb-3">
-            <label>Current Image</label><br>
-            @if($page->image)
-                <img src="{{ asset($page->image) }}" width="100" height="100" style="object-fit:cover;border-radius:8px;margin-bottom:10px;">
-            @else
-                <p class="text-muted">No image</p>
-            @endif
-        </div>
+{{-- Current Image --}}
+<div class="mb-3">
+    <label>Current Image</label><br>
+    @if($page->image)
+        <img src="{{ asset($page->image) }}" width="100" height="100" style="object-fit:cover;border-radius:8px;margin-bottom:10px;">
+    @else
+        <p class="text-muted">No image</p>
+    @endif
+</div>
 
-        {{-- Upload New Image --}}
-        <div class="mb-3">
-            <label>Upload New Image (optional)</label>
-            <input type="file" name="image" class="form-control" accept="image/*">
-            @error('image') <p class="text-danger">{{ $message }}</p> @enderror
-        </div>
+{{-- Upload New Image --}}
+<div class="mb-3">
+    <label>Upload New Image (optional)</label>
+    <input type="file" name="image" class="form-control" accept="image/*">
+    @error('image') <p class="text-danger">{{ $message }}</p> @enderror
+</div>
 
 <div class="form-check">
     <input type="checkbox" name="show_map" class="form-check-input" {{ old('show_map', $page->show_map ?? false) ? 'checked' : '' }}>

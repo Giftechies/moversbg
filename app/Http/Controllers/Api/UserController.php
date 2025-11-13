@@ -12,116 +12,139 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use DB;
+use Carbon\Carbon;
 class UserController extends Controller
 {
     
     public function store(Request $request)
     {
 
-           $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'email' => 'required|email|unique:tbl_user',
-                'password' => 'required|string|min:8',
-                'address' => 'required|string|max:500',
-                'phone' => 'nullable|string|max:20', 
-                'pickup_address' => 'required',
-                'pick_name' => 'required', 
-                'drop_mobileno' => 'required',
-                'drop_name' => 'required',
-                'drop_address' => 'required',
-                'drop_place_type' => 'required', 
-                'pick_address' => 'required|string|max:255',
-                'odate' => 'required|date', 
-                'total_amount' => 'required', 
-                'pick_name' => 'required|string|max:100',
-                'pick_mobile' => 'required|string|max:20',
-                'property_type' => 'required|string|max:100', 
-                'place_type' => 'nullable|string|max:100', 
-                'storage_unit' => 'nullable|string|max:100',
-                'facilities_required' => 'nullable|integer|max:255',
-                'additional_notes' => 'nullable|string|max:500',
-                'products' => 'required|array|min:1',
-                'products.*.product_name' => 'required|string|max:255',
-                'products.*.quantity' => 'required|integer|min:1',
-            ]);
+           try {
+                    $validator = Validator::make($request->all(), [
+                        'name' => 'required',
+                        'email' => 'required|email|unique:tbl_user',
+                        'phone' => 'nullable|string|max:20',
+                        'drop_address' => 'required',
+                        'drop_place_type' => 'required',
+                        'pickup_address' => 'required|string|max:255',
+                        'calendar' => 'required',
+                        'property_type' => 'required|max:100',
+                        'place_type' => 'nullable|max:100',
+                        'storage_unit' => 'nullable|string|max:100',
+                        'fitting' => 'nullable|string|max:255',
+                        'additional_notes' => 'nullable|string|max:500',
+                        'inventory' => 'required|array|min:1',
+                        'inventory.items.*.name' => 'required|string',
+                        'inventory.items.*.category' => 'required|string',
+                        'inventory.items.*.quantity' => 'required|integer|min:1'
+                    ]);
 
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()], 422);
-            }
-            $validated = $request->all();
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'mobile' => $request->phone,
-                'password' => Hash::make($request->password),
-            ]);
-            // Assign the "driver" role
-            $role = Role::where('name', 'customer')->first();
-            $user->roles()->attach($role);
-            
-            $token = $user->createToken('auth_token')->plainTextToken; 
-            $variation = @implode(',', $request->variation);
-            $arrOrder = [
-                'uid'=> $user->id, 
-                'address' => $request->address,
-                'phone' => $request->phone,
-                'pickup_address' => $request->pickup_address,
-                'pick_name' => $request->pick_name,
-                'variation' => $variation,
-                'variation_meter' => $request->variation_meter ?? null,
-                'drop_mobileno' => $request->drop_mobileno ?? null,
-                'drop_name' => $request->drop_name ?? null,
-                'drop_address' => $request->drop_address, 
-                'date_type' => $request->date_type ?? null,
-                'pick_address' => $request->pick_address,
-                'odate' => $request->odate,
-                'subtotal' => $request->total_amount,
-                'o_total' => $request->total_amount,
-                'pick_mobile' => $request->pick_mobile,
-                'property_type' => $request->property_type ?? null,
-                'bed_rooms' => $request->bed_rooms ?? null,
-                'place_type' => $request->place_type ?? null,
-                'street_types' => $request->street_types ?? null,
-                'storage_unit' => $request->storage_unit ?? null,
-                'facilities_required' => $request->facilities_required ?? null,
-                'additional_notes' => $request->additional_notes ?? null,
-                'meters' => $request->meters ?? null,
-                'flights' => $request->flights ?? null,
-            ];       
-            $order = Order::create($arrOrder);   
-            $arrDp = [
-                'uid'           => $user->id,
-                'order_id'      => $order->id,
-                'drop_address'  => $request->drop_address,
-                //'drop_lat'      => $request->drop_lat  ?? null,
-                //'drop_lng'      => $request->drop_lng  ?? null,
-                'drop_name'     => $request->drop_name,
-                'drop_mobile'   => $request->drop_mobileno ,  
-                'place_type'    => $request->drop_place_type ?? null,
-                'street_type'   => $request->drop_street_type ?? null,
-                'flights'       => $request->drop_flights ?? 0,
-                'meters'        => $request->drop_meters ?? 0,
-            ]; 
-            $drop_point = DropPoint::create($arrDp);
+                    if ($validator->fails()) {
+                        return response()->json(['errors' => $validator->errors()], 422);
+                    }
+                    DB::beginTransaction();
+                    $validated = $request->all();
+                    $pwd = rand(0, 999999);
+                    $user = User::create([
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'mobile' => $request->phone,
+                        'password' => Hash::make($pwd),
+                    ]);
 
-            // ✅ Create multiple products for one order (bulk insert)
-            $products = [];
-            foreach ($validated['products'] as $product) {
-                $products[] = [
-                    'oid' => $order->id,
-                    'product_name' => $product['product_name'],
-                    'quantity' => $product['quantity'],
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
-            }
+                    // Assign the "driver" role
+                    $role = Role::where('name', 'customer')->first();
+                    $user->roles()->attach($role);
 
-            LogisticsProduct::insert($products); 
+                    $token = $user->createToken('auth_token')->plainTextToken;
+                    $variation = '';
+                    $place_type = '';
+                    $date_range = "";
+                    $date_type = "";
+                    $from_date = null;
+                    $to_date = null;
+                    $o_total = 0;
+                    if(!empty($request->pick_variation)) $variation = @implode(',', $request->pick_variation);
+                    if(!empty($request->place_type)) $place_type = @implode(',', $request->place_type);
+                    if (!empty($request->input('inventory.total_price'))) $o_total = $request->input('inventory.total_price');
 
-            return response()->json([
-                'access_token' => $token,
-                'token_type' => 'Bearer',
-            ]);
+                    if (!empty($request->input('calendar.date_type'))) $date_type = $request->input('calendar.date_type');
+                    if (!empty($request->input('calendar.dates'))) {
+                        $dates = $request->input('calendar.dates'); 
+                        $dates = @explode("/", $dates[0]); 
+                        if (!empty($dates[0])) $from_date =   Carbon::createFromFormat('d-m-Y', $dates[0])->format('Y-m-d');
+                        if (!empty($dates[1])) $to_date =   Carbon::createFromFormat('d-m-Y', $dates[1])->format('Y-m-d');
+                    }
+                   
+                    $arrOrder = [
+                        'uid' => $user->id,
+                        'address' => $request->address,
+                        'phone' => $request->phone,
+                        'pick_address' => $request->pickup_address,
+                        'pick_name' => $request->name,
+                        'pickup_address_discreetly' => $request->pickup_address_discreetly ?? null,
+                        'variation_meter' => $request->pick_variation_meter ?? null,
+                        'drop_address' => $request->drop_address,
+                        'subtotal' => $o_total,
+                        'o_total' => $o_total,
+                        'pick_mobile' => $request->phone,
+                        'property_type' => $place_type ?? null,
+                        'bed_rooms' => $request->bed_rooms ?? null,
+                        'place_type' => $place_type ?? null,
+                        'street_types' => $variation ?? null,
+                        'storage_unit' => $request->storage_unit ?? null,
+                        'facilities_required' => $request->fitting ?? null,
+                        'additional_notes' => $request->additional_notes ?? null,
+                        'meters' => $request->pick_variation_meter ?? null,
+                        'flights' => $request->pick_flights ?? null,
+                        'date_type' => $date_type ?? null,
+                        'date_range' => $date_range,
+                        'from_date' => $from_date,
+                        'to_date' => $to_date
+                    ];
+                    $order = Order::create($arrOrder);
+                    $drop_variation = @implode(',', $request->drop_variation);
+                    $drop_place_type = @implode(',', $request->drop_place_type);
+                    $arrDp = [
+                        'uid' => $user->id,
+                        'order_id' => $order->id,
+                        'drop_address' => $request->drop_address,
+                        //'drop_lat' => $request->drop_lat ?? null,
+                        //'drop_lng' => $request->drop_lng ?? null,
+                        'place_type' => $drop_place_type ?? null,
+                        'street_type' => $drop_variation ?? null,
+                        'flights' => $request->drop_flights ?? 0,
+                        'meters' => $request->drop_meters ?? 0,
+                    ];
+                    $drop_point = DropPoint::create($arrDp);
+
+                    // ✅ Create multiple products for one order (bulk insert)
+                    $products = [];
+                    $inventory = $request->input('inventory.items');
+
+                    foreach ($inventory as $product) {
+                        $products[] = [
+                            'oid' => $order->id,
+                            'product_name' => $product['name'],
+                            'quantity' => $product['quantity'],
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
+                    }
+                    LogisticsProduct::insert($products);
+                    DB::commit();
+                    return response()->json([
+                        'access_token' => $token,
+                        'token_type' => 'Bearer',
+                    ]);
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'message' => 'Something went wrong',
+                        'error' => $e->getMessage(),
+                  ],500);
+        }
+
     } 
 
        public function login(Request $request)

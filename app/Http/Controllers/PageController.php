@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Page;
+use Illuminate\Support\Str;
 
 class PageController extends Controller
 {
@@ -28,8 +29,7 @@ class PageController extends Controller
             'title' => 'required|string',
             'description' => 'required|string', 
             'status' => 'required|integer',
-        'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $content = $request->input('description');

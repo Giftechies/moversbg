@@ -23,6 +23,7 @@ class Page extends Model
         'show_faq',
         'parent',
         'slug',
+        'image',
     ];
 
     // Cast toggles to boolean for easy handling
@@ -30,6 +31,7 @@ class Page extends Model
         'show_map' => 'boolean',
         'show_process' => 'boolean',
         'show_faq' => 'boolean', 
+
     ];
 
     public function parentPage()

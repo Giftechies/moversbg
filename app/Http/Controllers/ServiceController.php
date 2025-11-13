@@ -24,7 +24,8 @@ class ServiceController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048', 
+            'summary' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         // Generate unique slug
@@ -47,6 +48,7 @@ class ServiceController extends Controller
             'title' => $validated['title'],
             'slug' => $slug,
             'description' => $validated['description'] ?? null,
+            'summary' => $validated['summary'] ?? null,
             'image' => $imagePath,
             'status' => 1,
         ]);
@@ -67,13 +69,16 @@ class ServiceController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'summary' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'status' => 'required|boolean',
         ]);
 
         // Generate new slug if title changed
         $slug = Str::slug($validated['title']);
-        $count = Service::where('slug', 'like', "{$slug}%")->where('id', '!=', $id)->count();
+        $count = Service::where('slug', 'like', "{$slug}%")
+                        ->where('id', '!=', $id)
+                        ->count();
         if ($count > 0) {
             $slug = "{$slug}-{$count}";
         }
@@ -94,6 +99,7 @@ class ServiceController extends Controller
             'title' => $validated['title'],
             'slug' => $slug,
             'description' => $validated['description'] ?? null,
+            'summary' => $validated['summary'] ?? null,
             'image' => $imagePath,
             'status' => $validated['status'],
         ]);

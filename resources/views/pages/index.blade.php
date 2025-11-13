@@ -7,7 +7,8 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Title</th> 
+                <th>Title</th>
+                    <th>Image</th> 
                 <th>Parent</th> 
                 <th>Status</th>
                 <th>Action</th>
@@ -16,7 +17,16 @@
         <tbody>
             @foreach ($pages as $page)
             <tr>
+                 
                 <td>{{ $page->title }}</td> 
+                   <td>
+                        @if($page->image)
+                            <img src="{{ asset($page->image) }}" width="70" height="70" style="object-fit:cover;border-radius:8px;">
+                        @else
+                            <span class="text-muted">No image</span>
+                        @endif
+                    </td>
+                    <td></td>
                 <td>{{ $page->parent ? $page->parentPage->title : '—' }}</td> 
                 <td>{{ $page->status ? 'Active' : 'Inactive' }}</td> 
                 <td>

@@ -7,7 +7,7 @@ use App\Models\Page;
 
 class PageController extends Controller
 {
-    // List all pages
+    
     public function index()
     {
         $pages = Page::with("parentPage")->orderBy('id', 'desc')->get();
@@ -17,7 +17,7 @@ class PageController extends Controller
     // Show create form
     public function create()
     {
-        $parents = \App\Models\Page::orderBy('title', 'asc')->get();
+        $parents = Page::orderBy('title', 'asc')->get();
         return view('pages.create', compact('parents'));
     }
 
@@ -28,16 +28,23 @@ class PageController extends Controller
             'title' => 'required|string',
             'description' => 'required|string', 
             'status' => 'required|integer',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
         ]);
 
         $content = $request->input('description');
-        // Decode entities like \u003C / \u003E
         $content = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        // Allow only safe tags
         $allowedTags = '<p><strong><em><ul><ol><li><br><h1><h2><h3>';
         $content = strip_tags($content, $allowedTags);
-        // Optional tidy-up
         $content = trim($content); 
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('uploads/pages'), $imageName);
+            $imagePath = 'uploads/pages/' . $imageName;
+        }
 
         Page::create([
             'title' => $request->title,
@@ -48,6 +55,7 @@ class PageController extends Controller
             'show_process' => $request->has('show_process'),
             'show_faq' => $request->has('show_faq'),
             'parent' => $request->parent,
+              'image' => $imagePath,
             'slug' => $this->generateUniqueSlug($request->title),
         ]);
 
@@ -57,8 +65,8 @@ class PageController extends Controller
     // Show edit form
     public function edit($id)
     {
-        $page = \App\Models\Page::findOrFail($id);
-        $parents = \App\Models\Page::where('id', '!=', $id)
+        $page = Page::findOrFail($id);
+        $parents = Page::where('id', '!=', $id)
             ->orderBy('title', 'asc')
             ->get();
         return view('pages.edit', compact('page', 'parents'));
@@ -73,7 +81,26 @@ class PageController extends Controller
             'title' => 'required|string',
             'description' => 'required|string', 
             'status' => 'required|integer',
+            'summary' => 'nullable|string',
+            'parent' => 'nullable|integer',
+          'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
         ]);
+             $content = html_entity_decode($request->description, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $allowedTags = '<p><strong><em><ul><ol><li><br><h1><h2><h3>';
+        $content = strip_tags($content, $allowedTags);
+        $content = trim($content);
+
+        $imagePath = $page->image;
+        if ($request->hasFile('image')) {
+            if ($page->image && file_exists(public_path($page->image))) {
+                unlink(public_path($page->image)); // delete old image
+            }
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('uploads/pages'), $imageName);
+            $imagePath = 'uploads/pages/' . $imageName;
+        }
         
         $page->update([
             'title' => $request->title,
@@ -84,6 +111,7 @@ class PageController extends Controller
             'show_process' => $request->has('show_process'),
             'show_faq' => $request->has('show_faq'),
             'parent' => $request->parent,
+                'image' => $imagePath,
             'slug' => $this->generateUniqueSlug($request->title, $id),
         ]);
 
@@ -94,27 +122,26 @@ class PageController extends Controller
     public function destroy($id)
     {
         $page = Page::findOrFail($id);
+           if ($page->image && file_exists(public_path($page->image))) {
+            unlink(public_path($page->image)); 
+        }
+
         $page->delete();
         return redirect()->route('pages.index')->with('success', 'Page deleted successfully.');
     }
 
-    private function generateUniqueSlug($title, $id = null)
+       private function generateUniqueSlug($title, $id = null)
     {
-        // Convert title to basic slug
-        $slug = \Str::slug($title);
-
-        // Check if slug already exists
-        $count = \App\Models\Page::where('slug', $slug)
-            ->when($id, function ($query, $id) {
-                return $query->where('id', '!=', $id);
-            })
+        $slug = Str::slug($title);
+        $count = Page::where('slug', $slug)
+            ->when($id, fn($query) => $query->where('id', '!=', $id))
             ->count();
 
-        // If duplicate exists, append a number
         if ($count > 0) {
             $slug .= '-' . ($count + 1);
         }
 
         return $slug;
     }
+
 }

@@ -11,6 +11,7 @@ use App\Models\DropPoint;
 use App\Models\OrderReschedule; 
 use App\Models\Complications; 
 use Auth;
+use Illuminate\Support\Facades\Validator;
 class OrdersController extends Controller
 {
     
@@ -64,7 +65,7 @@ class OrdersController extends Controller
         if ($request->filled('o_status')) {
             $query->where('o_status', $request->o_status);
         }
-
+        
         // ✅ Order by Latest First
         $query->orderBy('id', 'desc');
 
@@ -175,16 +176,23 @@ class OrdersController extends Controller
 
     public function rescheduleOrder(Request $request, $id)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'new_date' => 'required|date|after:today',
-            'reason' => 'nullable|string|max:255',
+            'reason'   => 'nullable|string|max:255',
         ]);
 
-        if (Auth::check()) {
+        if ($validator->fails()) {
+            // return whatever you need – JSON, a view, etc.
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+
+        
+       if (Auth::check()) {
             // ✅ User is logged in
             $uid = Auth::id(); // Get user ID
             $user = Auth::user(); // Get full user object
-        }
+       }
 
         $order = Order::where('id', $id)
             ->where('uid', $uid)

@@ -165,12 +165,22 @@ class UserController extends Controller
             ], 401);
         }*/
 
+        
         if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return response()->json([
-                'status' => false,
+                'status'  => false,
                 'message' => 'Invalid email or password',
             ], 401);
         }
+
+        // At this point the user is logged in – now verify the role
+        if (!Auth::user()->hasRole('customer')) {
+            Auth::logout();                     // optional: end the session if the role is wrong
+            return response()->json([
+                'status'  => false,
+                'message' => 'Access denied – customer role required',
+            ], 403);
+        } 
 
         $user = Auth::user();
         $token = $user->createToken('LoginToken')->plainTextToken;

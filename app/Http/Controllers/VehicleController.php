@@ -2,94 +2,73 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
+use App\Models\VehicleTypes;
 use Illuminate\Http\Request;
+use Auth;
 
 class VehicleController extends Controller
 {
     public function index()
     {
-        $vehicles = Vehicle::all();
+        $auth = Auth::user();
+        $business_id =  $auth->business_id;
+        $vehicles = Vehicle::with('type')->where('business_id', $business_id)->latest()->paginate(15);
         return view('vehicles.index', compact('vehicles'));
     }
 
     public function create()
     {
-        return view('vehicles.create');
+        $types = VehicleTypes::orderBy('title')->get();
+        return view('vehicles.create', compact('types'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'vtitle' => 'required',
-            'cat_img' => 'required|image|mimes:jpg,png,jpeg',
-            'ukms' => 'required',
-            'uprice' => 'required',
-            'aprice' => 'required',
-            'ttime' => 'required',
-            'status' => 'required',
-            'capcity' => 'required',
-            'size' => 'required',
-            'cdesc' => 'required',
+        $data = $request->validate([
+            'type_id'        => 'required|exists:tbl_vehicle_types,id',
+            'registration_no'=> 'required|string|max:20|unique:vehicles',
+            'make'           => 'required|string|max:50',
+            'model'          => 'required|string|max:50',
+             'year' => 'required|digits:4|integer|between:1901,2155',
+            'status'         => 'in:available,in-use,maintenance',
+        ]);
+        $auth = Auth::user();
+        $data['business_id'] =  $auth->business_id; 
+        Vehicle::create($data);
+        return redirect()->route('vehicles.index')->with('success', 'Vehicle added.');
+    }
+
+    public function edit(Vehicle $vehicle)
+    {
+        $types = VehicleTypes::orderBy('title')->get();
+        return view('vehicles.edit', compact('vehicle', 'types'));
+    }
+
+    public function update(Request $request, Vehicle $vehicle)
+    {
+        $data = $request->validate([
+            'type_id'        => 'required|exists:tbl_vehicle_types,id',
+            'registration_no'=> 'required|string|max:20|unique:vehicles,registration_no,'.$vehicle->id,
+            'make'           => 'required|string|max:50',
+            'model'          => 'required|string|max:50',
+            'year'           => 'required|digits:4|integer', 
+            'status'         => 'in:available,in-use,maintenance',
         ]);
 
-        $vehicle = new Vehicle();
-        $vehicle->title = $request->input('vtitle');
-        $image = $request->file('cat_img');
-        $imageName = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('images/vehicles'), $imageName);
-        $vehicle->img = 'images/vehicles/'.$imageName;
-        
-        $vehicle->ukms = $request->input('ukms');
-        $vehicle->uprice = $request->input('uprice');
-        $vehicle->aprice = $request->input('aprice');
-        $vehicle->ttime = $request->input('ttime');
-        $vehicle->status = $request->input('status');
-        $vehicle->capcity = $request->input('capcity');
-        $vehicle->size = $request->input('size');
-        $vehicle->description = $request->input('cdesc');
-        $vehicle->save();
-
-        return redirect()->route('vehicleTypes.index')->with('success', 'Vehicle created successfully');
+        $vehicle->update($data);
+        return redirect()->route('vehicles.index')->with('success', 'Vehicle updated.');
     }
 
-    public function edit($id)
+    public function destroy(Vehicle $vehicle)
     {
-        $vehicle = Vehicle::find($id);
-        return view('vehicles.edit', compact('vehicle'));
+        $vehicle->delete();
+        return back()->with('success', 'Vehicle removed.');
     }
 
-    public function update(Request $request, $id)
+    // Returns JSON list of vehicle types for dropdown (useful for AJAX)
+    public function types()
     {
-        $request->validate([
-            'vtitle' => 'required',
-            'ukms' => 'required',
-            'uprice' => 'required',
-            'aprice' => 'required',
-            'ttime' => 'required',
-            'status' => 'required',
-            'capcity' => 'required',
-            'size' => 'required',
-            'cdesc' => 'required',
-        ]);
-
-        $vehicle = Vehicle::find($id);
-        $vehicle->title = $request->input('vtitle');
-        if ($request->hasFile('cat_img')) 
-            {
-            $image = $request->file('cat_img');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('images/vehicles'), $imageName);
-            $vehicle->img = 'images/vehicles/'.$imageName;
-        }
-        $vehicle->ukms = $request->input('ukms');
-        $vehicle->uprice = $request->input('uprice');
-        $vehicle->aprice = $request->input('aprice');
-        $vehicle->ttime = $request->input('ttime');
-        $vehicle->status = $request->input('status');
-        $vehicle->capcity = $request->input('capcity');
-        $vehicle->size = $request->input('size');
-        $vehicle->description = $request->input('cdesc');
-        $vehicle->save();
-        return redirect()->route('vehicleTypes.index')->with('success', 'Vehicle updated successfully');
+        return VehicleTypes::orderBy('title')->get(['id', 'name']);
     }
-} 
+}
+

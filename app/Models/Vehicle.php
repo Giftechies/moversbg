@@ -2,31 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Vehicle extends Model
 {
-    use HasFactory;
-
-    protected $table = 'tbl_vehicle';
-
     protected $fillable = [
-        'title',
-        'img',
+        'type_id',
+        'registration_no',
+        'make',
+        'model',
+        'year', 
         'status',
-        'description',
-        'ukms',
-        'uprice',
-        'aprice',
-        'capcity',
-        'size',
-        'ttime',
+        'business_id'
     ];
 
-    // Example relationships
-    public function riders()
+    public function type()
     {
-        return $this->hasMany(Rider::class, 'vehiid');
+        return $this->belongsTo(VehicleTypes::class);
+    }
+    public function documents()
+    {
+        return $this->hasMany(VehicleDocument::class);
     }
 }

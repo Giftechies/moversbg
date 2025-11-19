@@ -13,7 +13,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PcatController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RiderController;
-use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\VehicleTypesController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\PaymentListController;
 use App\Http\Controllers\DashboardController;
@@ -27,7 +27,8 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ExtraChargeController;
 use App\Http\Controllers\ServiceController; 
 use App\Http\Controllers\RolePermissionController;
-
+use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\VehicleDocumentController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -59,7 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('products', ProductController::class);
     Route::get('get-subcategories/{catId?}', [ProductController::class, 'getSubcategories'])->name('get.subcategories'); 
     Route::resource('riders', RiderController::class);
-    Route::resource('vehicleTypes', VehicleController::class);
+    Route::resource('vehicleTypes', VehicleTypesController::class);
     Route::resource('banners', BannerController::class); 
     Route::resource('paymentlists', PaymentListController::class);
     Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');
@@ -71,12 +72,32 @@ Route::middleware('auth')->group(function () {
     Route::resource('faqs', FaqController::class);  
     Route::resource('extra-charges', ExtraChargeController::class);
     Route::patch('extra-charges/{extraCharge}/toggle', [ExtraChargeController::class, 'toggle'])->name('extra-charges.toggle'); 
-
+    Route::resource('vehicles', VehicleController::class)->except(['show']);          
+    // we only need index, create, store, edit, update, destroy
+    // Optional: API endpoint to fetch types for dropdown
+    Route::get('vehicle-types', [VehicleController::class, 'types'])->name('vehicles.types');
     Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
     Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');
     Route::post('/services/store', [ServiceController::class, 'store'])->name('services.store');
     Route::get('/services/{id}/edit', [ServiceController::class, 'edit'])->name('services.edit');
     Route::put('/services/{id}', [ServiceController::class, 'update'])->name('services.update');
-    Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
+    Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy'); 
+    
+        Route::prefix('vehicle-documents')->name('vehicle-documents.')->group(function () {
+            // /vehicle-documents               → all documents
+            // /vehicle-documents/{id}           → documents for a specific vehicle
+            Route::get('{id?}',    [VehicleDocumentController::class, 'index'])->name('index');
+
+            // /vehicle-documents/create               → normal create form
+            // /vehicle-documents/create/{vehicle_id}  → pre‑fill the vehicle_id
+            Route::get('create/{vehicle_id?}', [VehicleDocumentController::class, 'create'])->name('create');
+            Route::post('/',                   [VehicleDocumentController::class, 'store'])->name('store');
+            Route::get('{id}',                 [VehicleDocumentController::class, 'show'])->name('show');
+            Route::get('{id}/edit',            [VehicleDocumentController::class, 'edit'])->name('edit');
+            Route::put('{id}',                 [VehicleDocumentController::class, 'update'])->name('update');
+            Route::patch('{id}',               [VehicleDocumentController::class, 'update']);
+            Route::delete('{id}',              [VehicleDocumentController::class, 'destroy'])->name('destroy');
+        });
+
 });
 require __DIR__.'/auth.php'; 

@@ -6,82 +6,62 @@ use App\Models\Rider;
 use App\Models\Vehicle;
 use App\Models\Zone;
 use Illuminate\Http\Request;
+use Auth;
 
 class RiderController extends Controller
 {
   
     public function index()
     {
-        $riders = Rider::with(['vehicle', 'zone'])->get();
+        $auth = Auth::user();
+        $business_id =  $auth->business_id;
+        $riders = Rider::where('business_id', $business_id)->get();
         return view('riders.index', compact('riders'));
     }
 
 
     public function create()
-    {
-        $vehicles = Vehicle::all();
-        $zones = Zone::all();
-        return view('riders.create', compact('vehicles', 'zones'));
+    {        
+        return view('riders.create');
     }
 
   
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            // 'rimg' => 'required|image|mimes:jpg,png,jpeg',
-            // 'status' => 'required',
-            // 'rate' => 'required',
-            // 'lcode' => 'required',
-            // 'full_address' => 'required',
-            // 'pincode' => 'required',
-            // 'landmark' => 'nullable',
-            // 'commission' => 'required',
-            // 'bank_name' => 'nullable',
-            // 'ifsc' => 'nullable',
-            // 'receipt_name' => 'nullable',
-            // 'acc_number' => 'nullable',
-            // 'paypal_id' => 'nullable',
-            // 'upi_id' => 'nullable',
-            // 'email' => 'required|email|unique:tbl_rider,email',
-            // 'password' => 'required|string|min:6',
-            // 'rstatus' => 'required',
-            // 'mobile' => 'required|numeric|max:10',
-            // 'dzone' => 'required|numeric',
-            // 'vehiid' => 'required|numeric',
+            'name' => 'required', 
+            'driving_license_number' => 'required', 
+            'email' => 'required|email|unique:tbl_rider,email',
+            'password' => 'required|string|min:6', 
+            'mobile' => 'required|numeric' 
         ]);
-
+        $auth = Auth::user();
         $rider = new Rider();
-        $rider->title = $request->input('title');
-        $image = $request->file('rimg');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('images/riders'), $imageName);
-        $rider->rimg = 'images/riders/' . $imageName;
-
-        $rider->status = $request->input('status');
-        $rider->rate = $request->input('rate');
-        $rider->lcode = $request->input('lcode');
+        $rider->name = $request->input('name');
+        if(!empty($request->file('rimg'))){
+            $image = $request->file('rimg');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/riders'), $imageName);
+            $rider->rimg = 'images/riders/' . $imageName;
+        }
+        if(!empty($request->file('driving_license'))){
+            $image = $request->file('driving_license');
+            $imageName = time() . 'dl.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/riders'), $imageName);
+            $rider->dl = 'images/riders/' . $imageName;
+        }
+        $rider->dl_exp_date = $request->input('exp_date');   
+        $rider->lcode = $request->input('driving_license_number');
         $rider->full_address = $request->input('full_address');
-        $rider->pincode = $request->input('pincode');
-        $rider->landmark = $request->input('landmark');
-        $rider->commission = $request->input('commission');
-        $rider->bank_name = $request->input('bank_name');
-        $rider->ifsc = $request->input('ifsc');
-        $rider->receipt_name = $request->input('receipt_name');
-        $rider->acc_number = $request->input('acc_number');
-        $rider->paypal_id = $request->input('paypal_id');
-        $rider->upi_id = $request->input('upi_id');
+        $rider->pincode = $request->input('pincode'); 
         $rider->email = $request->input('email');
 
         
         $rider->password = bcrypt($request->input('password'));
 
         $rider->rstatus = $request->input('rstatus');
-        $rider->mobile = $request->input('mobile');
-    
-        $rider->dzone = $request->input('dzone');
-        $rider->vehiid = $request->input('vehiid');
-
+        $rider->mobile = $request->input('mobile'); 
+        $rider->business_id = $auth->business_id;  
         $rider->save();
 
        return redirect()->route('riders.index')->with('success', 'Rider created successfully.');
@@ -90,85 +70,69 @@ class RiderController extends Controller
  
     public function edit($id)
     {
-        $rider = Rider::find($id);
-        $vehicles = Vehicle::all();
-        $zones = Zone::all();
-        return view('riders.edit', compact('rider', 'vehicles', 'zones'));
+        $auth = Auth::user();
+        $business_id =  $auth->business_id;
+        $rider = Rider::where('id', $id)->where('business_id', $business_id)->first();
+        return view('riders.edit', compact('rider'));
     }
 
  
     public function update(Request $request, $id)
     {
         
+      // -------------------
+        // Validation rules
+        // -------------------
         $request->validate([
-            'title' => 'required',
-            // 'status' => 'required',
-            // 'rate' => 'required',
-            // 'lcode' => 'required',
-            // 'full_address' => 'required',
-            // 'pincode' => 'required',
-            // 'landmark' => 'nullable',
-            // 'commission' => 'required',
-            // 'bank_name' => 'nullable',
-            // 'ifsc' => 'required',
-            // 'receipt_name' => 'nullable|string',
-            // 'acc_number' => 'nullable|string',
-            // 'paypal_id' => 'nullable|string',
-            // 'upi_id' => 'nullable|string',
-            // 'email' => 'required',
-            // 'rstatus' => 'required',
-            // 'mobile' => 'required|numeric|max:10',
-            
-            // 'dzone' => 'required',
-            // 'vehiid' => 'required',
+             'name' => 'required', 
+            'driving_license_number' => 'required', 
+            'email' => 'required|email', 
+            'mobile' => 'required|numeric',            
+            'exp_date'            => 'required|date',
         ]);
 
-        $rider = Rider::find($id);
-        $rider->title = $request->input('title');
-        if ($request->hasFile('rimg')) 
-            {
+        // -------------------
+        // Find the rider and update
+        // -------------------
+        $rider = Rider::find($id); 
+        $rider->name = $request->input('name');
+        if(!empty($request->file('rimg'))){
             $image = $request->file('rimg');
-            $imageName = time(). '.'. $image->getClientOriginalExtension();
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images/riders'), $imageName);
-            $rider->rimg = 'images/riders/'. $imageName;
+            $rider->rimg = 'images/riders/' . $imageName;
         }
-
-        $rider->status = $request->input('status');
-        $rider->rate = $request->input('rate');
-        $rider->lcode = $request->input('lcode');
+        if(!empty($request->file('driving_license'))){
+            $image = $request->file('driving_license');
+            $imageName = time() . 'dl.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/riders'), $imageName);
+            $rider->dl = 'images/riders/' . $imageName;
+        }
+        $rider->dl_exp_date = $request->input('exp_date');   
+        $rider->lcode = $request->input('driving_license_number');
         $rider->full_address = $request->input('full_address');
-        $rider->pincode = $request->input('pincode');
-        $rider->landmark = $request->input('landmark');
-        $rider->commission = $request->input('commission');
-        $rider->bank_name = $request->input('bank_name');
-        $rider->ifsc = $request->input('ifsc');
-        $rider->receipt_name = $request->input('receipt_name');
-        $rider->acc_number = $request->input('acc_number');
-        $rider->paypal_id = $request->input('paypal_id');
-        $rider->upi_id = $request->input('upi_id');
-        $rider->email = $request->input('email');
+        $rider->pincode = $request->input('pincode'); 
+        $rider->email = $request->input('email'); 
 
+        $rider->rstatus = $request->input('rstatus');
+        $rider->mobile = $request->input('mobile'); 
+
+        // Optional password – only hash if provided
         if ($request->filled('password')) {
             $rider->password = bcrypt($request->input('password'));
         }
-
-        $rider->rstatus = $request->input('rstatus');
-        $rider->mobile = $request->input('mobile');
-        $rider->accept = $request->input('accept');
-        $rider->reject = $request->input('reject');
-        $rider->complete = $request->input('complete');
-        $rider->dzone = $request->input('dzone');
-        $rider->vehiid = $request->input('vehiid');
-
+ 
+        // Save the changes
         $rider->save();
-
         return redirect()->route('riders.index')->with('success', 'Rider updated successfully.');
     }
 
    
     public function destroy($id)
     {
-        $rider = Rider::find($id);
+        $auth = Auth::user();
+        $business_id =  $auth->business_id;
+        $rider = Rider::where('id', $id)->where('business_id', $business_id); 
         $rider->delete();
         return redirect()->route('riders.index')->with('success', 'Rider deleted successfully.');
     }

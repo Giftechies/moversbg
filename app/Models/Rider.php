@@ -13,30 +13,19 @@ class Rider extends Model
     protected $table = 'tbl_rider';
 
     protected $fillable = [
-        'title',
+        'name',
         'rimg',
-        'status',
-        'rate',
+        'dl_exp_date',
+        'dl',
         'lcode',
         'full_address',
         'pincode',
-        'landmark',
-        'commission',
-        'bank_name',
-        'ifsc',
-        'receipt_name',
-        'acc_number',
-        'paypal_id',
-        'upi_id',
+        'landmark', 
         'email',
         'password',
         'rstatus',
-        'mobile',
-        'accept',
-        'reject',
-        'complete',
-        'dzone',
-        'vehiid',
+        'business_id',
+        'mobile' 
     ];
 
     protected $hidden = [
@@ -47,15 +36,5 @@ class Rider extends Model
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
-    }
-
-    // Example relationship
-    public function vehicle()
-    {
-        return $this->belongsTo(Vehicle::class, 'vehiid');
-    }
-    public function zone()
-    {
-    return $this->belongsTo(Zone::class, 'dzone');
-    }
+    } 
 }

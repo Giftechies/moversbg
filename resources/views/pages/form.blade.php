@@ -38,10 +38,11 @@
 <div class="mb-3">
     <label>Current Image</label><br>
     @if($page->image)
-        <img src="{{ asset($page->image) }}" width="100" height="100" style="object-fit:cover;border-radius:8px;margin-bottom:10px;">
+        <img src="{{ asset($pages->image) }}" width="100" height="100" style="object-fit:cover;border-radius:8px;margin-bottom:10px;">
     @else
         <p class="text-muted">No image</p>
     @endif
+    
 </div>
 
 {{-- Upload New Image --}}

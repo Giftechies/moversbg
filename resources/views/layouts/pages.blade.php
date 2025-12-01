@@ -17,7 +17,7 @@
 
     <div class="d-flex">
         <!-- Sidebar (visible on large screens) -->
-          <nav class="d-none d-md-block sidebar bg-dark text-white" style="width: 250px; min-height: 100vh;">
+          <nav class="d-none d-md-block sidebar  text-white" style="width: 250px; min-height: 100vh;">
             <div class="p-3">
                 <h4 class="text-white">Menu</h4>
                 <hr class="border-light">

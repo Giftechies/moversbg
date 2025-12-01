@@ -1,26 +1,23 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('login') }}">
+@extends('layouts.app') 
+@section('content') 
+ <div class="relative container max-md:mt-12 md:pt-20  py-4 md:py-8 grid-cols-12 items-center  lg:grid xxl:overflow-hidden">
+    <div class="col-span-5 ">
+       <div class="items-center justify-center">
+          <div>
+             <h5 class="h5 mt-6 text-center font-medium">Login to Your Account</h5>
+          </div>
+           <form method="POST" action="{{ route('login') }}" class="smt40px flex flex-col ">
         @csrf
 
         <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+        <div> 
+             <input placeholder="Username" class="formInput" type="text" id="email"  name="email" fdprocessedid="sbed8n" value="{{old('email')}}" required /> 
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
+            <input id="password"  placeholder="Password" class="formInput mt-8" type="password" name="password" fdprocessedid="kscpte"> 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
@@ -28,20 +25,24 @@
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                <span class="ms-2 text-sm text-gray-600">&nbsp; {{ __('Remember me') }}</span>
             </label>
+             @if (Route::has('password.request'))
+                <a class="s-text   text-black-3" style="float: right;" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+            @endif 
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+           
+             <button type="submit" class="h6 rounded-lg smb32px smt32px w-full bg-prim py-3 flex items-center justify-center gap-2 text-center text-white-1 border-[var(--primary-hex)] border hover:text-[var(--primary-hex)] hover:bg-white-1" fdprocessedid="lbzb5">login</button> 
         </div>
     </form>
-</x-guest-layout>
+           
+       </div>
+    </div>
+    <div class=" md:h-[30rem] lg:col-start-7  col-span-6 rounded-lg overflow-hidden "><img alt="Login Image"  class="w-full h-full  object-cover"  src="{{ asset('css/login_files/localimg.png')}}" style="color: transparent;"></div>
+ </div>
+ @endsection
+

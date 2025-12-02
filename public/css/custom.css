@@ -38,3 +38,39 @@
     font-size: 0.85em;
 }
 .sidebar{ background:#09307b; }
+.top{ margin-bottom:15px; }
+.top a{ float:right; }
+.top h1{ font-size:35px; text-align:center; }
+.card-body h2{ font-size:20px; text-align:center; }
+/* Basic styling for all text inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"] {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    background-color: #fff;
+    color: #495057;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Focus state – matches Bootstrap’s default */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    outline: 0;
+}
+
+/* Optional: add a class if you want a different look */
+.input-custom {
+    border-color: #6c757d;
+    background-color: #f8f9fa;
+}
+.input-custom:focus {
+    border-color: #5a6268;
+    box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.25);
+}

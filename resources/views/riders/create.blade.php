@@ -1,9 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="main-content">
-    <div class="page-content">
-        <div class="container-fluid">
+<div class="container">
+    <div class="page-content"> 
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
@@ -81,9 +80,7 @@
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
+                </div> 
     </div>
 </div>
 @endsection

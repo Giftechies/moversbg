@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Business;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
-
+use Illuminate\View\View; 
 class ProfileController extends Controller
 {
     /**
@@ -16,9 +16,9 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $auth =   Auth::user();         
+        $business = Business::where('id', $auth->business_id)->first();
+        return view('profile.edit', ['business' => $business,'auth' => $auth]);
     }
 
     /**
@@ -33,6 +33,51 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    public function profile_update(Request $request)
+    {
+        $user = $request->user();
+        $user->fill([
+            'name'   => $request->name,
+            'mobile' => $request->mobile,
+            'email'  => $request->email,
+        ]);
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+
+        $business = Business::findOrNew($user->business_id);
+        $business->fill([
+            'name'    => $request->business_name,
+            'abn'     => $request->business_abn,
+            'website' => $request->business_website,
+            'mobile'  => $request->business_mobile,
+            'email'   => $request->business_email,
+            'status'  => $request->status,
+        ]);
+
+        // ⿣ Handle image upload
+        if ($request->hasFile('business_img')) {
+            // delete old file if it exists
+            if ($business->img) {
+                $oldPath = public_path($business->img);
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
+            }
+
+            $file     = $request->file('business_img');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('business_images'), $filename);
+
+            $business->img = 'business_images/' . $filename;
+        }
+ 
+        $business->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

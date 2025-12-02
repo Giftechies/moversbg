@@ -1,30 +1,35 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h4>Edit  Business</h4>
-    <form method="POST" action="{{ route('businesss.update', $business->id) }}" enctype="multipart/form-data">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title mb-4">Edit  Business</h2> 
+ 
+    <form method="POST" action="{{ route('business.update', $business->id) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="row">
-            <div class="form-group col-3">
+            <div class="form-group col-6">
                 <label> Business Name</label>
                 <input type="text" class="form-control" name="name" value="{{ $business->name }}" required>
             </div>
-            <div class="form-group col-3">
+            <div class="form-group col-6">
                 <label> Business Image</label>
                 <input type="file" class="form-control" name="img">
                 @if($business->img)
                     <img src="{{ asset('storage/' . $business->img) }}" width="100" alt="business Image">
                 @endif
             </div>
-            <div class="form-group col-3">
+            <div class="form-group col-6">
                 <label>Status</label>
                 <select name="status" class="form-control">
                     <option value="1" {{ $business->status == 1 ? 'selected' : '' }}>Publish</option>
                     <option value="0" {{ $business->status == 0 ? 'selected' : '' }}>UnPublish</option>
                 </select>
             </div>
-            <div class="form-group col-3">
+            <div class="form-group col-6">
                 <label>Mobile number</label>
                 <input type="text" class="form-control" name="mobile" value="{{ $business->mobile }}" required>
             </div>
@@ -49,5 +54,9 @@
             </div>
         </div>
     </form>
+     </div>
+        </div>
+    </div>
+</div>
 @endsection
 

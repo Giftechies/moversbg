@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/permissions', [RolePermissionController::class, 'storePermission'])->name('permissions.store');
     Route::post('/roles/{role}/assign', [RolePermissionController::class, 'assignPermission'])->name('roles.assign');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile', [ProfileController::class, 'profile_update'])->name('profileupdate');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');

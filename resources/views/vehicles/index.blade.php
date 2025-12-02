@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container">
+
     <h2>Vehicle List</h2>
 
     @if(session('success'))
@@ -35,19 +35,17 @@
                     <td>{{ $vehicle->year }}</td>
                     <td>{{ $vehicle->capacity }} kg</td>
                     <td>
-                        <span class="badge
-                            @if($vehicle->status == 'available')    badge-success
-                            @elseif($vehicle->status == 'in-use')   badge-warning
-                            @else                                   badge-danger
+                        <span class="btn btn-sm
+                            @if($vehicle->status == 'available')    btn-success
+                            @elseif($vehicle->status == 'in-use')   btn-warning
+                            @else                                   btn-danger
                             @endif">
                             {{ ucfirst($vehicle->status) }}
                         </span>
                     </td>
                     <td>
                         <a href="{{ route('vehicle-documents.index', ['id' => $vehicle->id]) }}" class="btn btn-sm btn-warning">Documents</a>
-                        <a href="{{ route('vehicles.edit', $vehicle) }}"
-                           class="btn btn-sm btn-info">Edit</a>
-
+                        <a href="{{ route('vehicles.edit', $vehicle) }}" class="btn btn-sm btn-info">Edit</a> 
                         <form action="{{ route('vehicles.destroy', $vehicle) }}"
                               method="POST"
                               style="display:inline;">

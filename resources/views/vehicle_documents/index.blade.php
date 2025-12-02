@@ -17,9 +17,7 @@
 
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Vehicle</th>
+                            <tr> 
                                 <th>Name</th>
                                 <th>File</th>
                                 <th>Actions</th>
@@ -27,9 +25,7 @@
                         </thead>
                         <tbody>
                             @forelse ($documents as $doc)
-                                <tr>
-                                    <td>{{ $doc->id }}</td>
-                                    <td>{{ $doc->vehicle->id ?? 'N/A' }}</td>
+                                <tr>                                    
                                     <td>{{ $doc->name }}</td>
                                     <td><a href="{{  url($doc->file) }}" target="_blank">Download</a></td>
                                     <td>
@@ -41,7 +37,7 @@
                                     </td>
                                 </tr>
                             @empty
-                                <tr><td colspan="5" class="text-center">No documents found.</td></tr>
+                                <tr><td colspan="3" class="text-center">No documents found.</td></tr>
                             @endforelse
                         </tbody>
                     </table>

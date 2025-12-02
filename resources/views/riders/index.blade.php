@@ -1,9 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="main-content">
-        <div class="page-content">
-            <div class="container-fluid">
+   <div class="container">
+        <div class="page-content"> 
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -12,8 +11,7 @@
                                 <a href="{{ route('riders.create') }}" class="btn btn-primary mb-2">Add New Rider</a>
                                 <table class="table table-striped">
                                     <thead>
-                                        <tr>
-                                            <th>ID</th>
+                                        <tr> 
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Mobile</th>
@@ -23,9 +21,8 @@
                                     </thead>
                                     <tbody>
                                         @foreach($riders as $rider)
-                                            <tr>
-                                                <td>{{ $rider->id }}</td>
-                                                <td>{{ $rider->title }}</td>
+                                            <tr> 
+                                                <td>{{ $rider->name }}</td>
                                                 <td>{{ $rider->email }}</td>
                                                 <td>{{ $rider->mobile }}</td>
                                                 <td>
@@ -49,8 +46,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div> 
             </div>
         </div>
     </div>

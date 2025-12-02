@@ -1,9 +1,11 @@
 @extends('layouts.pages') 
 
 @section('content') 
-<div class="container">
-    <h2>Edit Service</h2>
-
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title mb-4">Edit Service</h2> 
     {{-- Show all errors in one place (optional) --}}
     @if($errors->any())
         <div class="alert alert-danger">
@@ -71,5 +73,8 @@
         <button class="btn btn-success">Update</button>
         <a href="{{ route('services.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
-</div> 
+</div>
+        </div>
+    </div>
+</div>         
 @endsection

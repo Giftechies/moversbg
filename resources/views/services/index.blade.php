@@ -1,10 +1,18 @@
 @extends('layouts.admin')    
 
 @section('content')
-<div class="container">
-    <h2>All Services</h2>
-    <a href="{{ route('services.create') }}" class="btn btn-primary mb-3">Add Service</a>
-
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8 top">
+                        <h2 class="card-title mb-4">All Services</h2>  
+                    </div>
+                    <div class="col-lg-4 top">
+                        <a href="{{ route('services.create') }}" class="btn btn-primary mb-3">Add Service</a>
+                    </div>
+                </div>
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -40,6 +48,9 @@
             @endforeach
         </tbody>
     </table>
+</div>
+        </div>
+    </div>
 </div>
 @endsection
 

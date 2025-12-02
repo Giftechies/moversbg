@@ -1,7 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h4>Add  Business</h4>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title mb-4">Add  Business</h2>  
     <form method="POST" action="{{ route('business.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="row">
@@ -46,4 +50,8 @@
             </div>
         </div>
     </form>
+     </div>
+        </div>
+    </div>
+</div>
 @endsection

@@ -29,6 +29,8 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleDocumentController;
+use App\Http\Controllers\BusinessDocController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -82,22 +84,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/services/{id}/edit', [ServiceController::class, 'edit'])->name('services.edit');
     Route::put('/services/{id}', [ServiceController::class, 'update'])->name('services.update');
     Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy'); 
-    
-        Route::prefix('vehicle-documents')->name('vehicle-documents.')->group(function () {
-            // /vehicle-documents               → all documents
-            // /vehicle-documents/{id}           → documents for a specific vehicle
-            Route::get('{id?}',    [VehicleDocumentController::class, 'index'])->name('index');
 
-            // /vehicle-documents/create               → normal create form
-            // /vehicle-documents/create/{vehicle_id}  → pre‑fill the vehicle_id
-            Route::get('create/{vehicle_id?}', [VehicleDocumentController::class, 'create'])->name('create');
-            Route::post('/',                   [VehicleDocumentController::class, 'store'])->name('store');
-            Route::get('{id}',                 [VehicleDocumentController::class, 'show'])->name('show');
-            Route::get('{id}/edit',            [VehicleDocumentController::class, 'edit'])->name('edit');
-            Route::put('{id}',                 [VehicleDocumentController::class, 'update'])->name('update');
-            Route::patch('{id}',               [VehicleDocumentController::class, 'update']);
-            Route::delete('{id}',              [VehicleDocumentController::class, 'destroy'])->name('destroy');
-        });
+    
+    Route::resource('business-docs', BusinessDocController::class)->except(['index']);
+    // Convenience route to show the “add more” page for a business
+    Route::get('business/{business}/docs/create', [BusinessDocController::class, 'create'])->name('business.docs.create');
+    Route::prefix('vehicle-documents')->name('vehicle-documents.')->group(function () {
+        // /vehicle-documents               → all documents
+        // /vehicle-documents/{id}           → documents for a specific vehicle
+        Route::get('{id?}',    [VehicleDocumentController::class, 'index'])->name('index');
+
+        // /vehicle-documents/create               → normal create form
+        // /vehicle-documents/create/{vehicle_id}  → pre‑fill the vehicle_id
+        Route::get('create/{vehicle_id?}', [VehicleDocumentController::class, 'create'])->name('create');
+        Route::post('/',                   [VehicleDocumentController::class, 'store'])->name('store');
+        Route::get('{id}',                 [VehicleDocumentController::class, 'show'])->name('show');
+        Route::get('{id}/edit',            [VehicleDocumentController::class, 'edit'])->name('edit');
+        Route::put('{id}',                 [VehicleDocumentController::class, 'update'])->name('update');
+        Route::patch('{id}',               [VehicleDocumentController::class, 'update']);
+        Route::delete('{id}',              [VehicleDocumentController::class, 'destroy'])->name('destroy');
+    });
 
 });
 require __DIR__.'/auth.php'; 

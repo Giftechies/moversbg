@@ -55,6 +55,10 @@
                 <label>Password (leave blank to keep current)</label>
                 <input type="password" class="form-control" name="password">
             </div>
+            <div class="form-group col-6">
+                <label>Address</label>
+                <textarea name="address" class="form-control">{{ $business->address }}</textarea> 
+            </div>
             {{--<div class="form-group col-12">
                 <label>Select Zone</label>
                 <select name="zone_id" class="form-control" required>

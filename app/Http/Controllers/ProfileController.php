@@ -57,6 +57,7 @@ class ProfileController extends Controller
             'website' => $request->business_website,
             'mobile'  => $request->business_mobile,
             'email'   => $request->business_email,
+            'address'   => $request->address,
             'status'  => $request->status,
         ]);
 

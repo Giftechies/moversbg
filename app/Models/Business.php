@@ -20,5 +20,10 @@ class Business extends Model
     {
         return $this->belongsTo(User::class, 'business_id');
     }
+    
+    public function docs()
+    {
+        return $this->hasMany(BusinessDoc::class);
+    }
 }
 

@@ -105,5 +105,10 @@ Route::middleware('auth')->group(function () {
         Route::delete('{id}',              [VehicleDocumentController::class, 'destroy'])->name('destroy');
     });
 
+        // Group all vendor routes (middleware auth, vendor, etc.)
+    Route::prefix('vendor')->middleware(['auth', 'vendor'])->group(function () {
+        Route::get('orders', [OrdersController ::class, 'index'])->name('vendor.orders.index');
+    });
+
 });
 require __DIR__.'/auth.php'; 

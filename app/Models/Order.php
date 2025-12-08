@@ -14,7 +14,7 @@ class Order extends Model
 
     protected $table = 'tbl_order';
 
-    protected $fillable = ['uid','rid','dzone','vehicleid','pick_address','pick_lat','pick_lng','subtotal','o_total','cou_id','cou_amt','trans_id','o_status','dcommission','wall_amt','p_method_id','from_date','to_date','date_type','date_range','rlats','rlongs','delivertime','pick_name','pick_mobile','property_type','bed_rooms','place_type','street_types','storage_unit','facilities_required','additional_notes','meters','flights','cancel_reason','pickup_address_discreetly'];
+    protected $fillable = ['uid','vendor_id','dzone','vehicleid','pick_address','pick_lat','pick_lng','subtotal','o_total','cou_id','cou_amt','trans_id','o_status','dcommission','wall_amt','p_method_id','from_date','to_date','date_type','date_range','rlats','rlongs','delivertime','pick_name','pick_mobile','property_type','bed_rooms','place_type','street_types','storage_unit','facilities_required','additional_notes','meters','flights','cancel_reason','pickup_address_discreetly','odate'];
 
     // Example relationships
     public function user()

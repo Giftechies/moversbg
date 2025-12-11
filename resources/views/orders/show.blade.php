@@ -92,6 +92,57 @@
             </tr>
         @endif
     @endforeach
-</table>
+</table> 
+<div class="container">
+    @if(!empty($removalist))
+        @if(!empty($order->bids[0]))
+             <h2>Bid  Details</h2>
+            <div class="form-group">
+                <label for="amount">Bid Amount: </label> {{$order->bids[0]->amount}}
+            </div>
+
+            <div class="form-group">
+                <label for="comments">Comments:  </label> {{$order->bids[0]->comments}}
+            </div>
+        @endif
+            <br>
+        @php
+           $order_id = $order->id;
+        @endphp
+        @if(empty($order->vendor_id))
+                @if(empty($order->bids[0]))
+                     <h2>Place a Bid  </h2>
+                    <form method="POST" action="{{ route('orders.bid.store', $order_id) }}">
+                @else
+                     <h2>Update Bid  </h2>
+                    <form method="POST" action="{{ route('orders.bid.update', $order_id) }}">
+                @endif
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="amount">Bid Amount</label>
+                        <input type="number" step="0.01" min="0.01" name="amount"
+                               class="form-control @error('amount') is-invalid @enderror"
+                               value="{{ old('amount') }}" required>
+                        @error('amount')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comments">Comments  </label>
+                        <textarea name="comments" rows="3"
+                                  class="form-control @error('comments') is-invalid @enderror"
+                                  >{{ old('comments') }}</textarea>
+                        @error('comments')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit Bid</button> 
+                </form>
+            @endif
+        @endif
+</div>
 @endsection
 

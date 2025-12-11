@@ -1,0 +1,52 @@
+@extends('layouts.admin')
+
+@section('content')
+    <h1>Pending Bids</h1>
+
+    @if($pendingBids->isEmpty())
+        <p>No pending bids at the moment.</p>
+    @else
+         <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Order ID</th>
+                    <th>Vendor</th>
+                    <th>Amount</th>
+                    <th>Comment</th>
+                    <th>Created</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($pendingBids as $bid)
+                    <tr>
+                        <td>{{ $bid->id }}</td>
+                        <td>{{ $bid->order_id }}</td>
+                        <td>{{ $bid->vendor->name ?? '—' }}</td>
+                        <td>{{ $bid->amount }}</td>
+                        <td>{{ $bid->comments ?? '—' }}</td>
+                        <td>{{ $bid->created_at->format('Y‑m‑d H:i') }}</td>
+                        <td>
+                            <a href="{{ route('orders.show', \App\Helpers\EncryptHelper::enc($bid->order_id)) }}"
+                               class="btn btn-sm btn-primary">
+                                View Order
+                            </a>
+                             <form action="{{ route('bids.approve', $bid) }}"
+                                  method="POST"
+                                  style="display:inline;">
+                                @csrf
+                                @method('POST')
+                                <button type="submit"
+                                        class="btn btn-sm btn-success"
+                                        onclick="return confirm('Approve this bid?')">
+                                    Approve
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+@endsection 

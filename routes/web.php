@@ -30,6 +30,7 @@ use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleDocumentController;
 use App\Http\Controllers\BusinessDocController;
+use App\Http\Controllers\BidController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -50,9 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
     Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy'); 
-    Route::resource('subcategories', SubCategoryController::class);
-    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
-    Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+    Route::resource('subcategories', SubCategoryController::class); 
     Route::resource('codes', CodeController::class);  
     Route::resource('scoupons', ScouponController::class);
     Route::resource('business', BusinessController::class); 
@@ -103,12 +102,21 @@ Route::middleware('auth')->group(function () {
         Route::put('{id}',                 [VehicleDocumentController::class, 'update'])->name('update');
         Route::patch('{id}',               [VehicleDocumentController::class, 'update']);
         Route::delete('{id}',              [VehicleDocumentController::class, 'destroy'])->name('destroy');
-    });
+    }); 
 
-        // Group all vendor routes (middleware auth, vendor, etc.)
-    Route::prefix('vendor')->middleware(['auth', 'vendor'])->group(function () {
-        Route::get('orders', [OrdersController ::class, 'index'])->name('vendor.orders.index');
-    });
-
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+      // List of upcoming orders (Pending / Processing)
+    Route::get('orders/upcoming',   [OrderController::class, 'upcoming'])->name('orders.upcoming');
+    // List of orders currently in process (On Route)
+    Route::get('orders/inprocess', [OrderController::class, 'inprocess'])->name('orders.inprocess');
+    // List of completed orders (Completed)
+    Route::get('orders/completed', [OrderController::class, 'completed'])->name('orders.completed'); 
+    Route::post('orders/{order}/bid', [BidController::class, 'store'])->name('orders.bid.store');
+    Route::post('orders/{order}/update', [BidController::class, 'update'])->name('orders.bid.update'); 
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::get('/pending-bids', [BidController::class, 'index'])->name('pending-bids.index');
+    Route::post('/bids/{bid}/approve', [BidController::class, 'approve'])->name('bids.approve');
+    Route::get('/approved-bids', [BidController::class, 'approved_bids'])->name('bids.approved_bids');
+  
 });
 require __DIR__.'/auth.php'; 

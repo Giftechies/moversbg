@@ -37,7 +37,7 @@
                 <td>{{ $order->odate }}</td>
                 <td>
                     <div class="d-flex">
-                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-info me-2">View</a>
+                        <a href="{{ route('orders.show', \App\Helpers\EncryptHelper::enc($order->id)) }}" class="btn btn-sm btn-info me-2">View</a>
                     </div>
                 </td>
             </tr>

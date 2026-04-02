@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h1>variations Rates</h1>
+    <h1>Variations Rates</h1>
 <a href="{{ route('variations_rates.create') }}" class="btn btn-success mt-2 mb-2">Create New</a>
 
 <table class="table table-striped table-hover table-bordered">

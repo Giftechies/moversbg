@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <h1 class="text-center mb-4">Edit variations Rate</h1>

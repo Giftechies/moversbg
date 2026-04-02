@@ -23,6 +23,7 @@
                 <label> Email </label>
                 <input type="text" class="form-control" name="email" value="{{ $auth->email }}" required>
             </div> 
+            @if(!empty($business))
             <div class="form-group col-6">
                 <label> Business Name</label>
                 <input type="text" class="form-control" name="business_name" value="{{ $business->name }}" required>
@@ -67,6 +68,7 @@
                     @endforeach
                 </select>
             </div>--}} 
+            @endif
             <div class="col-12 mt-3">
                 <button type="submit" class="btn btn-primary mb-2">Update  Business</button>
             </div>

@@ -22,3 +22,12 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+# Upload / Media folders
+/public/business_docs/
+/public/images/
+/public/uploads/
+/public/vehicle_documents/
+
+# Lock files (optional – usually keep composer.lock in Laravel)
+composer.lock
+package-lock.json

@@ -9,6 +9,8 @@ use App\Helpers\EncryptHelper;
 use Illuminate\Http\RedirectResponse;
 class BidController extends Controller
 {
+
+    
     // Show the bidding form for a given order
     public function index() 
     {
@@ -97,5 +99,50 @@ class BidController extends Controller
             ->get();
 
         return view('bids.approved_bids', compact('approvedBids'));
+    }
+
+     // Reject bid
+    public function reject($id)
+    {
+        $bid = Bid::findOrFail($id);
+        $bid->update(['status' => 'rejected']);
+
+        return back()->with('success', 'Bid rejected');
+    }
+
+    // Cancel accepted bid
+    public function cancel(Request $request, $id)
+    {
+        $bid = Bid::findOrFail($id);
+
+        BidHistory::create([
+            'bid_id' => $bid->id,
+            'order_id' => $bid->order_id,
+            'vendor_id' => $bid->vendor_id,
+            'amount' => $bid->amount,
+            'action' => 'cancelled',
+            'reason' => $request->reason,
+        ]);
+
+        $bid->update(['status' => 'rejected']);
+
+        return back()->with('success', 'Bid cancelled');
+    }
+
+    // Reschedule accepted bid
+    public function reschedule(Request $request, $id)
+    {
+        $bid = Bid::findOrFail($id);
+
+        BidHistory::create([
+            'bid_id' => $bid->id,
+            'order_id' => $bid->order_id,
+            'vendor_id' => $bid->vendor_id,
+            'amount' => $bid->amount,
+            'action' => 'rescheduled',
+            'reason' => $request->reason,
+        ]);
+
+        return back()->with('success', 'Bid rescheduled');
     }
 }

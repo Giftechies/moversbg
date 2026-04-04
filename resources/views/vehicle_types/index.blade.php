@@ -3,7 +3,7 @@
 @section('content') 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title mb-4">Vehicles</h4>
+        <h2 class=" heading">Vehicles</h2>
         <a href="{{ route('vehicleTypes.create') }}" class="btn btn-primary mb-3">Add New Vehicle</a>
         <table class="table table-striped">
             <thead>

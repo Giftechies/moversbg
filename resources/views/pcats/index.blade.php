@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h4>Categories List</h4>
+    <h2 class="heading ">Categories List</h2>
     <a href="{{ route('pcats.create') }}" class="btn btn-success mb-2">Add Category</a>
 
     <table class="table table-bordered">

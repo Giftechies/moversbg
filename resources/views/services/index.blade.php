@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-8 top">
-                        <h2 class="card-title mb-4">All Services</h2>  
+                        <h2 class="card-title  heading">All Services</h2>  
                     </div>
                     <div class="col-lg-4 top">
                         <a href="{{ route('services.create') }}" class="btn btn-primary mb-3">Add Service</a>

@@ -7,7 +7,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Riders List</h4>
+                                <h2 class="card-title heading">Riders List</h2>
                                 <a href="{{ route('riders.create') }}" class="btn btn-primary mb-2">Add New Rider</a>
                                 <table class="table table-striped">
                                     <thead>

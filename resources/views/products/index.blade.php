@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h4>Products List</h4>
+    <h3 class="heading ">Products List</h3>
     <a href="{{ route('products.create') }}" class="btn btn-success mb-2">Add Product</a>
     <table class="table table-bordered">
         <thead>

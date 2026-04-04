@@ -80,29 +80,54 @@
     </li>
     @endcan
 
-    @can('riders.list')
-    <li class="nav-item">
-        <a href="{{ route('riders.index') }}" class="nav-link text-white">
-            <i class="bi bi-person me-2"></i> Riders
-        </a>
-    </li>
-    @endcan
+    @canany(['riders.list','vehicle-types.list','vehicles.list'])
 
-    @can('vehicle-types.list')
-    <li class="nav-item">
-        <a href="{{ route('vehicleTypes.index') }}" class="nav-link text-white">
-            <i class="bi bi-truck me-2"></i> Vehicles Types
-        </a>
-    </li>
-    @endcan
+<li class="nav-item">
+    <a class="nav-link text-white d-flex justify-content-between align-items-center"
+       data-bs-toggle="collapse"
+       href="#transportMenu"
+       role="button"
+       aria-expanded="false"
+       aria-controls="transportMenu">
 
-    @can('vehicles.list')
-    <li class="nav-item">
-        <a href="{{ route('vehicles.index') }}" class="nav-link text-white">
-            <i class="bi bi-truck me-2"></i> Vehicles  
-        </a>
-    </li>
-    @endcan
+        <span>
+            <i class="bi bi-truck me-2"></i> Transport
+        </span>
+        <i class="bi bi-chevron-down"></i>
+    </a>
+
+    <div class="collapse" id="transportMenu">
+        <ul class="nav flex-column ms-3">
+
+            @can('riders.list')
+            <li class="nav-item">
+                <a href="{{ route('riders.index') }}" class="nav-link text-white">
+                    <i class="bi bi-person me-2"></i> Riders
+                </a>
+            </li>
+            @endcan
+
+            @can('vehicle-types.list')
+            <li class="nav-item">
+                <a href="{{ route('vehicleTypes.index') }}" class="nav-link text-white">
+                    <i class="bi bi-truck me-2"></i> Vehicle Types
+                </a>
+            </li>
+            @endcan
+
+            @can('vehicles.list')
+            <li class="nav-item">
+                <a href="{{ route('vehicles.index') }}" class="nav-link text-white">
+                    <i class="bi bi-truck me-2"></i> Vehicles
+                </a>
+            </li>
+            @endcan
+
+        </ul>
+    </div>
+</li>
+
+@endcanany
 
     @can('banners.list')
     <li class="nav-item">
@@ -120,60 +145,85 @@
     </li>
     @endcan
 
-    @can('settings.list')
-    <li class="nav-item">
-        <a href="{{ route('settings.edit') }}" class="nav-link text-white">
+   @canany([
+    'settings.list',
+    'variations.list',
+    'variation-rates.list',
+    'move-types.list',
+    'property-types.list',
+    'extra-charges.list',
+    'faqs.list'
+])
+
+<li class="nav-item">
+    <a class="nav-link text-white d-flex justify-content-between align-items-center"
+       data-bs-toggle="collapse"
+       href="#settingsMenu"
+       role="button"
+       aria-expanded="false"
+       aria-controls="settingsMenu">
+       
+        <span>
             <i class="bi bi-gear me-2"></i> Settings
-        </a>
-    </li>
-    @endcan
+        </span>
+        <i class="bi bi-chevron-down"></i>
+    </a>
 
-    @can('variations.list')
-    <li class="nav-item">
-        <a href="{{ route('variations.index') }}" class="nav-link text-white">
-            <i class="bi bi-gear me-2"></i> Variations 
-        </a>
-    </li>
-    @endcan
+    <div class="collapse" id="settingsMenu">
+        <ul class="nav flex-column ms-3">
 
-    @can('variation-rates.list')
-    <li class="nav-item">
-        <a href="{{ route('variations_rates.index')}}" class="nav-link text-white">
-            <i class="bi bi-gear me-2"></i> Variations Rates
-        </a>
-    </li>
-    @endcan
+            @can('variations.list')
+            <li class="nav-item">
+                <a href="{{ route('variations.index') }}" class="nav-link text-white">
+                    Variations
+                </a>
+            </li>
+            @endcan
 
-    @can('move-types.list')
-    <li class="nav-item">
-        <a href="{{ route('move_types.index') }}" class="nav-link text-white">
-            <i class="bi bi-gear me-2"></i> Move Types
-        </a>
-    </li>
-    @endcan
+            @can('variation-rates.list')
+            <li class="nav-item">
+                <a href="{{ route('variations_rates.index')}}" class="nav-link text-white">
+                    Variation Rates
+                </a>
+            </li>
+            @endcan
 
-    @can('property-types.list')
-    <li class="nav-item">
-        <a href="{{ route('property_types.index') }}" class="nav-link text-white">
-            <i class="bi bi-gear me-2"></i> Property Types
-        </a>
-    </li>
-    @endcan
+            @can('move-types.list')
+            <li class="nav-item">
+                <a href="{{ route('move_types.index') }}" class="nav-link text-white">
+                    Move Types
+                </a>
+            </li>
+            @endcan
 
-    @can('extra-charges.list')
-    <li class="nav-item">
-        <a href="{{ route('extra-charges.index') }}" class="nav-link text-white">
-            <i class="bi bi-gear me-2"></i> Extra Charges
-        </a>
-    </li>
-    @endcan
+            @can('property-types.list')
+            <li class="nav-item">
+                <a href="{{ route('property_types.index') }}" class="nav-link text-white">
+                    Property Types
+                </a>
+            </li>
+            @endcan
 
-    @can('faqs.list')
-    <li class="nav-item">
-        <a href="{{ route('faqs.index') }}" class="nav-link text-white">
-            <i class="bi bi-gear me-2"></i> FAQ
-        </a>
-    </li>
-    @endcan
+            @can('extra-charges.list')
+            <li class="nav-item">
+                <a href="{{ route('extra-charges.index') }}" class="nav-link text-white">
+                    Extra Charges
+                </a>
+            </li>
+            @endcan
+
+            @can('faqs.list')
+            <li class="nav-item">
+                <a href="{{ route('faqs.index') }}" class="nav-link text-white">
+                    FAQ
+                </a>
+            </li>
+            @endcan
+
+        </ul>
+    </div>
+</li>
+
+@endcanany
 
 </ul>

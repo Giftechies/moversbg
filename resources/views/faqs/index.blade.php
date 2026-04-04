@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-<h4>FAQs List</h4>
-<a href="{{ route('faqs.create') }}" class="btn btn-success mb-2">Add FAQ</a>
+<h4 class="heading">FAQs List</h4>
+<a href="{{ route('faqs.create') }}" class="btn btn-success mb-2  ">Add FAQ</a>
 
 <table class="table table-bordered">
     <thead>

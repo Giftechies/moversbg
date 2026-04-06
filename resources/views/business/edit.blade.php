@@ -12,33 +12,33 @@
         @method('PUT')
         <div class="row">
             <div class="form-group col-6">
-                <label> Business Name</label>
+                <label class="lable"> Business Name</label>
                 <input type="text" class="form-control" name="name" value="{{ $business->name }}" required>
             </div>
             <div class="form-group col-6">
-                <label> Business Image</label>
+                <label class="lable"> Business Image</label>
                 <input type="file" class="form-control" name="img">
                 @if($business->img)
                     <img src="{{ asset('storage/' . $business->img) }}" width="100" alt="business Image">
                 @endif
             </div>
             <div class="form-group col-6">
-                <label>Status</label>
+                <label class="lable">Status</label>
                 <select name="status" class="form-control">
                     <option value="1" {{ $business->status == 1 ? 'selected' : '' }}>Publish</option>
                     <option value="0" {{ $business->status == 0 ? 'selected' : '' }}>UnPublish</option>
                 </select>
             </div>
             <div class="form-group col-6">
-                <label>Mobile number</label>
+                <label class="lable">Mobile number</label>
                 <input type="text" class="form-control" name="mobile" value="{{ $business->mobile }}" required>
             </div>
             <div class="form-group col-6">
-                <label>Email Address</label>
+                <label class="lable">Email Address</label>
                 <input type="email" class="form-control" name="email" value="{{ $business->email }}" required>
             </div>
             <div class="form-group col-6">
-                <label>Password (leave blank to keep current)</label>
+                <label class="lable">Password (leave blank to keep current)</label>
                 <input type="password" class="form-control" name="password">
             </div>
             {{--<div class="form-group col-12">
@@ -50,7 +50,7 @@
                 </select>
             </div>--}} 
             <div class="col-12">
-                <button type="submit" class="btn btn-primary mb-2">Update  Business</button>
+                <button type="submit" class="btn btn-success btn1">Update  Business</button>
             </div>
         </div>
     </form>

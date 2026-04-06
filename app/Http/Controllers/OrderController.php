@@ -16,6 +16,7 @@ class OrderController extends BaseController
     { 
         $this->middleware('permission:orders.list')->only('index');
     }
+    
 
     public function index(Request $request)
     {

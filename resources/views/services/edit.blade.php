@@ -70,8 +70,8 @@
             @error('status') <p class="text-danger">{{ $message }}</p> @enderror
         </div>
 
-        <button class="btn btn-success">Update</button>
-        <a href="{{ route('services.index') }}" class="btn btn-secondary">Cancel</a>
+        <button class="btn btn-success btn1">Update</button>
+        <a href="{{ route('services.index') }}" class="btn btn-secondary btn1">Cancel</a>
     </form>
 </div>
         </div>

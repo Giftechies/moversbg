@@ -11,7 +11,7 @@
              <h2 class="card-title mb-4"> Business List</h2> 
         </div>
         <div class="col-md-4  top">
-            <a href="{{ route('business.create') }}" class="btn btn-success mb-2">Add Business</a>
+            <a href="{{ route('business.create') }}" class="btn btn-primary  btn1">Add Business</a>
         </div>
         <div class="col-md-12  mb-3">
             <form action="{{ route('business.index') }}" method="GET">
@@ -44,7 +44,7 @@
                         {{--<td>{{ $item->zone->title ?? 'N/A' }}</td>--}}
                         <td>{{ $item->status ? 'Publish' : 'UnPublish' }}</td>
                         <td>
-                            <a href="{{ route('business.edit', $item->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{{ route('business.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
                             <form action="{{ route('business.destroy', $item->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')

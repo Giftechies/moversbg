@@ -11,7 +11,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <h4>Add Role</h4>
+            <h4 class="mb-2 ms-2">Add Role</h4>
             <form action="{{ route('roles.store') }}" method="POST">@csrf
                 <div class="input-group mb-3">
                     <input type="text" name="name" class="form-control" placeholder="Role name">
@@ -21,16 +21,16 @@
         </div>
         <div class="col-md-6">
 
-            <h4>Add Permission</h4>
+            <h4 class="mb-2 ms-2">Add Permission</h4>
             <form action="{{ route('permissions.store') }}" method="POST">@csrf
                 <div class="input-group mb-3">
                     <input type="text" name="name" class="form-control" placeholder="Permission name">
-                    <button class="btn btn-success">Add</button>
+                    <button class="btn btn-primary">Add</button>
                 </div>
             </form>
         </div>
         <div class="col-md-12">
-            <h4>Assign Permissions to Roles</h4>
+            <h4 class="pb-4">Assign Permissions to Roles</h4>
            @foreach($roles as $role)
     <div class="card mb-3">
         <div class="card-header d-flex justify-content-between align-items-center">
@@ -62,7 +62,7 @@
 
                 </div>
 
-                <button class="btn btn-sm btn-primary mt-2">Save</button>
+                <button class="btn btn-sm btn-success btn1 ">Save</button>
             </form>
         </div>
     </div>

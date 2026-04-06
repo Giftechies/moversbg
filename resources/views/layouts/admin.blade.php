@@ -21,7 +21,7 @@
         <!-- Sidebar (visible on large screens) -->
         <nav class="d-none d-md-block sidebar  text-white" style="width: 250px; min-height: 100vh;">
             <div class="p-3">
-                <h4 class="text-white">Menu</h4>
+          {{--     <h4 class="text-white">Menu</h4>--}}
                 <hr class="border-light">
                 @include("layouts.sidebar")
             </div>
@@ -30,7 +30,7 @@
         <!-- Offcanvas for small screens (burger menu) -->
         <div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="sidebarMobile" aria-labelledby="sidebarMobileLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="sidebarMobileLabel">Menu</h5>
+                {{--<h5 class="offcanvas-title" id="sidebarMobileLabel">Menu</h5>--}}
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body"> 

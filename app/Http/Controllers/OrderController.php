@@ -49,7 +49,7 @@ class OrderController extends BaseController
         // Eager load relationships        
         $removalist = Auth::user()->hasRole('removalist');
         $vendorId = Auth::id(); 
-        $order = Order::with('user', 'dropPoint', 'logisticsProducts','OrderReschedule')->where("tbl_order.id", $id)->first();            
+        $order = Order::with('user', 'dropPoint', 'logisticsProducts','OrderReschedule','bids')->where("tbl_order.id", $id)->first();            
         if(!empty($removalist)){
             $order['Bid'] = Bid::where('vendor_id', $vendorId)->where('order_id', $id)->first();
         } 

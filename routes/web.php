@@ -124,7 +124,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::get('/pending-bids', [BidController::class, 'index'])->name('pending-bids.index');
     Route::post('/bids/{bid}/approve', [BidController::class, 'approve'])->name('bids.approve');
+    Route::post('/bids/{bid}/cancel', [BidController::class, 'cancel'])->name('bids.cancel');
     Route::get('/approved-bids', [BidController::class, 'approved_bids'])->name('bids.approved_bids');
+    Route::get('/history-bids', [BidController::class, 'history_bids'])->name('bids.history_bids');
   
 });
 require __DIR__.'/auth.php'; 

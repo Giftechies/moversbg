@@ -91,7 +91,7 @@
 </table>
 
 <h2 class="heading mb-4">Logistics Products</h2>
-<table class="table table-striped">
+<table class="table table-striped mb-5">
     <tr>
         <th >Product Name</th>
         <th>Quantity</th>
@@ -99,7 +99,7 @@
     @foreach($order->logisticsProducts as $product)
         @if(!empty($product->product_name) && !empty($product->quantity))
             <tr>
-                <td >{{ $product->product_name }}</td>
+                <td >{{ ucfirst($product->product_name) }}</td>
                 <td>{{ $product->quantity }}</td>
             </tr>
         @endif
@@ -153,6 +153,67 @@
                 </form>
             @endif
         @endif
+
+        <table class="table table-bordered align-middle">
+                    <thead>
+                        <tr>
+                            <th>#</th> 
+                            <th>Vendor</th>
+                            <th>Amount</th>
+                            <th>Comment</th>
+                            <th>Created</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @php
+                            $i = 1;
+                        @endphp
+                        @foreach($order->bids as $bid)
+                            <tr>
+                                <td>{{ $i}}</td> 
+                                <td>{{ $bid->vendor->name ?? '—' }}</td>
+                                <td>{{ $bid->amount }}</td>
+                                <td>{{ $bid->comments ?? '—' }}</td>
+                                <td>{{ $bid->created_at->format('Y-m-d H:i') }}</td>
+
+                                <td>
+                                    @if(\Carbon\Carbon::parse($order->from_date)->gt(\Carbon\Carbon::now())) 
+                                     @if($bid->status == 'accepted')
+                                         <form action="{{ route('bids.cancel', $bid) }}"
+                                              method="POST"
+                                              class="d-inline">
+                                            @csrf
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-success"
+                                                    onclick="return confirm('Are You Sure Want to Cancel Approval?')">
+                                                Approve
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('bids.approve', $bid) }}"
+                                              method="POST"
+                                              class="d-inline">
+                                            @csrf
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-success"
+                                                    onclick="return confirm('Are You Sure Want to Approve this bid?')">
+                                                Approve
+                                            </button>
+                                        </form>
+                                   @endif
+                                    @else
+                                        <span class="text-muted">Expired</span>
+                                    @endif
+                                </td>
+                            </tr>
+                             @php
+                            $i++;
+                        @endphp
+                        @endforeach
+                    </tbody>
+                </table>
 </div>
             </div>
 

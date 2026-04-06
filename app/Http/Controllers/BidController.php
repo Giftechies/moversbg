@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\EncryptHelper;
 use Illuminate\Http\RedirectResponse;
+use Carbon\Carbon;
 class BidController extends Controller
 {
 
@@ -14,14 +15,56 @@ class BidController extends Controller
     // Show the bidding form for a given order
     public function index() 
     {
-        $pendingBids = Bid::with(['order', 'vendor'])   // eager‑load vendor
+        $pendingBids = Bid::with(['order', 'vendor'])
             ->where('status', 'pending')
+            ->whereHas('order', function ($q) {
+                $q->where('from_date', '>', Carbon::today());
+            })
             ->orderBy('created_at', 'desc')
             ->get();
 
         return view('bids.index', compact('pendingBids'));
     }
 
+    public function approved_bids() 
+    { 
+        $approvedBids = Bid::with(['order', 'vendor'])
+            ->where('status', 'accepted')
+            ->whereHas('order', function ($q) {
+                $q->where('from_date', '>=', Carbon::today());
+            });
+
+        $removalist = Auth::user()->hasRole('removalist');
+
+        if (!empty($removalist)) {
+            $vendorId = Auth::id();
+            $approvedBids = $approvedBids->where('vendor_id', $vendorId);
+        }
+
+        $approvedBids = $approvedBids->orderBy('updated_at', 'desc')->get();
+
+        return view('bids.approved_bids', compact('approvedBids'));
+    }
+
+     public function history_bids() 
+    { 
+        $approvedBids = Bid::with(['order', 'vendor'])
+            ->where('status', 'accepted')
+            ->whereHas('order', function ($q) {
+                $q->where('from_date', '<', Carbon::today());
+            });
+
+        $removalist = Auth::user()->hasRole('removalist');
+
+        if (!empty($removalist)) {
+            $vendorId = Auth::id();
+            $approvedBids = $approvedBids->where('vendor_id', $vendorId);
+        }
+
+        $approvedBids = $approvedBids->orderBy('updated_at', 'desc')->get();
+
+        return view('bids.approved_bids', compact('approvedBids'));
+    }
     // Store a new bid
     public function store(Request $request, Order $order)
     {
@@ -86,20 +129,7 @@ class BidController extends Controller
             ->with('success', "Bid #{$bid->id} approved and vendor assigned.");
     }
 
-    public function approved_bids() 
-    {
-        $approvedBids = Bid::with(['order', 'vendor'])
-            ->where('status', 'accepted');
-        $removalist = Auth::user()->hasRole('removalist');
-        if(!empty($removalist)){
-            $vendorId = Auth::id();
-            $approvedBids =  $approvedBids->where('vendor_id', $vendorId);
-        }
-        $approvedBids = $approvedBids->orderBy('updated_at', 'desc')
-            ->get();
-
-        return view('bids.approved_bids', compact('approvedBids'));
-    }
+    
 
      // Reject bid
     public function reject($id)
@@ -124,7 +154,7 @@ class BidController extends Controller
             'reason' => $request->reason,
         ]);
 
-        $bid->update(['status' => 'rejected']);
+        $bid->update(['status' => 'pending']);
 
         return back()->with('success', 'Bid cancelled');
     }

@@ -48,17 +48,33 @@
                                        class="btn btn-sm btn-primary">
                                         View Order
                                     </a>
-
-                                    <form action="{{ route('bids.approve', $bid) }}"
-                                          method="POST"
-                                          class="d-inline">
-                                        @csrf
-                                        <button type="submit"
-                                                class="btn btn-sm btn-success"
-                                                onclick="return confirm('Approve this bid?')">
-                                            Approve
-                                        </button>
-                                    </form>
+                                     @if(\Carbon\Carbon::parse($order->from_date)->gt(\Carbon\Carbon::now())) 
+                                     @if($bid->status == 'accepted')
+                                         <form action="{{ route('bids.cancel', $bid) }}"
+                                              method="POST"
+                                              class="d-inline">
+                                            @csrf
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-success"
+                                                    onclick="return confirm('Are You Sure Want to Cancel Approval?')">
+                                                Approve
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('bids.approve', $bid) }}"
+                                              method="POST"
+                                              class="d-inline">
+                                            @csrf
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-success"
+                                                    onclick="return confirm('Are You Sure Want to Approve this bid?')">
+                                                Approve
+                                            </button>
+                                        </form>
+                                   @endif
+                                    @else
+                                        <span class="text-muted">Expired</span>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

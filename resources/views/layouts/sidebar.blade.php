@@ -256,20 +256,83 @@
         </ul>
     </div>
 </li>
- <li class="nav-item">
-        <a href="{{ route('pending-bids.index') }}" class="nav-link text-white">
-            <i class="bi bi-gear me-2"></i> Pending Bids
-        </a>
-    </li> 
-    <li class="nav-item">
-        <a href="{{ route('bids.approved_bids') }}" class="nav-link text-white">
-            <i class="bi bi-gear me-2"></i> Approved Bids
-        </a>
-    </li>
 
+<li class="nav-item">
 
+    <!-- Parent Menu -->
+    <a class="nav-link d-flex justify-content-between align-items-center"
+       data-bs-toggle="collapse"
+       href="#bids">
+
+        <span>
+            <i class="bi bi-gear me-2"></i> Bids
+        </span>
+        <i class="bi bi-chevron-down"></i>
+    </a>
+
+    <!-- Dropdown -->
+    <div class="collapse" id="bids">
+
+        <ul class="nav flex-column ms-3">
+             <li class="nav-item">
+                <a href="{{ route('pending-bids.index') }}" class="nav-link text-white">
+                     Pending  
+                </a>
+            </li> 
+            <li class="nav-item">
+                <a href="{{ route('bids.approved_bids') }}" class="nav-link text-white">
+                    Approved  
+                </a>
+            </li> 
+
+        </ul>
+    </div>
+</li> 
 
 @endcanany
+  @can('orders.list')
+  <li class="nav-item">
+
+    <!-- Parent Menu -->
+    <a class="nav-link d-flex justify-content-between align-items-center"
+       data-bs-toggle="collapse"
+       href="#orders">
+
+        <span>
+            <i class="bi bi-gear me-2"></i> Orders
+        </span>
+        <i class="bi bi-chevron-down"></i>
+    </a>
+
+    <!-- Dropdown -->
+    <div class="collapse" id="orders">
+
+        <ul class="nav flex-column ms-3">
+            <li class="nav-item">
+                <a href="{{ route('orders.upcoming') }}"  class="nav-link">
+                     Upcoming
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('orders.inprocess') }}" class="nav-link">
+                     Inprocess
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('orders.completed') }}" class="nav-link">
+                     Completed
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('orders') }}" class="nav-link">
+                      Orders
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</li>  
+    @endcan
 
 </ul>
 <style>

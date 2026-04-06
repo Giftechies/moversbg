@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Auth;
 use App\Helpers\EncryptHelper;
-class OrderController extends Controller
+use Illuminate\Routing\Controller as BaseController;
+class OrderController extends BaseController
 {
     
+    public function __construct()
+    { 
+        $this->middleware('permission:orders.list')->only('index');
+    }
+
     public function index(Request $request)
     {
         $pageSize = 10;

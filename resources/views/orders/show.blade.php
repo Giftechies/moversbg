@@ -87,7 +87,7 @@
     @foreach($order->logisticsProducts as $product)
         @if(!empty($product->product_name) && !empty($product->quantity))
             <tr>
-                <td>{{ $product->product_name }}</td>
+                <td>{{ ucfirst($product->product_name) }}</td>
                 <td>{{ $product->quantity }}</td>
             </tr>
         @endif
@@ -131,9 +131,7 @@
 
                     <div class="form-group">
                         <label for="comments">Comments  </label>
-                        <textarea name="comments" rows="3"
-                                  class="form-control @error('comments') is-invalid @enderror"
-                                  >{{ old('comments') }}</textarea>
+                        <textarea name="comments" rows="3" class="form-control @error('comments') is-invalid @enderror">{{ old('comments') }}</textarea>
                         @error('comments')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

@@ -112,7 +112,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('{id}',              [VehicleDocumentController::class, 'destroy'])->name('destroy');
     }); 
 
-    Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+    Route::get('/orders', [OrderController::class, 'index'])->middleware('permission:orders.list')->name('orders');
       // List of upcoming orders (Pending / Processing)
     Route::get('orders/upcoming',   [OrderController::class, 'upcoming'])->name('orders.upcoming');
     // List of orders currently in process (On Route)

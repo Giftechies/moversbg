@@ -70,7 +70,7 @@
             </div>--}} 
             @endif
             <div class="col-12 mt-3">
-                <button type="submit" class="btn btn-primary mb-2">Update  Business</button>
+                <button type="submit" class="btn btn-success btn1">Update  Business</button>
             </div>
         </div>
     </form>

@@ -6,7 +6,7 @@
     <form action="{{ route('pages.update', $page->id) }}" method="POST"  enctype="multipart/form-data">
         @csrf @method('PUT')
         @include('pages.form')
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-success btn1">Update</button>
     </form>
 </div>
 @endsection

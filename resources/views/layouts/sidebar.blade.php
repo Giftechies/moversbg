@@ -256,6 +256,17 @@
         </ul>
     </div>
 </li>
+ <li class="nav-item">
+        <a href="{{ route('pending-bids.index') }}" class="nav-link text-white">
+            <i class="bi bi-gear me-2"></i> Pending Bids
+        </a>
+    </li> 
+    <li class="nav-item">
+        <a href="{{ route('bids.approved_bids') }}" class="nav-link text-white">
+            <i class="bi bi-gear me-2"></i> Approved Bids
+        </a>
+    </li>
+
 
 
 @endcanany
@@ -274,16 +285,6 @@
 }
 </style>
 
-    <li class="nav-item">
-        <a href="{{ route('pending-bids.index') }}" class="nav-link text-white">
-            <i class="bi bi-gear me-2"></i> Pending Bids
-        </a>
-    </li> 
-    <li class="nav-item">
-        <a href="{{ route('bids.approved_bids') }}" class="nav-link text-white">
-            <i class="bi bi-gear me-2"></i> Approved Bids
-        </a>
-    </li>
+   
 
-</ul>
 

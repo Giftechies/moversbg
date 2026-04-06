@@ -36,7 +36,7 @@
                         @error('image') <p class="text-danger">{{ $message }}</p> @enderror
                     </div>
 
-                    <button class="btn btn-success">Save</button>
+                    <button class="btn btn-success btn1">Save</button>
                 </form>
             </div>
         </div>

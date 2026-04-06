@@ -10,7 +10,7 @@
                         <h2 class="card-title  heading">All Services</h2>  
                     </div>
                     <div class="col-lg-4 top">
-                        <a href="{{ route('services.create') }}" class="btn btn-primary mb-3">Add Service</a>
+                        <a href="{{ route('services.create') }}" class="btn btn-primary btn1">Add Service</a>
                     </div>
                 </div>
     @if(session('success'))

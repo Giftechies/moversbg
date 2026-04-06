@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ScouponController;
 use App\Http\Controllers\CodeController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\PageController;
@@ -49,6 +50,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
     Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
     Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy'); 
+    Route::resource('subcategories', SubCategoryController::class);
+
+    Route::resource('codes', CodeController::class);  
+    Route::resource('scoupons', ScouponController::class);
+    Route::resource('managers', ManagerController::class); 
     Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy'); 
     Route::resource('subcategories', SubCategoryController::class); 
@@ -104,7 +112,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('{id}',              [VehicleDocumentController::class, 'destroy'])->name('destroy');
     }); 
 
-    Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+    Route::get('/orders', [OrderController::class, 'index'])->middleware('permission:orders.list')->name('orders');
       // List of upcoming orders (Pending / Processing)
     Route::get('orders/upcoming',   [OrderController::class, 'upcoming'])->name('orders.upcoming');
     // List of orders currently in process (On Route)

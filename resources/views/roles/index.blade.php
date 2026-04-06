@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
+<div class="container">
+        <div class="page-content"> 
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -71,6 +73,8 @@
 </div>
         </div>
     </div>
+</div> 
+</div>
 </div> 
 <style>
     .form-check-inline {

@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
-@section('content')
-    <h1>Pending Bids</h1>
+@section('content') 
  <h1>Approved Bids</h1>
 
     @if($approvedBids->isEmpty())

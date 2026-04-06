@@ -1,73 +1,107 @@
 @extends('layouts.admin')
 
 @section('content')
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
 
-    <h2>Vehicle List</h2>
+                <!-- Header -->
+                <div class="row">
+                    <div class="col-lg-8 top">
+                        <h2 class="card-title heading">Vehicle List</h2>
+                    </div>
+                    <div class="col-lg-4 top text-end">
+                        <a href="{{ route('vehicles.create') }}" class="btn btn-primary mb-3">
+                            Add New Vehicle
+                        </a>
+                    </div>
+                </div>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+                <!-- Success Message -->
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
-    <a href="{{ route('vehicles.create') }}" class="btn btn-primary mb-3">
-        Add New Vehicle
-    </a>
+                <!-- Table -->
+                <table class="table table-bordered align-middle">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Type</th>
+                            <th>Reg. No.</th>
+                            <th>Make / Model</th>
+                            <th>Year</th>
+                            <th>Capacity</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Type</th>
-                <th>Reg. No.</th>
-                <th>Make / Model</th>
-                <th>Year</th>
-                <th>Capacity</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($vehicles as $vehicle)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $vehicle->type->title }}</td>
-                    <td>{{ $vehicle->registration_no }}</td>
-                    <td>{{ $vehicle->make }} {{ $vehicle->model }}</td>
-                    <td>{{ $vehicle->year }}</td>
-                    <td>{{ $vehicle->capacity }} kg</td>
-                    <td>
-                        <span class="btn btn-sm
-                            @if($vehicle->status == 'available')    btn-success
-                            @elseif($vehicle->status == 'in-use')   btn-warning
-                            @else                                   btn-danger
-                            @endif">
-                            {{ ucfirst($vehicle->status) }}
-                        </span>
-                    </td>
-                    <td>
-                        <a href="{{ route('vehicle-documents.index', ['id' => $vehicle->id]) }}" class="btn btn-sm btn-warning">Documents</a>
-                        <a href="{{ route('vehicles.edit', $vehicle) }}" class="btn btn-sm btn-info">Edit</a> 
-                        <form action="{{ route('vehicles.destroy', $vehicle) }}"
-                              method="POST"
-                              style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                    class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Delete this vehicle?')">
-                                Delete
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="8" class="text-center">No vehicles found.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+                    <tbody>
+                        @forelse($vehicles as $vehicle)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $vehicle->type->title }}</td>
+                                <td>{{ $vehicle->registration_no }}</td>
+                                <td>{{ $vehicle->make }} {{ $vehicle->model }}</td>
+                                <td>{{ $vehicle->year }}</td>
+                                <td>{{ $vehicle->capacity }} kg</td>
 
-    {{ $vehicles->links() }}   {{-- pagination --}}
+                                <!-- Status (converted to badge style for consistency) -->
+                                <td>
+                                    <span class="badge
+                                        @if($vehicle->status == 'available') bg-success
+                                        @elseif($vehicle->status == 'in-use') bg-warning
+                                        @else bg-danger
+                                        @endif">
+                                        {{ ucfirst($vehicle->status) }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <a href="{{ route('vehicle-documents.index', ['id' => $vehicle->id]) }}" 
+                                       class="btn btn-sm btn-warning">
+                                        Documents
+                                    </a>
+
+                                    <a href="{{ route('vehicles.edit', $vehicle) }}" 
+                                       class="btn btn-sm btn-info">
+                                        Edit
+                                    </a>
+
+                                    <form action="{{ route('vehicles.destroy', $vehicle) }}"
+                                          method="POST"
+                                          class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Delete this vehicle?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8" class="text-center">
+                                    No vehicles found.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <div class="mt-3">
+                    {{ $vehicles->links() }}
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
-

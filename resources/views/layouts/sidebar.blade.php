@@ -234,6 +234,7 @@
             </li>
             @endcan
 
+
             @can('extra-charges.list')
             <li class="nav-item">
                 <a href="{{ route('extra-charges.index') }}" 
@@ -272,3 +273,17 @@
     color: #fff !important;
 }
 </style>
+
+    <li class="nav-item">
+        <a href="{{ route('pending-bids.index') }}" class="nav-link text-white">
+            <i class="bi bi-gear me-2"></i> Pending Bids
+        </a>
+    </li> 
+    <li class="nav-item">
+        <a href="{{ route('bids.approved_bids') }}" class="nav-link text-white">
+            <i class="bi bi-gear me-2"></i> Approved Bids
+        </a>
+    </li>
+
+</ul>
+
